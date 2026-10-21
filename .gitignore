@@ -2,7 +2,7 @@
 .DS_Store
 
 # Originalne fotografije (velike, ne idu u git; na sajt idu kompresovane verzije)
-cveca-slike/
+cveca-slike*/
 
 # Node / build
 node_modules/
@@ -12,3 +12,7 @@ dist/
 
 # Privatni dokumenti
 cveca-biznis-plan.pdf
+
+# Astro / Wrangler
+.astro/
+.wrangler/

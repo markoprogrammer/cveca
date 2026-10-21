@@ -1,0 +1,72 @@
+---
+import { Image } from "astro:assets";
+import { bouquets } from "../data/bouquets";
+import { photos } from "../data/site";
+---
+
+<section id="unikati" class="bg-lilac py-24 sm:py-36">
+  <div class="mx-auto flex max-w-[1120px] flex-wrap items-end justify-between gap-8 px-5">
+    <div>
+      <p data-reveal class="tag">Unikati</p>
+      <h2 data-reveal class="t-h2 mt-5">Svaki je <span class="accent">autorski rad<span class="dot">.</span></span></h2>
+      <p data-reveal class="t-intro mt-5 max-w-[560px]">
+        Ne pravim po šablonu i ne ponavljam se. <strong>Ovo su neki aranžmani koji su već nekoga obradovali</strong>, a vaš će biti drugačiji.
+      </p>
+    </div>
+    <div data-reveal class="flex gap-3">
+      <button type="button" data-carousel="-1" aria-label="Prethodni aranžmani" class="grid size-12 place-items-center rounded-full bg-white text-plum shadow-[0_6px_20px_-8px_rgb(91_42_158/0.35)] transition hover:bg-plum hover:text-white disabled:opacity-40 disabled:hover:bg-white disabled:hover:text-plum">
+        <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18 9 12l6-6" /></svg>
+      </button>
+      <button type="button" data-carousel="1" aria-label="Sledeći aranžmani" class="grid size-12 place-items-center rounded-full bg-white text-plum shadow-[0_6px_20px_-8px_rgb(91_42_158/0.35)] transition hover:bg-plum hover:text-white disabled:opacity-40 disabled:hover:bg-white disabled:hover:text-plum">
+        <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6" /></svg>
+      </button>
+    </div>
+  </div>
+
+  <ul data-track-row data-stagger class="no-scrollbar snap-row mt-12 flex gap-5 overflow-x-auto pb-4 pt-2 sm:mt-16">
+    {
+      bouquets.map((b) => (
+        <li data-reveal class="w-[76vw] max-w-[340px] shrink-0 snap-start">
+          <button
+            type="button"
+            data-open={b.id}
+            data-index="1"
+            aria-label={`${b.title}, pogledaj fotografije`}
+            class="group block w-full rounded-[32px] bg-white p-3 text-left shadow-[0_10px_40px_-20px_rgb(91_42_158/0.3)] transition-[box-shadow,translate] duration-500 ease-out-expo hover:-translate-y-1 hover:shadow-[0_24px_60px_-24px_rgb(91_42_158/0.45)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-plum"
+          >
+            <span class="arch block overflow-hidden">
+              <Image
+                src={b.photos[1]}
+                alt={`${b.title} izbliza: ${b.flowers.toLowerCase()}`}
+                widths={[340, 510, 680]}
+                sizes="(min-width: 640px) 316px, 72vw"
+                format="webp"
+                class="arch block aspect-[4/5] w-full object-cover transition-transform duration-[1200ms] ease-out-expo group-hover:scale-[1.05]"
+              />
+            </span>
+            <span class="block px-3 pb-4 pt-5">
+              <span class="block text-[12px] font-bold uppercase tracking-[0.08em] text-coral-ink">{b.vessel}</span>
+              <span class="mt-1.5 block text-[22px] font-bold leading-tight tracking-[-0.025em]">{b.title}</span>
+              <span class="mt-1.5 block text-[15px] leading-snug text-ink-2">{b.flowers}</span>
+              <span class="link mt-4 text-[15px]">{photos(b.photos.length)}</span>
+            </span>
+          </button>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<script>
+  const row = document.querySelector<HTMLElement>("[data-track-row]")!;
+  const paddles = [...document.querySelectorAll<HTMLButtonElement>("[data-carousel]")];
+  const sync = () => {
+    paddles[0].disabled = row.scrollLeft < 8;
+    paddles[1].disabled = row.scrollLeft > row.scrollWidth - row.clientWidth - 8;
+  };
+  paddles.forEach((btn) =>
+    btn.addEventListener("click", () => row.scrollBy({ left: Number(btn.dataset.carousel) * row.clientWidth * 0.8, behavior: "smooth" })),
+  );
+  row.addEventListener("scroll", sync, { passive: true });
+  sync();
+</script>

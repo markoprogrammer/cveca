@@ -1,0 +1,97 @@
+---
+import { Image } from "astro:assets";
+import bricks from "../assets/gradimo/dsc_7512.jpg";
+import sizeM from "../assets/buketi/buket-10/dsc_7562.jpg";
+import sizeL from "../assets/buketi/buket-06/dsc_7528.jpg";
+import sizeXL from "../assets/buketi/buket-07/dsc_7546.jpg";
+import Scribble from "./Scribble.astro";
+import { CONTACT, SIZES, din } from "../data/site";
+
+const ritual = [
+  { title: "Svakog ponedeljka, nov aranžman", text: "Donosim ga pravo na vašu recepciju, svež i drugačiji nego prošle nedelje." },
+  { title: "Stari odnosim, zajedno sa posudom", text: "Vi ne radite ništa. Ni vaze, ni voda, ni uvelo cveće." },
+  { title: "Plaćanje preko računa", text: "Po ugovoru, mesec dana unapred. Jednostavno za knjigovodstvo." },
+  { title: "Prvo probajte", text: "Jedna probna isporuka, pa odlučite da li želite redovnu saradnju." },
+];
+
+// Example photos per size, shown at relative heights so the row reads small → large.
+const shots = { M: { src: sizeM, h: "h-[74%]" }, L: { src: sizeL, h: "h-[87%]" }, XL: { src: sizeXL, h: "h-full" } } as const;
+---
+
+<section id="firme" class="dark relative overflow-hidden bg-aubergine py-24 text-white sm:py-40">
+  <div class="pointer-events-none absolute -right-60 -top-20 size-[900px] bg-[radial-gradient(circle,rgb(91_42_158/0.5),transparent_62%)]" aria-hidden="true"></div>
+  <div class="relative mx-auto max-w-[1120px] px-5">
+    <div class="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
+      <div>
+        <p data-reveal class="tag">Cveće za firme u Beogradu</p>
+        <h2 data-reveal class="t-h2 mt-5">Svakog ponedeljka, sveže cveće na vašoj <Scribble><span class="accent">recepciji<span class="dot">.</span></span></Scribble></h2>
+        <p data-reveal class="t-intro mt-6 max-w-[520px]">
+          Prvi utisak vašeg prostora, <strong>svake nedelje drugačiji</strong>. Za 52 nedelje u godini, 52 različita aranžmana.
+        </p>
+        <ol data-stagger class="mt-12 grid gap-px overflow-hidden rounded-[28px] bg-white/10">
+          {
+            ritual.map((r, i) => (
+              <li data-reveal class="flex gap-5 bg-aubergine-2 p-6 sm:p-7">
+                <span class="grid size-9 shrink-0 place-items-center rounded-full bg-coral text-[15px] font-bold text-white">{i + 1}</span>
+                <div>
+                  <p class="text-[17px] font-bold tracking-[-0.02em]">{r.title}</p>
+                  <p class="mt-1 text-[15px] text-white/60">{r.text}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+      <div data-reveal class="arch relative mx-auto w-full max-w-[460px] overflow-hidden">
+        <Image
+          src={bricks}
+          alt="Aranžmani sa eustomom, karanfilima i ukrasnim lukom na ciglama u bašti"
+          widths={[460, 690, 920]}
+          sizes="(min-width: 1024px) 460px, 90vw"
+          format="webp" quality={72}
+          data-parallax
+          class="arch block aspect-[3/4] w-full scale-110 object-cover"
+        />
+      </div>
+    </div>
+
+    <div class="mt-28 text-center sm:mt-40">
+      <p data-reveal class="tag">Cene po isporuci</p>
+      <h3 data-reveal class="t-h2 mt-5">Izaberite veličinu za <span class="accent">vaš prostor<span class="dot">.</span></span></h3>
+    </div>
+    <div data-stagger class="mt-14 grid gap-5 sm:mt-16 md:grid-cols-3">
+      {
+        SIZES.map((s) => (
+          <div
+            data-reveal
+            class:list={[
+              "relative flex flex-col items-center rounded-[32px] p-7 pt-10 text-center sm:p-9 sm:pt-12",
+              s.popular ? "bg-white text-ink shadow-[0_40px_80px_-30px_rgb(217_194_240/0.45)]" : "bg-aubergine-2",
+            ]}
+          >
+            {s.popular && <span class="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full bg-coral px-4 py-1.5 text-[13px] font-bold text-white">Najtraženiji</span>}
+            <div class="flex h-[260px] w-full items-end justify-center sm:h-[320px]">
+              <Image src={shots[s.id].src} alt={`Primer aranžmana veličine ${s.id}`} widths={[240, 360, 480]} sizes="240px" format="webp" class={`arch block aspect-[2/3] w-auto object-cover ${shots[s.id].h}`} />
+            </div>
+            <p class="mt-8 text-[44px] font-bold leading-none tracking-[-0.035em]">{s.id}</p>
+            <p class:list={["mt-3 text-[16px]", s.popular ? "text-ink-2" : "text-white/60"]}>{s.space}</p>
+            <p class="mt-6 text-[28px] font-extrabold tabular-nums tracking-[-0.03em]">
+              {din(s.price)} <span class:list={["text-[16px] font-semibold", s.popular ? "text-ink-2" : "text-white/60"]}>din</span>
+            </p>
+            <p class:list={["text-[14px]", s.popular ? "text-ink-3" : "text-white/45"]}>po isporuci</p>
+            <a href="#upit" data-mode="firma" data-size={s.id} class:list={["link mt-6 text-[15px]", s.popular && "text-plum"]}>
+              Izaberi {s.id}
+            </a>
+          </div>
+        ))
+      }
+    </div>
+    <div data-reveal class="mt-14 flex flex-col items-center gap-5 text-center">
+      <a href={CONTACT.phoneHref} class="btn btn-light">Pozovite za ponudu</a>
+      <a href="#upit" data-mode="firma" data-trial class="link">ili zakažite probnu isporuku</a>
+      <p class="max-w-[560px] text-[13px] leading-relaxed text-white/45">
+        Saradnja je po ugovoru, uz plaćanje preko računa mesec dana unapred. Fotografije su primeri, svaki aranžman je drugačiji.
+      </p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,24 @@
+---
+import { FAQ } from "../data/site";
+---
+
+<section id="pitanja" class="bg-lilac py-24 sm:py-36">
+  <div class="mx-auto max-w-[860px] px-5">
+    <div class="text-center"><p data-reveal class="tag">Pitanja</p><h2 data-reveal class="t-h2 mt-5">Ono što me <span class="accent">najčešće pitate<span class="dot">.</span></span></h2></div>
+    <div data-reveal class="mt-12 divide-y divide-line rounded-[32px] bg-white px-6 shadow-[0_20px_60px_-30px_rgb(91_42_158/0.25)] sm:mt-16 sm:px-10">
+      {
+        FAQ.map((f, i) => (
+          <details class="faq group" open={i === 0}>
+            <summary class="flex cursor-pointer items-center justify-between gap-6 py-6 text-[19px] font-semibold tracking-[-0.02em] sm:text-[21px]">
+              {f.q}
+              <span class="faq-plus grid size-8 shrink-0 place-items-center rounded-full bg-lilac-2 text-plum" aria-hidden="true">
+                <svg viewBox="0 0 24 24" class="size-4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>
+              </span>
+            </summary>
+            <p class="max-w-[640px] pb-7 text-[17px] text-ink-2">{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

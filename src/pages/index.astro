@@ -1,0 +1,25 @@
+---
+import Base from "../layouts/Base.astro";
+import Hero from "../components/Hero.astro";
+import Closer from "../components/Closer.astro";
+import Gallery from "../components/Gallery.astro";
+import Story from "../components/Story.astro";
+import Business from "../components/Business.astro";
+import Gift from "../components/Gift.astro";
+import Faq from "../components/Faq.astro";
+import Inquiry from "../components/Inquiry.astro";
+import Lightbox from "../components/Lightbox.astro";
+import { bouquets } from "../data/bouquets";
+---
+
+<Base schema>
+  <Hero />
+  <Closer />
+  <Gallery />
+  <Story />
+  <Business />
+  <Gift />
+  <Faq />
+  <Inquiry />
+  {bouquets.map((b) => <Lightbox b={b} />)}
+</Base>

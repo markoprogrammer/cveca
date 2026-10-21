@@ -1,0 +1,113 @@
+---
+// Plus Jakarta Sans for everything; its latin-ext subset carries č, ć, š, ž, đ.
+import "@fontsource-variable/plus-jakarta-sans/index.css";
+import fontLatin from "@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2?url";
+import fontLatinExt from "@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-ext-wght-normal.woff2?url";
+import "../styles/global.css";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import { CONTACT, FAQ, SITE, SIZES } from "../data/site";
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Structured data only belongs on the real home page, not on the 404. */
+  schema?: boolean;
+}
+
+const { title = SITE.title, description = SITE.description, schema = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL("/og.jpg", Astro.site).href;
+
+const florist = {
+  "@context": "https://schema.org",
+  "@type": "Florist",
+  "@id": `${SITE.url}/#cveca`,
+  name: SITE.name,
+  description: SITE.description,
+  url: SITE.url,
+  image: ogImage,
+  logo: new URL("/apple-touch-icon.png", Astro.site).href,
+  telephone: CONTACT.phoneIntl,
+  email: CONTACT.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: CONTACT.street,
+    addressLocality: CONTACT.city,
+    postalCode: CONTACT.postalCode,
+    addressCountry: "RS",
+  },
+  geo: { "@type": "GeoCoordinates", latitude: CONTACT.lat, longitude: CONTACT.lng },
+  hasMap: CONTACT.maps,
+  areaServed: [
+    { "@type": "City", name: CONTACT.city },
+    { "@type": "AdministrativeArea", name: CONTACT.municipality },
+    { "@type": "Place", name: CONTACT.neighborhood },
+  ],
+  priceRange: "5.500–10.500 RSD",
+  currenciesAccepted: "RSD",
+  makesOffer: SIZES.map((s) => ({
+    "@type": "Offer",
+    name: `Nedeljni cvetni aranžman ${s.id} za firme`,
+    description: s.space,
+    price: s.price,
+    priceCurrency: "RSD",
+    areaServed: { "@type": "City", name: CONTACT.city },
+  })),
+};
+
+const faq = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+};
+---
+
+<!doctype html>
+<html lang="sr-Latn">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <script is:inline>document.documentElement.classList.add("js");</script>
+    <link rel="preload" href={fontLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={fontLatinExt} as="font" type="font/woff2" crossorigin />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="format-detection" content="telephone=yes" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta name="geo.region" content="RS-00" />
+    <meta name="geo.placename" content={`${CONTACT.neighborhood}, ${CONTACT.city}`} />
+    <meta name="geo.position" content={`${CONTACT.lat};${CONTACT.lng}`} />
+    <meta name="ICBM" content={`${CONTACT.lat}, ${CONTACT.lng}`} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="sr_RS" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Aranžman sa suncokretom, eustomom i zevalicama u crvenoj saksiji" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(florist)} />}
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(faq)} />}
+  </head>
+  <body class="min-h-dvh">
+    <Nav />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      import "../scripts/animations";
+    </script>
+  </body>
+</html>

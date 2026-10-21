@@ -1,0 +1,16 @@
+---
+import Bloom from "./Bloom.astro";
+
+interface Props {
+  class?: string;
+  /** Bloom open on page load (only the header logo). */
+  bloom?: boolean;
+  petal?: string;
+}
+const { class: className = "", bloom = false, petal } = Astro.props;
+---
+
+<span class={`inline-flex items-center gap-2 ${className}`}>
+  <Bloom class="logo-bloom size-[22px] transition-transform duration-700 ease-out-expo" open={bloom ? "load" : undefined} petal={petal} />
+  <span class="text-[22px] font-extrabold leading-none tracking-[-0.045em]">cveca</span>
+</span>

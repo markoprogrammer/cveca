@@ -1,0 +1,44 @@
+---
+import { Image } from "astro:assets";
+import studio from "../assets/buketi/buket-11/dsc_7579.jpg";
+import closer from "../assets/buketi/buket-11/dsc_7586.jpg";
+import macro from "../assets/buketi/buket-11/dsc_7576.jpg";
+
+const layers = [
+  { src: studio, alt: "Aranžman u crnoj šolji za kafu, na drvenom panju" },
+  { src: closer, alt: "Isti aranžman izbliza: alstremerije, eustoma i sedum iznad šolje" },
+  { src: macro, alt: "Detalj: bela eustoma sa ljubičastim rubom, narandžaste alstremerije i ružičasti sedum" },
+];
+const captions = [
+  { title: "Sezonsko cveće.", text: "Biram ono što je te nedelje najlepše na pijaci." },
+  { title: "Složeno ručno, po osećaju.", text: "Bez šablona, bez pravila, bez kopiranja." },
+  { title: "Unikat. Svaki put.", text: "Kad ga jednom poklonite, drugog takvog nema." },
+];
+---
+
+<!-- Pinned scene: a studio shot opens from a card to full screen and the camera walks in to the petals. Driven by src/scripts/animations.ts. -->
+<section data-closer class="closer dark relative bg-aubergine text-white" aria-labelledby="closer-title">
+  <div class="closer-stage relative h-[100svh] overflow-hidden">
+    <h2 id="closer-title" data-closer-title class="t-h2 absolute inset-x-0 top-[8vh] z-10 px-5 text-center">
+      Pogledajte <span class="accent">izbliza<span class="dot">.</span></span>
+    </h2>
+    <div data-closer-frame class="closer-frame absolute left-1/2 top-1/2 h-full w-full overflow-hidden">
+      {
+        layers.map((l) => (
+          <Image src={l.src} alt={l.alt} widths={[640, 1080, 1600, 2200]} sizes="100vw" format="webp" quality={72} class="closer-layer absolute inset-0 size-full object-cover" />
+        ))
+      }
+      <div data-closer-scrim class="absolute inset-0 bg-gradient-to-t from-aubergine/85 via-aubergine/10 to-transparent"></div>
+    </div>
+    <div class="absolute inset-x-0 bottom-[9vh] z-10 mx-auto flex max-w-[1068px] flex-col gap-6 px-5">
+      {
+        captions.map((c) => (
+          <div data-closer-cap class="closer-cap [.js_&]:absolute [.js_&]:inset-x-5 [.js_&]:bottom-0">
+            <p class="t-h2">{c.title}</p>
+            <p class="mt-3 max-w-[520px] text-[19px] font-semibold leading-snug text-white/75 sm:text-[24px]">{c.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

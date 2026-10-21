@@ -1,0 +1,233 @@
+---
+import { CONTACT, SIZES, din } from "../data/site";
+
+const mailSubject = encodeURIComponent("Upit sa sajta");
+---
+
+<!-- Contact in order of preference: call, then email, then a form that writes the email for you. -->
+<section id="upit" class="py-24 sm:py-36">
+  <div class="mx-auto max-w-[1120px] px-5">
+    <div class="text-center">
+      <p data-reveal class="tag">Kontakt</p>
+      <h2 data-reveal class="t-h2 mt-5">Javite <span class="accent">mi se<span class="dot">.</span></span></h2>
+      <p data-reveal class="t-intro mx-auto mt-5 max-w-[560px]">Najlakše je da me pozovete, pa da zajedno smislimo <strong>aranžman samo za vas</strong>.</p>
+    </div>
+
+    <div data-stagger class="mt-12 grid gap-4 sm:mt-16 md:grid-cols-5">
+      <a
+        data-reveal
+        href={CONTACT.phoneHref}
+        class="group relative isolate flex flex-col overflow-hidden rounded-[32px] bg-plum p-8 text-white shadow-[0_30px_60px_-30px_rgb(91_42_158/0.8)] sm:p-11 md:col-span-3"
+      >
+        <svg viewBox="0 0 24 24" class="absolute -right-16 -top-16 -z-10 size-72 opacity-[0.12] transition-transform duration-[1400ms] ease-out-expo group-hover:rotate-[72deg]" aria-hidden="true">
+          <g fill="#fff">{[0, 72, 144, 216, 288].map((r) => <ellipse cx="12" cy="6.6" rx="3.7" ry="5.1" transform={`rotate(${r} 12 12)`} />)}</g>
+        </svg>
+        <span class="w-fit rounded-full bg-white/15 px-3 py-1 text-[13px] font-semibold">Najbrže</span>
+        <span class="mt-8 text-[17px] text-white/75">Pozovite me</span>
+        <span class="mt-1 text-[clamp(38px,5.4vw,64px)] font-bold leading-none tracking-[-0.035em] tabular-nums">{CONTACT.phone}</span>
+        <span class="btn btn-light mt-10 w-fit">
+          <svg viewBox="0 0 24 24" class="size-5" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z" /></svg>
+          Pozovite
+        </span>
+      </a>
+
+      <div data-reveal class="flex flex-col rounded-[32px] bg-lilac p-8 sm:p-11 md:col-span-2">
+        <span class="text-[17px] text-ink-2">Ili pošaljite mejl</span>
+        <a href={`mailto:${CONTACT.email}?subject=${mailSubject}`} class="mt-1 break-all text-[clamp(22px,2.4vw,28px)] font-bold tracking-[-0.025em] transition-colors hover:text-plum">{CONTACT.email}</a>
+        <a href={`mailto:${CONTACT.email}?subject=${mailSubject}`} class="btn btn-ghost mt-8 w-fit md:mt-auto">Napišite mejl</a>
+        <p class="mt-8 border-t border-line pt-5 text-[14px] text-ink-2">
+          Preuzimanje: {CONTACT.street}, {CONTACT.neighborhood}.{" "}
+          <a href={CONTACT.maps} target="_blank" rel="noopener" class="font-semibold text-plum hover:underline">Mapa</a>
+        </p>
+      </div>
+    </div>
+
+    <details id="upit-forma" data-reveal class="faq mt-4 rounded-[32px] bg-white shadow-[inset_0_0_0_1.5px_var(--color-line)]">
+      <summary class="flex cursor-pointer items-center justify-between gap-6 p-8 sm:px-11">
+        <span>
+          <span class="block text-[21px] font-bold tracking-[-0.03em]">Radije pišete? Popunite upit.</span>
+          <span class="mt-1 block text-[15px] text-ink-2">Složiću vam tekst poruke, a vi ga pošaljete mejlom.</span>
+        </span>
+        <span class="faq-plus grid size-10 shrink-0 place-items-center rounded-full bg-lilac-2 text-plum" aria-hidden="true">
+          <svg viewBox="0 0 24 24" class="size-4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>
+        </span>
+      </summary>
+
+      <form id="upit-form" action={`mailto:${CONTACT.email}`} method="post" enctype="text/plain" class="mx-auto max-w-[692px] px-6 pb-10 sm:px-0">
+        <fieldset class="seg relative grid grid-cols-2 rounded-full bg-lilac-2 p-1">
+          <legend class="sr-only">Za koga je upit</legend>
+          <span class="seg-pill absolute inset-y-1 left-1 w-[calc(50%-4px)] rounded-full bg-white shadow-[0_4px_14px_-4px_rgb(91_42_158/0.35)]" aria-hidden="true"></span>
+          <label class="relative z-10 cursor-pointer py-2.5 text-center text-[15px] font-semibold text-ink-2 has-[:checked]:text-plum has-[:focus-visible]:underline">
+            <input type="radio" name="mode" value="firma" checked class="sr-only" />
+            Za firmu
+          </label>
+          <label class="relative z-10 cursor-pointer py-2.5 text-center text-[15px] font-semibold text-ink-2 has-[:checked]:text-plum has-[:focus-visible]:underline">
+            <input type="radio" name="mode" value="poklon" class="sr-only" />
+            Za poklon
+          </label>
+        </fieldset>
+
+        <div class="mt-6 grid gap-3 sm:grid-cols-2">
+          <div class="fl sm:col-span-2">
+            <input id="f-name" name="name" required autocomplete="name" placeholder=" " class="fl-input" />
+            <label for="f-name" class="fl-label">Ime i prezime</label>
+          </div>
+          <div class="fl">
+            <input id="f-phone" name="phone" type="tel" required autocomplete="tel" placeholder=" " class="fl-input" />
+            <label for="f-phone" class="fl-label">Telefon</label>
+          </div>
+          <div class="fl">
+            <input id="f-email" name="email" type="email" autocomplete="email" placeholder=" " class="fl-input" />
+            <label for="f-email" class="fl-label">Email (nije obavezno)</label>
+          </div>
+        </div>
+
+        <fieldset data-for="firma" class="mt-3 grid gap-3 sm:grid-cols-2">
+          <legend class="sr-only">Podaci o firmi</legend>
+          <div class="fl">
+            <input id="f-company" name="company" required autocomplete="organization" placeholder=" " class="fl-input" />
+            <label for="f-company" class="fl-label">Naziv firme</label>
+          </div>
+          <div class="fl">
+            <input id="f-address" name="address" autocomplete="street-address" placeholder=" " class="fl-input" />
+            <label for="f-address" class="fl-label">Adresa za dostavu</label>
+          </div>
+          <p class="mt-5 text-[16px] font-bold sm:col-span-2">Veličina</p>
+          <div class="grid grid-cols-3 gap-3 sm:col-span-2">
+            {
+              SIZES.map((s) => (
+                <label class="tile-pick p-4 text-center">
+                  <input type="radio" name="size" value={s.id} checked={s.popular} data-price={din(s.price)} class="sr-only" />
+                  <span class="block text-[24px] font-extrabold leading-none tracking-[-0.03em]">{s.id}</span>
+                  <span class="mt-2 block text-[13px] tabular-nums text-ink-2">{din(s.price)} din</span>
+                </label>
+              ))
+            }
+          </div>
+          <label class="mt-2 flex cursor-pointer items-center gap-3 sm:col-span-2">
+            <input type="checkbox" name="trial" class="size-5 accent-plum" />
+            <span class="text-[16px]">Želim prvo probnu isporuku</span>
+          </label>
+        </fieldset>
+
+        <fieldset data-for="poklon" class="mt-3 grid gap-3 sm:grid-cols-2">
+          <legend class="sr-only">Podaci o poklonu</legend>
+          <div class="fl">
+            <input id="f-date" name="date" type="date" required placeholder=" " class="fl-input" />
+            <label for="f-date" class="fl-label">Datum kada vam treba</label>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="tile-pick grid place-items-center px-3 text-center text-[15px] font-medium">
+              <input type="radio" name="pickup" value="Preuzimam lično" checked class="sr-only" />
+              Preuzimam lično
+            </label>
+            <label class="tile-pick grid place-items-center px-3 text-center text-[15px] font-medium">
+              <input type="radio" name="pickup" value="Dostava (po dogovoru)" class="sr-only" />
+              Dostava
+            </label>
+          </div>
+          <div class="fl sm:col-span-2">
+            <input id="f-occasion" name="occasion" placeholder=" " class="fl-input" />
+            <label for="f-occasion" class="fl-label">Kome je poklon i povodom čega (nije obavezno)</label>
+          </div>
+          <p class="text-[14px] text-ink-2 sm:col-span-2">Poklon aranžmane pravim najmanje 48 sati unapred. Preuzimanje je u Žarkovu, {CONTACT.street}.</p>
+        </fieldset>
+
+        <div class="fl mt-3">
+          <textarea id="f-message" name="message" rows="4" placeholder=" " class="fl-input"></textarea>
+          <label for="f-message" class="fl-label">Poruka (nije obavezno)</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-8 w-full">Složi poruku</button>
+
+        <div data-done hidden class="mt-6 rounded-[24px] bg-lilac p-6 sm:p-7">
+          <p class="text-[17px] font-bold">Vaša poruka je spremna.</p>
+          <p class="mt-1 text-[15px] text-ink-2">Pošaljite je na {CONTACT.email}: otvorite je u svom mejlu ili kopirajte tekst.</p>
+          <pre data-preview class="mt-4 max-h-64 overflow-auto whitespace-pre-wrap rounded-[16px] bg-white p-4 font-sans text-[14px] leading-relaxed text-ink"></pre>
+          <div class="mt-5 flex flex-wrap gap-3">
+            <a data-mailto href={`mailto:${CONTACT.email}`} class="btn btn-primary">Otvori u mejlu</a>
+            <button type="button" data-copy class="btn btn-ghost">Kopiraj tekst</button>
+          </div>
+        </div>
+      </form>
+    </details>
+  </div>
+</section>
+
+<script>
+  import { CONTACT } from "../data/site";
+
+  const form = document.querySelector<HTMLFormElement>("#upit-form")!;
+  const box = form.closest("details")!;
+  const date = form.querySelector<HTMLInputElement>('input[name="date"]')!;
+  const done = form.querySelector<HTMLElement>("[data-done]")!;
+  const preview = form.querySelector<HTMLElement>("[data-preview]")!;
+  const mailto = form.querySelector<HTMLAnchorElement>("[data-mailto]")!;
+  const copy = form.querySelector<HTMLButtonElement>("[data-copy]")!;
+
+  // Hidden fieldsets are disabled too, so their required fields don't block the visible ones.
+  const mode = () => (new FormData(form).get("mode") === "poklon" ? "poklon" : "firma");
+  const sync = () => form.querySelectorAll<HTMLFieldSetElement>("fieldset[data-for]").forEach((f) => (f.disabled = f.dataset.for !== mode()));
+  sync();
+  form.addEventListener("change", (e) => {
+    if ((e.target as HTMLInputElement).name === "mode") sync();
+  });
+
+  // Any "Izaberi L" / "pošaljite upit" link elsewhere opens the form and preselects it.
+  document.addEventListener("click", (e) => {
+    const link = (e.target as Element).closest<HTMLElement>("[data-mode]");
+    if (!link) return;
+    box.open = true;
+    form.querySelector<HTMLInputElement>(`input[name="mode"][value="${link.dataset.mode}"]`)!.checked = true;
+    if (link.dataset.size) form.querySelector<HTMLInputElement>(`input[name="size"][value="${link.dataset.size}"]`)!.checked = true;
+    if ("trial" in link.dataset) form.querySelector<HTMLInputElement>('input[name="trial"]')!.checked = true;
+    sync();
+  });
+
+  // Gifts need 48 hours: the earliest date is the day after tomorrow, in local time.
+  const earliest = new Date(Date.now() + 48 * 3600 * 1000);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  date.min = `${earliest.getFullYear()}-${pad(earliest.getMonth() + 1)}-${pad(earliest.getDate())}`;
+  date.addEventListener("input", () => {
+    date.setCustomValidity(date.value && date.value < date.min ? "Poklon aranžmane pravim najmanje 48 sati unapred." : "");
+  });
+
+  const formatDate = (iso: string) => {
+    const [y, m, d] = iso.split("-");
+    return `${Number(d)}. ${Number(m)}. ${y}.`;
+  };
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+    const data = new FormData(form);
+    const v = (k: string) => String(data.get(k) ?? "").trim();
+    const lines = [`Ime i prezime: ${v("name")}`, `Telefon: ${v("phone")}`];
+    if (v("email")) lines.push(`Email: ${v("email")}`);
+    let subject: string;
+    if (mode() === "firma") {
+      const size = form.querySelector<HTMLInputElement>('input[name="size"]:checked');
+      subject = `Upit za firmu: ${v("company")}`;
+      lines.push("", "Redovna dostava za firmu", `Firma: ${v("company")}`);
+      if (v("address")) lines.push(`Adresa: ${v("address")}`);
+      lines.push(`Veličina: ${size?.value} (${size?.dataset.price} din po isporuci)`);
+      if (data.get("trial")) lines.push("Želim prvo probnu isporuku.");
+    } else {
+      subject = `Poklon aranžman za ${formatDate(v("date"))}`;
+      lines.push("", "Poklon aranžman", `Datum: ${formatDate(v("date"))}`, `Preuzimanje: ${v("pickup")}`);
+      if (v("occasion")) lines.push(`Kome i povodom čega: ${v("occasion")}`);
+    }
+    if (v("message")) lines.push("", v("message"));
+    const message = lines.join("\n");
+    preview.textContent = `${subject}\n\n${message}`;
+    mailto.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+    copy.textContent = "Kopiraj tekst";
+    done.hidden = false;
+    done.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  });
+
+  copy.addEventListener("click", async () => {
+    await navigator.clipboard.writeText(preview.textContent ?? "");
+    copy.textContent = "Kopirano ✓";
+  });
+</script>
