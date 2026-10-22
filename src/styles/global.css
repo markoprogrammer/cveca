@@ -7,12 +7,13 @@
  */
 @theme {
   --color-ink: #1f1225;
-  --color-ink-2: #685b6e;
-  --color-ink-3: #7b7082;
-  --color-line: #e6deeb;
+  --color-ink-2: #5d5063;
+  --color-ink-3: #6b6072;
+  --color-line: #ddd2e5;
   --color-hairline: rgb(31 18 37 / 0.08);
-  --color-lilac: #f7f2fb;
-  --color-lilac-2: #ede3f6;
+  --color-canvas: #f5f0f8;
+  --color-lilac: #ebe2f2;
+  --color-lilac-2: #e2d6ec;
   --color-plum: #5b2a9e;
   --color-plum-2: #4a2186;
   --color-orchid: #d9c2f0;
@@ -29,14 +30,14 @@
 @layer base {
   html {
     color-scheme: light;
-    scroll-padding-top: 64px;
+    scroll-padding-top: 84px;
     -webkit-text-size-adjust: 100%;
   }
   html:has(dialog[open]) {
     overflow: hidden;
   }
   body {
-    background: #fff;
+    background: var(--color-canvas);
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: 17px;
@@ -153,6 +154,7 @@
   }
   .btn-ghost {
     color: var(--color-ink);
+    background: rgb(255 255 255 / 0.7);
     box-shadow: inset 0 0 0 1.5px var(--color-line);
   }
   .btn-ghost:hover {
@@ -160,6 +162,7 @@
   }
   .dark .btn-ghost {
     color: #fff;
+    background: transparent;
     box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / 0.25);
   }
   .dark .btn-ghost:hover {
@@ -257,11 +260,29 @@
   }
 }
 
+/* Liquid glass, as on iOS: translucent, heavily blurred and saturated, with a bright rim on top and a
+   faint one at the bottom so it reads as a floating sheet of glass over whatever scrolls beneath. */
+.liquid {
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.72), rgb(255 255 255 / 0.52));
+  backdrop-filter: blur(28px) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.95),
+    inset 0 -1px 0 rgb(255 255 255 / 0.35),
+    0 0 0 1px rgb(31 18 37 / 0.06),
+    0 12px 32px -14px rgb(31 18 37 / 0.28);
+}
+
+/* Moving between pages: the old page dissolves into the new one, so the site feels like one continuous
+   place. The header is the same on both sides, so it holds still in the cross-fade without its own
+   view-transition-name (which would also cut its glass off from the page behind it). */
+@view-transition {
+  navigation: auto;
+}
+
 /* Frosted bar. */
 .glass {
   background: rgb(255 255 255 / 0.78);
   backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
 }
 
 .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -277,14 +298,19 @@
  */
 .logo-fly {
   /* From the centre of the screen to the logo's slot in the header (container edge + 20px, 64px bar). */
-  --logo-x: calc(50vw - max(20px, (100vw - 1120px) / 2 + 20px) - 36px);
-  --logo-y: calc(50vh - 32px);
+  --logo-x: calc(50vw - max(16px, (100vw - 1144px) / 2) - 20px - 36px);
+  --logo-y: calc(50vh - 40px);
   animation: logo-fly 0.45s cubic-bezier(0.65, 0, 0.35, 1) 0.62s both;
 }
 @keyframes logo-fly {
   from { transform: translate(var(--logo-x), var(--logo-y)) scale(var(--logo-scale, 3.4)); }
 }
 /* On phones the enlarged logo has to fit between the screen edges. */
+@media (max-width: 639px) {
+  .logo-fly {
+    --logo-x: calc(50vw - 12px - 20px - 36px);
+  }
+}
 @media (max-width: 480px) {
   .logo-fly {
     --logo-scale: 3;
@@ -446,7 +472,6 @@ dialog.sheet {
 dialog.sheet::backdrop {
   background: rgb(29 16 34 / 0.55);
   backdrop-filter: blur(20px) saturate(140%);
-  -webkit-backdrop-filter: blur(20px) saturate(140%);
 }
 dialog.sheet .panel {
   position: absolute;
@@ -510,7 +535,7 @@ dialog.sheet:not([data-vt])[open] .panel {
   animation: flower-room 0.3s var(--ease-out-expo) 0.95s backwards;
 }
 @keyframes flower-room {
-  from { width: 0; margin-right: -8px; }
+  from { width: 0; margin-right: -0.31em; }
 }
 
 /* Logo flower turns by one petal on hover. */
@@ -556,6 +581,47 @@ a:hover .sprout .leaf {
 }
 @keyframes leaf-grow {
   from { transform: rotate(var(--r)) scale(0); }
+}
+
+/* The logo inside a sentence ("…postajem cveca."): it reads "ceca" until the heading scrolls up, then the
+   letters part, the v grows in the gap and the flower opens: the opening, played by the scroll.
+   animations.ts sets --g (the v, 0..1) and --f (the flower, 0..1). Everything moves by transform, inside
+   the logo's full width, so the line never reflows. */
+.logo-scroll {
+  --g: 1;
+  --f: 1;
+  --o: clamp(0, var(--g) * 2, 1);
+}
+.js .logo-scroll {
+  --g: 0;
+  --f: 0;
+}
+.logo-scroll .wordmark {
+  transform: translateX(calc((var(--f) - 1) * 1.233em));
+}
+.logo-scroll .tail {
+  transform: translateX(calc((var(--o) - 1) * 0.63em));
+}
+.logo-scroll .sprout {
+  transform: translateX(calc((var(--o) - 1) * 0.315em));
+}
+.logo-scroll .sprout .bud {
+  transform: scale(clamp(0, (var(--g) - 0.15) * 3, 1));
+}
+.logo-scroll .sprout .leaf {
+  transform: rotate(var(--r)) scale(clamp(0, (var(--g) - 0.3 - var(--i) * 0.12) * 2.2, 1));
+  transition: none;
+}
+/* The flower opens in the middle of the room the word makes for it, never over the "c". */
+.logo-scroll .bloom {
+  transform: translateX(calc((var(--f) - 1) * 0.4615em));
+}
+.logo-scroll .bloom ellipse {
+  --p: clamp(0, (var(--f) - var(--i) * 0.08) * 1.6, 1);
+  transform: rotate(calc(var(--r) - (1 - var(--p)) * 50deg)) scale(var(--p));
+}
+.logo-scroll .bloom circle {
+  transform: scale(clamp(0, (var(--f) - 0.35) * 2, 1));
 }
 
 /* The Cveca flower. Petals rotate in CSS (not the SVG attribute) so they can bloom open. */
@@ -700,6 +766,7 @@ a:hover .sprout .leaf {
   .scribble-load .vine-line path, .scribble-load .vine-bud, .scribble-load .vine-leaf { animation: none; }
   .js .scribble-view .vine-bud { transform: none; }
   .js .scribble-view .vine-leaf { transform: rotate(var(--r)); }
+  .js .logo-scroll { --g: 1; --f: 1; }
 }
 
 /* Pull heading full stops in to cancel the font's wide period spacing. */

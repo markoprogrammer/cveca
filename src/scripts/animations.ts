@@ -67,9 +67,9 @@ inView(
       return;
     }
     if (node.dataset.reveal === "photo") {
-      animate(node, { opacity: [0, 1], scale: [0.97, 1], y: [28, 0] }, { duration: 1.4, ease });
+      animate(node, { opacity: [0, 1], scale: [0.97, 1], y: [28, 0] }, { duration: 1.2, ease });
     } else {
-      animate(node, { opacity: [0, 1], y: [14, 0] }, { duration: 1, ease });
+      animate(node, { opacity: [0, 1], y: [16, 0] }, { duration: 1, ease });
     }
   },
   { amount: 0.25 },
@@ -138,6 +138,15 @@ if (!reduce) {
     };
 
     smoothed(scene, ["start start", "end end"], render);
+  }
+
+  // ── "…postajem cveca.": the logo in the heading replays the opening as it scrolls up the screen:
+  //    "ceca" parts, the v grows in the gap, then the flower opens beside it (CSS in .logo-scroll). ──
+  for (const logo of document.querySelectorAll<HTMLElement>("[data-logo-scroll]")) {
+    smoothed(logo, ["start 0.9", "start 0.4"], (p) => {
+      logo.style.setProperty("--g", String(smooth(seg(p, 0, 0.6))));
+      logo.style.setProperty("--f", String(smooth(seg(p, 0.5, 1))));
+    });
   }
 
   // ── Story: words go from grey to ink as they are read, a stem grows beside them,

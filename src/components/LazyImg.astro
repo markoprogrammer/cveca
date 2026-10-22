@@ -14,9 +14,10 @@ interface Props {
   class?: string;
   quality?: number;
   defer?: "load" | "view";
+  style?: string;
 }
 
-const { src, alt, widths, sizes, class: className, quality, defer = "view" } = Astro.props;
+const { src, alt, widths, sizes, class: className, quality, defer = "view", style } = Astro.props;
 const img = await getImage({ src, widths, sizes, format: "webp", quality });
 ---
 
@@ -30,5 +31,6 @@ const img = await getImage({ src, widths, sizes, format: "webp", quality });
   height={img.attributes.height}
   decoding="async"
   class:list={["deferred", className]}
+  style={style}
 />
-<noscript><img src={img.src} srcset={img.srcSet.attribute} sizes={sizes} alt={alt} class={className} /></noscript>
+<noscript><img src={img.src} srcset={img.srcSet.attribute} sizes={sizes} alt={alt} class={className} style={style} /></noscript>

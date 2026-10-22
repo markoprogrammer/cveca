@@ -1,24 +1,34 @@
 ---
 // The Cveca logo: the five-petal flower, then the wordmark whose "v" is a sprout (two leaves from a
-// gold bud), the flowers that turn "Ceca" into "Cveca". grow (header only): on page load it reads
+// gold bud), the flowers that turn "Ceca" into "Cveca". grow="load" (header): on page load it reads
 // "ceca", the gap opens and the v grows in it; once the logo has landed in the header, the flower
-// makes room and opens petal by petal.
+// makes room and opens petal by petal. grow="scroll" (inside a sentence): the same sequence, played by
+// the scroll (src/scripts/animations.ts); the logo then takes the size of the text around it and the
+// slot goes after "eca", so a full stop travels with the letters.
 import Bloom from "./Bloom.astro";
 
 interface Props {
   class?: string;
   tone?: "light" | "dark";
-  grow?: boolean;
+  grow?: "load" | "scroll";
 }
-const { class: className = "", tone = "light", grow = false } = Astro.props;
+const { class: className = "", tone = "light", grow } = Astro.props;
 const leaves = tone === "dark" ? ["#d9c2f0", "#b48be0"] : ["var(--color-plum)", "#8b5cd6"];
 const leaf = "M0 0C5-6 5-15 0-23C-5-15-5-6 0 0Z";
 ---
 
-<span class:list={["inline-flex items-center gap-2", className]}>
-  <Bloom class="logo-bloom size-[24px] translate-y-[3.75px]" petal={tone === "dark" ? "var(--color-orchid)" : undefined} open={grow ? "load" : undefined} delay={1000} />
-  <span class="wordmark inline-flex items-baseline text-[26px] font-extrabold leading-none tracking-[-0.045em]">
-    c<span class="sr-only">v</span><svg viewBox="-12 -24 24 24" class:list={["sprout", { "sprout-grow": grow }]} aria-hidden="true">
+<span
+  class:list={["inline-flex items-baseline gap-[0.31em]", grow === "scroll" ? "logo-scroll" : "text-[26px]", className]}
+  data-logo-scroll={grow === "scroll" ? "" : undefined}
+>
+  <Bloom
+    class="logo-bloom size-[0.923em] translate-y-[0.144em] self-center"
+    petal={tone === "dark" ? "var(--color-orchid)" : undefined}
+    open={grow === "load" ? "load" : undefined}
+    delay={1000}
+  />
+  <span class="wordmark inline-flex items-baseline font-extrabold leading-none tracking-[-0.045em]">
+    c<span class="sr-only">v</span><svg viewBox="-12 -24 24 24" class:list={["sprout", { "sprout-grow": grow === "load" }]} aria-hidden="true">
       {
         [-27, 27].map((r, i) => (
           <g class="leaf" style={`--r:${r}deg;--i:${i}`}>
@@ -28,6 +38,6 @@ const leaf = "M0 0C5-6 5-15 0-23C-5-15-5-6 0 0Z";
         ))
       }
       <circle class="bud" cy="-1.6" r="3.2" fill="#e9c46a" />
-    </svg>eca
+    </svg><span class="tail">eca<slot /></span>
   </span>
 </span>

@@ -6,10 +6,12 @@ import studio from "../assets/buketi/buket-06/dsc_7520.jpg";
 import closer from "../assets/zoom/buket-06-ljuljaska.jpg";
 import macro from "../assets/zoom/buket-06-detalj.jpg";
 
+// focus: where the sharpest flowers are. A phone shows only a narrow upright strip of the landscape crops,
+// so the strip is centred on them; on wider screens the whole width shows and it changes nothing.
 const layers = [
-  { src: studio, alt: "Buket sa zevalicama, eustomom, hrizantemama i karanfilima na drvenoj ljuljašci u bašti", widths: [640, 1080, 1600, 2200] },
-  { src: closer, alt: "Isti buket izbliza: koralne zevalice, žute i bele hrizanteme, ljubičasta eustoma i roze karanfil", widths: [800, 1280, 1920, 2560, 3000] },
-  { src: macro, alt: "Detalj: bela hrizantema, ljubičasta eustoma, žuta hrizantema i zelena loptica karanfila", widths: [800, 1280, 1920, 2560, 3200] },
+  { src: studio, alt: "Buket sa zevalicama, eustomom, hrizantemama i karanfilima na drvenoj ljuljašci u bašti", widths: [640, 1080, 1600, 2200], focus: "50% 50%" },
+  { src: closer, alt: "Isti buket izbliza: koralne zevalice, žute i bele hrizanteme, ljubičasta eustoma i roze karanfil", widths: [800, 1280, 1920, 2560, 3000], focus: "35% 45%" },
+  { src: macro, alt: "Detalj: bela hrizantema, ljubičasta eustoma, žuta hrizantema i zelena loptica karanfila", widths: [800, 1280, 1920, 2560, 3200], focus: "39% 42%" },
 ];
 const captions = [
   { title: "Sezonsko cveće.", text: "Biram ono što je te nedelje najlepše na pijaci." },
@@ -27,7 +29,16 @@ const captions = [
     <div data-closer-frame class="closer-frame absolute left-1/2 top-1/2 h-full w-full overflow-hidden">
       {
         layers.map((l) => (
-          <LazyImg src={l.src} alt={l.alt} widths={l.widths} sizes="100vw" quality={72} defer="view" class="closer-layer absolute inset-0 size-full object-cover" />
+          <LazyImg
+            src={l.src}
+            alt={l.alt}
+            widths={l.widths}
+            sizes="100vw"
+            quality={72}
+            defer="view"
+            style={`object-position:${l.focus}`}
+            class="closer-layer absolute inset-0 size-full object-cover"
+          />
         ))
       }
       <div data-closer-scrim class="absolute inset-0 bg-gradient-to-t from-aubergine/85 via-aubergine/10 to-transparent"></div>

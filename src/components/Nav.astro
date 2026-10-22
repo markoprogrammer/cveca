@@ -16,9 +16,9 @@ const links = [
 ];
 ---
 
-<header class="glass sticky top-0 z-40 border-b border-hairline">
-  <nav class="mx-auto flex h-16 max-w-[1120px] items-center gap-8 px-5" aria-label="Glavna navigacija">
-    <a href={intro ? "#top" : "/"} class="shrink-0" aria-label={intro ? "Cveca, na vrh stranice" : "Cveca, početna"}><Logo grow={intro} class={intro ? "logo-fly" : ""} /></a>
+<header class="site-header sticky top-0 z-40 px-3 pt-3 sm:px-4">
+  <nav class="liquid mx-auto flex h-14 max-w-[1144px] items-center gap-6 rounded-full pl-5 pr-2" aria-label="Glavna navigacija">
+    <a href={intro ? "#top" : "/"} class="shrink-0" aria-label={intro ? "Cveca, na vrh stranice" : "Cveca, početna"}><Logo grow={intro ? "load" : undefined} class={intro ? "logo-fly" : ""} /></a>
     <ul class="ml-auto hidden items-center gap-7 lg:flex">
       {
         links.map((l) => (

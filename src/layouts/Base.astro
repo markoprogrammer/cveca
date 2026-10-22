@@ -117,7 +117,7 @@ const faq = {
     <meta name="description" content={description} />
     {noindex ? <meta name="robots" content="noindex, follow" /> : <link rel="canonical" href={canonical} />}
     {!noindex && <meta name="robots" content="index, follow, max-image-preview:large" />}
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#f5f0f8" />
     <meta name="format-detection" content="telephone=yes" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -149,6 +149,13 @@ const faq = {
     {schema && <script type="application/ld+json" set:html={JSON.stringify(florist)} />}
     {withFaq && <script type="application/ld+json" set:html={JSON.stringify(faq)} />}
     {jsonLd.map((d) => <script type="application/ld+json" set:html={JSON.stringify(d)} />)}
+    <!-- Safari before 18 knows only the prefixed backdrop-filter, and the CSS optimizer strips the prefix from
+         the stylesheet, so the frosted-glass rules for it live here, outside the build (values as in global.css). -->
+    <style is:inline>
+      .liquid { -webkit-backdrop-filter: blur(28px) saturate(180%); }
+      .glass { -webkit-backdrop-filter: saturate(180%) blur(20px); }
+      dialog.sheet::backdrop { -webkit-backdrop-filter: blur(20px) saturate(140%); }
+    </style>
   </head>
   <body class="min-h-dvh">
     <Nav intro={intro} contact={contact} />
