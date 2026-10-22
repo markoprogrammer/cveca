@@ -96,27 +96,30 @@ import { CONTACT, SIZES, din } from "../data/site";
           </label>
         </fieldset>
 
-        <fieldset data-for="poklon" class="mt-3 grid gap-3 sm:grid-cols-2">
+        <fieldset data-for="poklon" class="mt-3 grid gap-3">
           <legend class="sr-only">Podaci o poklonu</legend>
+          <!-- Pickup first and large: it decides where and how, so it should not be a small afterthought. -->
+          <div class="grid grid-cols-2 gap-3">
+            <label class="tile-pick flex min-h-[84px] flex-col justify-center gap-1 px-4 py-3.5">
+              <input type="radio" name="pickup" value="Preuzimam lično" checked class="sr-only" />
+              <span class="text-[16px] font-semibold leading-tight">Preuzimam lično</span>
+              <span class="text-[13px] leading-snug text-ink-2">Žarkovo, {CONTACT.street}</span>
+            </label>
+            <label class="tile-pick flex min-h-[84px] flex-col justify-center gap-1 px-4 py-3.5">
+              <input type="radio" name="pickup" value="Dostava (po dogovoru)" class="sr-only" />
+              <span class="text-[16px] font-semibold leading-tight">Dostava</span>
+              <span class="text-[13px] leading-snug text-ink-2">Po dogovoru</span>
+            </label>
+          </div>
           <div class="fl">
             <input id="f-date" name="date" type="date" required placeholder=" " class="fl-input" />
             <label for="f-date" class="fl-label">Datum kada vam treba</label>
           </div>
-          <div class="grid grid-cols-2 gap-3">
-            <label class="tile-pick grid place-items-center px-3 text-center text-[15px] font-medium">
-              <input type="radio" name="pickup" value="Preuzimam lično" checked class="sr-only" />
-              Preuzimam lično
-            </label>
-            <label class="tile-pick grid place-items-center px-3 text-center text-[15px] font-medium">
-              <input type="radio" name="pickup" value="Dostava (po dogovoru)" class="sr-only" />
-              Dostava
-            </label>
-          </div>
-          <div class="fl sm:col-span-2">
+          <div class="fl">
             <input id="f-occasion" name="occasion" placeholder=" " class="fl-input" />
-            <label for="f-occasion" class="fl-label">Kome je poklon i povodom čega (nije obavezno)</label>
+            <label for="f-occasion" class="fl-label">Za koga je i povod (nije obavezno)</label>
           </div>
-          <p class="text-[15px] text-ink-2 sm:col-span-2">Poklon aranžmane pravim najmanje 48 sati unapred. Preuzimanje je u Žarkovu, {CONTACT.street}.</p>
+          <p class="text-[15px] text-ink-2">Poklon aranžmane pravim najmanje 48 sati unapred.</p>
         </fieldset>
 
         <div class="fl mt-3">
