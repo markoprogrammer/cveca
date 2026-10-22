@@ -4,7 +4,6 @@ import bricks from "../assets/gradimo/dsc_7512.jpg";
 import sizeM from "../assets/buketi/buket-10/dsc_7562.jpg";
 import sizeL from "../assets/buketi/buket-06/dsc_7528.jpg";
 import sizeXL from "../assets/buketi/buket-07/dsc_7546.jpg";
-import Scribble from "./Scribble.astro";
 import { CONTACT, SIZES, din } from "../data/site";
 
 const ritual = [
@@ -19,12 +18,11 @@ const shots = { M: { src: sizeM, h: "h-[74%]" }, L: { src: sizeL, h: "h-[87%]" }
 ---
 
 <section id="firme" class="dark relative overflow-hidden bg-aubergine py-24 text-white sm:py-40">
-  <div class="pointer-events-none absolute -right-60 -top-20 size-[900px] bg-[radial-gradient(circle,rgb(91_42_158/0.5),transparent_62%)]" aria-hidden="true"></div>
   <div class="relative mx-auto max-w-[1120px] px-5">
     <div class="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
       <div>
         <p data-reveal class="tag">Cveće za firme u Beogradu</p>
-        <h2 data-reveal class="t-h2 mt-5">Svakog ponedeljka, sveže cveće na vašoj <Scribble><span class="accent">recepciji<span class="dot">.</span></span></Scribble></h2>
+        <h2 data-reveal class="t-h2 mt-5">Svakog ponedeljka, sveže cveće na vašoj <span class="accent">recepciji<span class="dot">.</span></span></h2>
         <p data-reveal class="t-intro mt-6 max-w-[520px]">
           Prvi utisak vašeg prostora, <strong>svake nedelje drugačiji</strong>. Za 52 nedelje u godini, 52 različita aranžmana.
         </p>
@@ -32,7 +30,7 @@ const shots = { M: { src: sizeM, h: "h-[74%]" }, L: { src: sizeL, h: "h-[87%]" }
           {
             ritual.map((r, i) => (
               <li data-reveal class="flex gap-5 bg-aubergine-2 p-6 sm:p-7">
-                <span class="grid size-9 shrink-0 place-items-center rounded-full bg-coral text-[15px] font-bold text-white">{i + 1}</span>
+                <span class="w-7 shrink-0 pt-px text-[15px] font-semibold tabular-nums text-orchid">0{i + 1}</span>
                 <div>
                   <p class="text-[17px] font-bold tracking-[-0.02em]">{r.title}</p>
                   <p class="mt-1 text-[15px] text-white/60">{r.text}</p>
@@ -66,10 +64,10 @@ const shots = { M: { src: sizeM, h: "h-[74%]" }, L: { src: sizeL, h: "h-[87%]" }
             data-reveal
             class:list={[
               "relative flex flex-col items-center rounded-[32px] p-7 pt-10 text-center sm:p-9 sm:pt-12",
-              s.popular ? "bg-white text-ink shadow-[0_40px_80px_-30px_rgb(217_194_240/0.45)]" : "bg-aubergine-2",
+              s.popular ? "bg-white text-ink" : "bg-aubergine-2",
             ]}
           >
-            {s.popular && <span class="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full bg-coral px-4 py-1.5 text-[13px] font-bold text-white">Najtraženiji</span>}
+            {s.popular && <span class="absolute inset-x-0 top-5 text-center text-[13px] font-semibold text-plum">Najtraženiji</span>}
             <div class="flex h-[260px] w-full items-end justify-center sm:h-[320px]">
               <Image src={shots[s.id].src} alt={`Primer aranžmana veličine ${s.id}`} widths={[240, 360, 480]} sizes="240px" format="webp" class={`arch block aspect-[2/3] w-auto object-cover ${shots[s.id].h}`} />
             </div>

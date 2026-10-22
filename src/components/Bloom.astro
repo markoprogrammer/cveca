@@ -1,5 +1,5 @@
 ---
-// The Cveca flower: five petals and a coral heart.
+// The Cveca flower: five petals and a soft gold heart.
 // open="load" blooms petal by petal when the page loads; open="view" waits until
 // src/scripts/animations.ts adds .is-open (on view, or at the end of the story).
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
   open?: "load" | "view";
   delay?: number;
 }
-const { class: className = "", petal = "var(--color-plum)", heart = "var(--color-coral)", open, delay = 0 } = Astro.props;
+const { class: className = "", petal = "var(--color-plum)", heart = "#e9c46a", open, delay = 0 } = Astro.props;
 ---
 
 <svg

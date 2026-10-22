@@ -3,7 +3,7 @@
 /*
  * Cveca's own system: Apple-grade restraint and motion, but the identity comes from the flowers.
  * Eustoma violet leads (it is in nearly every arrangement), deep aubergine replaces black,
- * alstroemeria coral marks the small joys, and photos sit in arches like a florist's window.
+ * lilac lightens the quiet sections, and photos sit in arches like a florist's window.
  */
 @theme {
   --color-ink: #1f1225;
@@ -18,9 +18,6 @@
   --color-orchid: #d9c2f0;
   --color-aubergine: #1d1022;
   --color-aubergine-2: #2b1832;
-  --color-coral: #ff6a45;
-  --color-coral-ink: #c43d1b;
-  --color-sun: #ffc53d;
 
   --font-sans: "Plus Jakarta Sans Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   --font-display: "Plus Jakarta Sans Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
@@ -105,29 +102,15 @@
     color: var(--color-orchid);
   }
 
-  /* Small florist's tag above a heading. */
+  /* Quiet label above a heading. */
   .tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    border-radius: 999px;
-    background: var(--color-lilac-2);
-    padding: 6px 14px 6px 10px;
-    font-size: 13px;
-    font-weight: 650;
-    letter-spacing: 0;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.005em;
     color: var(--color-plum);
   }
-  .tag::before {
-    content: "";
-    width: 8px;
-    height: 8px;
-    border-radius: 999px;
-    background: var(--color-coral);
-    box-shadow: 0 0 0 3px rgb(255 106 69 / 0.18);
-  }
   .dark .tag {
-    background: rgb(255 255 255 / 0.08);
     color: var(--color-orchid);
   }
 
@@ -150,7 +133,6 @@
   .btn-primary {
     background: var(--color-plum);
     color: #fff;
-    box-shadow: 0 6px 16px -10px rgb(91 42 158 / 0.55);
   }
   .btn-primary:hover {
     background: var(--color-plum-2);
@@ -280,11 +262,6 @@
 
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { scrollbar-width: none; }
-
-/* The hero row starts centred before any JS runs, so the first image the browser sees is the middle one. */
-.lineup {
-  transform: translateX(calc(50vw - 50%));
-}
 
 /* Hero lockup rises in once on load, staggered by --i. */
 .rise {
@@ -516,8 +493,8 @@ dialog.sheet:not([data-vt])[open] .panel {
 }
 .scribble path {
   fill: none;
-  stroke: var(--color-coral);
-  stroke-width: 3.2;
+  stroke: var(--color-orchid);
+  stroke-width: 3;
   stroke-linecap: round;
   vector-effect: non-scaling-stroke;
   stroke-dasharray: 1;
@@ -557,8 +534,7 @@ dialog.sheet:not([data-vt])[open] .panel {
   .js .scribble-view path, .js .stem path { stroke-dashoffset: 0; }
 }
 
-/* Headings end on a coral full stop, pulled in to cancel the font's wide period spacing. */
+/* Pull heading full stops in to cancel the font's wide period spacing. */
 .dot {
-  color: var(--color-coral);
   margin-left: -0.07em;
 }

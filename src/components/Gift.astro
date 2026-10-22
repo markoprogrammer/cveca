@@ -2,7 +2,6 @@
 import { Image } from "astro:assets";
 import basket from "../assets/buketi/buket-09/dsc_7535.jpg";
 import swing from "../assets/buketi/buket-07/dsc_7536.jpg";
-import Scribble from "./Scribble.astro";
 import { CONTACT } from "../data/site";
 
 const steps = [
@@ -45,15 +44,15 @@ const steps = [
 
     <div>
       <p data-reveal class="tag">Poklon aranžmani po narudžbini</p>
-      <h2 data-reveal class="t-h2 mt-5">Poklon koji se <Scribble><span class="accent">pamti<span class="dot">.</span></span></Scribble></h2>
+      <h2 data-reveal class="t-h2 mt-5">Poklon koji se <span class="accent">pamti<span class="dot">.</span></span></h2>
       <p data-reveal class="t-intro mt-5 max-w-[520px]">
         Za ljude koji žele da poklone <strong>nešto zaista jedinstveno</strong>. Recite mi kome je namenjen, a ostalo prepustite meni i sezonskom cveću.
       </p>
-      <ol data-stagger class="mt-10 grid gap-3">
+      <ol data-stagger class="mt-10 border-b border-line">
         {
           steps.map((s) => (
-            <li data-reveal class="flex gap-5 rounded-[24px] bg-lilac p-5 sm:p-6">
-              <span class="grid size-10 shrink-0 place-items-center rounded-full bg-coral text-[16px] font-bold text-white">{s.n}</span>
+            <li data-reveal class="flex gap-5 border-t border-line py-5">
+              <span class="w-7 shrink-0 pt-px text-[15px] font-semibold tabular-nums text-plum">0{s.n}</span>
               <div>
                 <p class="text-[18px] font-bold tracking-[-0.02em]">{s.title}</p>
                 <p class="mt-1 text-[16px] text-ink-2">{s.text}</p>

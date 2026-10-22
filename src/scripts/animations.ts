@@ -43,7 +43,7 @@ inView(
       return;
     }
     // Opacity and transform only: both stay on the compositor, so reveals never stutter on phones.
-    animate(el, { opacity: [0, 1], y: [40, 0] }, { duration: 1.1, delay: Math.max(0, index) * 0.09, ease });
+    animate(el, { opacity: [0, 1], y: [24, 0] }, { duration: 0.9, delay: Math.max(0, index) * 0.06, ease });
   },
   { amount: 0.15 },
 );
@@ -52,24 +52,6 @@ inView(
 inView("[data-scribble]", (el) => el.classList.add("is-drawn"), { amount: 1, margin: "0px 0px -15% 0px" });
 
 if (!reduce) {
-  // ── Hero: the lockup lifts away and the lineup drifts sideways as the page starts to move. ──
-  const hero = document.querySelector<HTMLElement>("[data-hero]");
-  const copy = document.querySelector<HTMLElement>("[data-hero-copy]");
-  const row = document.querySelector<HTMLElement>("[data-lineup]");
-  if (hero && copy && row) {
-    // Start with the middle of the row under the middle of the screen, then drift left.
-    const start = () => (innerWidth - row.scrollWidth) / 2;
-    const drift = () => Math.min(row.scrollWidth * 0.22, 420);
-    scroll(
-      (p: number) => {
-        row.style.transform = `translate3d(${start() - p * drift()}px,0,0)`;
-        copy.style.opacity = String(1 - seg(p, 0.05, 0.55));
-        copy.style.transform = `translate3d(0,${-p * 80}px,0) scale(${1 - p * 0.06})`;
-      },
-      { target: hero, offset: ["start start", "end start"] },
-    );
-  }
-
   // ── "Pogledajte izbliza": a card opens to full screen, then the camera walks in to the petals. ──
   const scene = document.querySelector<HTMLElement>("[data-closer]");
   if (scene) {

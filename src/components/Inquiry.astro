@@ -14,24 +14,16 @@ const mailSubject = encodeURIComponent("Upit sa sajta");
     </div>
 
     <div data-stagger class="mt-12 grid gap-4 sm:mt-16 md:grid-cols-5">
-      <a
-        data-reveal
-        href={CONTACT.phoneHref}
-        class="group relative isolate flex flex-col overflow-hidden rounded-[32px] bg-plum p-8 text-white shadow-[0_30px_60px_-30px_rgb(91_42_158/0.8)] sm:p-11 md:col-span-3"
-      >
-        <svg viewBox="0 0 24 24" class="absolute -right-16 -top-16 -z-10 size-72 opacity-[0.12] transition-transform duration-[1400ms] ease-out-expo group-hover:rotate-[72deg]" aria-hidden="true">
-          <g fill="#fff">{[0, 72, 144, 216, 288].map((r) => <ellipse cx="12" cy="6.6" rx="3.7" ry="5.1" transform={`rotate(${r} 12 12)`} />)}</g>
-        </svg>
-        <span class="w-fit rounded-full bg-white/15 px-3 py-1 text-[13px] font-semibold">Najbrže</span>
-        <span class="mt-8 text-[17px] text-white/75">Pozovite me</span>
-        <span class="mt-1 text-[clamp(38px,5.4vw,64px)] font-bold leading-none tracking-[-0.035em] tabular-nums">{CONTACT.phone}</span>
-        <span class="btn btn-light mt-10 w-fit">
+      <a data-reveal href={CONTACT.phoneHref} class="group flex flex-col rounded-[32px] bg-lilac p-8 sm:p-11 md:col-span-3">
+        <span class="text-[17px] text-ink-2">Najlakše je telefonom</span>
+        <span class="mt-2 text-[clamp(38px,5.4vw,64px)] font-bold leading-none tracking-[-0.035em] tabular-nums transition-colors group-hover:text-plum">{CONTACT.phone}</span>
+        <span class="btn btn-primary mt-10 w-fit">
           <svg viewBox="0 0 24 24" class="size-5" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z" /></svg>
           Pozovite
         </span>
       </a>
 
-      <div data-reveal class="flex flex-col rounded-[32px] bg-lilac p-8 sm:p-11 md:col-span-2">
+      <div data-reveal class="flex flex-col rounded-[32px] p-8 shadow-[inset_0_0_0_1.5px_var(--color-line)] sm:p-11 md:col-span-2">
         <span class="text-[17px] text-ink-2">Ili pošaljite mejl</span>
         <a href={`mailto:${CONTACT.email}?subject=${mailSubject}`} class="mt-1 break-all text-[clamp(22px,2.4vw,28px)] font-bold tracking-[-0.025em] transition-colors hover:text-plum">{CONTACT.email}</a>
         <a href={`mailto:${CONTACT.email}?subject=${mailSubject}`} class="btn btn-ghost mt-8 w-fit md:mt-auto">Napišite mejl</a>
@@ -56,7 +48,7 @@ const mailSubject = encodeURIComponent("Upit sa sajta");
       <form id="upit-form" class="mx-auto max-w-[692px] px-6 pb-10 sm:px-0">
         <fieldset class="seg relative grid grid-cols-2 rounded-full bg-lilac-2 p-1">
           <legend class="sr-only">Za koga je upit</legend>
-          <span class="seg-pill absolute inset-y-1 left-1 w-[calc(50%-4px)] rounded-full bg-white shadow-[0_4px_14px_-4px_rgb(91_42_158/0.35)]" aria-hidden="true"></span>
+          <span class="seg-pill absolute inset-y-1 left-1 w-[calc(50%-4px)] rounded-full bg-white shadow-[0_1px_4px_rgb(29_16_34/0.12)]" aria-hidden="true"></span>
           <label class="relative z-10 cursor-pointer py-2.5 text-center text-[15px] font-semibold text-ink-2 has-[:checked]:text-plum has-[:focus-visible]:underline">
             <input type="radio" name="mode" value="firma" checked class="sr-only" />
             Za firmu
