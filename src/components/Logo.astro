@@ -1,7 +1,8 @@
 ---
 // The Cveca logo: the five-petal flower, then the wordmark whose "v" is a sprout (two leaves from a
-// gold bud), the flowers that turn "Ceca" into "Cveca". grow: on page load the leaves unfurl first,
-// then the flower opens petal by petal (header only).
+// gold bud), the flowers that turn "Ceca" into "Cveca". grow (header only): on page load it reads
+// "ceca", the gap opens and the v grows in it; once the logo has landed in the header, the flower
+// makes room and opens petal by petal.
 import Bloom from "./Bloom.astro";
 
 interface Props {
@@ -15,7 +16,7 @@ const leaf = "M0 0C5-6 5-15 0-23C-5-15-5-6 0 0Z";
 ---
 
 <span class:list={["inline-flex items-center gap-2", className]}>
-  <Bloom class="logo-bloom size-[24px]" petal={tone === "dark" ? "var(--color-orchid)" : undefined} open={grow ? "load" : undefined} delay={350} />
+  <Bloom class="logo-bloom size-[24px]" petal={tone === "dark" ? "var(--color-orchid)" : undefined} open={grow ? "load" : undefined} delay={2000} />
   <span class="wordmark inline-flex items-baseline text-[26px] font-extrabold leading-none tracking-[-0.045em]">
     c<span class="sr-only">v</span><svg viewBox="-12 -24 24 24" class:list={["sprout", { "sprout-grow": grow }]} aria-hidden="true">
       {
