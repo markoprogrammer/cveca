@@ -13,14 +13,7 @@ const crumbs = [
   { name: "Cveće za firme", path: "/cvece-za-firme/" },
 ];
 
-const reasons = [
-  { title: "Svake nedelje drugačije", text: "Nijedan aranžman se ne ponavlja. Za 52 nedelje u godini, vaši zaposleni i klijenti vide 52 različita." },
-  { title: "Sezonsko i sveže", text: "Svake nedelje biram ono cveće koje je tada najlepše i najsvežije, a ne ono koje je uvek na lageru." },
-  { title: "Bez ikakve brige", text: "Nema kupovine vaza ni bacanja uvelog cveća: stari aranžman odnosim zajedno sa posudom." },
-  { title: "Jednostavno za knjigovodstvo", text: "Saradnja po ugovoru, plaćanje preko računa mesec dana unapred. Jedan račun mesečno." },
-];
 
-const spaces = ["Recepcije i šalteri", "Kancelarije i sale za sastanke", "Holovi i veći prostori", "Hoteli", "Restorani", "Saloni i ordinacije"];
 
 const faq = [
   ...FAQ.filter((f) => f.q.includes("firm")),
@@ -35,34 +28,10 @@ const faq = [
   description="Svakog ponedeljka nov, svež cvetni aranžman na vašoj recepciji u Beogradu. Stari odnosim sa posudom, plaćanje preko računa. Od 5.500 din po isporuci."
   jsonLd={[breadcrumbs(crumbs), businessService]}
 >
-  <PageHero crumbs={crumbs} tag="Cveće za firme · Beograd" title="Cveće za firme u Beogradu" image={hero} imageAlt="Aranžman sa zevalicama, hrizantemama i eustomom u keramičkoj vazi" call="Pozovite za ponudu" mode="firma">
+  <PageHero crumbs={crumbs} tag="Cveće za firme · Beograd" title="Cveće za firme u Beogradu" image={hero} imageAlt="Aranžman sa zevalicama, hrizantemama i eustomom u keramičkoj vazi">
     Svakog ponedeljka donosim nov, svež aranžman na vašu recepciju i odnosim stari zajedno sa posudom. <strong>Vaš prostor je svake nedelje drugačiji</strong>,
     a vi ne brinete ni o čemu.
   </PageHero>
-
-  <section class="pb-24 sm:pb-32">
-    <div class="mx-auto max-w-[1120px] px-5">
-      <h2 data-reveal class="t-h2 max-w-[760px]">Zašto unikatni aranžmani, a ne obično cveće<span class="dot">.</span></h2>
-      <div class="mt-12 grid gap-x-10 gap-y-10 border-t border-line pt-10 md:grid-cols-2">
-        {
-          reasons.map((r, i) => (
-            <div class="flex gap-5">
-              <span class="w-7 shrink-0 pt-px text-[15px] font-semibold tabular-nums text-plum">0{i + 1}</span>
-              <div>
-                <h3 class="text-[21px] font-bold tracking-[-0.02em]">{r.title}</h3>
-                <p class="mt-2 text-[17px] text-ink-2">{r.text}</p>
-              </div>
-            </div>
-          ))
-        }
-      </div>
-
-      <h2 data-reveal class="t-h2 mt-24 max-w-[760px] sm:mt-32">Za koje prostore<span class="dot">.</span></h2>
-      <ul class="mt-10 flex flex-wrap gap-3">
-        {spaces.map((s) => <li class="rounded-full px-5 py-2.5 text-[17px] shadow-[inset_0_0_0_1.5px_var(--color-line)]">{s}</li>)}
-      </ul>
-    </div>
-  </section>
 
   <Business />
   <Faq items={faq} title="Pitanja firmi" />

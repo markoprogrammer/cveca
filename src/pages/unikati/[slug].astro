@@ -6,7 +6,6 @@ import Lightbox from "../../components/Lightbox.astro";
 import Inquiry from "../../components/Inquiry.astro";
 import { bouquets, neighbours, type Bouquet } from "../../data/bouquets";
 import { breadcrumbs } from "../../data/seo";
-import { CONTACT } from "../../data/site";
 
 export function getStaticPaths() {
   return bouquets.map((b) => ({ params: { slug: b.slug }, props: { b } }));
@@ -75,16 +74,10 @@ const flowers = b.flowers.split(", ");
             }
           </ul>
 
-          <div class="mt-12 rounded-[28px] bg-lilac p-7 sm:p-8">
-            <p class="text-[21px] font-bold tracking-[-0.02em]">Želite nešto u ovom duhu?</p>
-            <p class="mt-2 text-[17px] text-ink-2">
-              Ovaj aranžman više ne postoji, i to je njegova lepota. Recite mi za koga je i koje boje voli, a ja ću složiti novi, samo za vas.
-            </p>
-            <div class="mt-6 flex flex-wrap items-center gap-x-7 gap-y-4">
-              <a href={CONTACT.phoneHref} class="btn btn-primary">Pozovite i naručite</a>
-              <a href="#upit" data-mode="poklon" class="link">ili pošaljite upit</a>
-            </div>
-          </div>
+          <p class="mt-12 border-t border-line pt-8 text-[17px] text-ink-2">
+            Ovaj aranžman više ne postoji, i to je njegova lepota. Za novi, samo vaš,
+            <a href="#upit" data-mode="poklon" class="font-semibold text-plum hover:underline">pišite mi</a>.
+          </p>
         </div>
       </div>
 

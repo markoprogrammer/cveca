@@ -4,7 +4,7 @@ import bricks from "../assets/gradimo/dsc_7512.jpg";
 import sizeM from "../assets/buketi/buket-10/dsc_7562.jpg";
 import sizeL from "../assets/buketi/buket-06/dsc_7528.jpg";
 import sizeXL from "../assets/buketi/buket-07/dsc_7546.jpg";
-import { CONTACT, SIZES, din } from "../data/site";
+import { SIZES, din } from "../data/site";
 
 // On its own page the section should not link to itself.
 const onPage = Astro.url.pathname.startsWith("/cvece-za-firme");
@@ -78,16 +78,11 @@ const shots = { M: { src: sizeM, h: "h-[74%]" }, L: { src: sizeL, h: "h-[87%]" }
               {din(s.price)} <span class:list={["text-[17px] font-semibold", s.popular ? "text-ink-2" : "text-white/65"]}>din</span>
             </p>
             <p class:list={["text-[15px]", s.popular ? "text-ink-3" : "text-white/45"]}>po isporuci</p>
-            <a href="#upit" data-mode="firma" data-size={s.id} class:list={["link mt-6 text-[15px]", s.popular && "text-plum"]}>
-              Izaberi {s.id}
-            </a>
           </div>
         ))
       }
     </div>
     <div class="mt-14 flex flex-col items-center gap-5 text-center">
-      <a href={CONTACT.phoneHref} class="btn btn-light">Pozovite za ponudu</a>
-      <a href="#upit" data-mode="firma" data-trial class="link">ili zakažite probnu isporuku</a>
       {!onPage && <a href="/cvece-za-firme/" class="link">Sve o cveću za firme</a>}
       <p class="max-w-[560px] text-[13px] leading-relaxed text-white/45">
         Saradnja je po ugovoru, uz plaćanje preko računa mesec dana unapred. Fotografije su primeri, svaki aranžman je drugačiji.

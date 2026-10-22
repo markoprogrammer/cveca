@@ -1,7 +1,6 @@
 ---
 import { Image } from "astro:assets";
 import type { Bouquet } from "../data/bouquets";
-import { CONTACT } from "../data/site";
 
 interface Props {
   b: Bouquet;
@@ -64,9 +63,7 @@ const { b } = Astro.props;
       </div>
       <div class="mt-5 lg:mt-auto lg:pt-8">
         <p class="hidden text-[15px] text-ink-2 lg:block">Svaki aranžman pravim samo jednom. Recite mi za koga je, a ja ću složiti novi, samo za vas.</p>
-        <a href={CONTACT.phoneHref} class="btn btn-primary mt-4 w-full lg:mt-5">Pozovite i naručite</a>
-        <a href="#upit" data-mode="poklon" data-dismiss class="link mt-3 w-full justify-center">ili pošaljite upit</a>
-        <a href={`/unikati/${b.slug}/`} class="mt-4 block text-center text-[15px] text-ink-2 hover:text-plum">Stranica ovog aranžmana</a>
+        <a href="#upit" data-mode="poklon" data-dismiss class="btn btn-primary mt-4 w-full lg:mt-5">Pošaljite upit</a>
       </div>
     </aside>
   </div>

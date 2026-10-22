@@ -63,11 +63,7 @@ const steps = [
           ))
         }
       </ol>
-      <div class="mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
-        <a href={CONTACT.phoneHref} class="btn btn-primary">Pozovite i naručite</a>
-        <a href="#upit" data-mode="poklon" class="link">ili pošaljite upit</a>
-        {!onPage && <a href="/poklon-aranzmani/" class="link">Više o poklon aranžmanima</a>}
-      </div>
+      {!onPage && <a href="/poklon-aranzmani/" class="link mt-10">Više o poklon aranžmanima</a>}
     </div>
   </div>
 </section>

@@ -1,11 +1,9 @@
 ---
-// Opening block of an inner page: breadcrumbs, label, the page's h1, intro (slot), the two ways to
-// get in touch, and a photo in an arch.
+// Opening block of an inner page: breadcrumbs, label, the page's h1, intro (slot) and a photo in an arch.
 import { Image } from "astro:assets";
 import type { ImageMetadata } from "astro";
 import Breadcrumbs from "./Breadcrumbs.astro";
 import type { Crumb } from "../data/seo";
-import { CONTACT } from "../data/site";
 
 interface Props {
   crumbs: Crumb[];
@@ -13,10 +11,8 @@ interface Props {
   title: string;
   image?: ImageMetadata;
   imageAlt?: string;
-  call?: string;
-  mode?: "firma" | "poklon";
 }
-const { crumbs, tag, title, image, imageAlt = "", call = "Pozovite", mode = "poklon" } = Astro.props;
+const { crumbs, tag, title, image, imageAlt = "" } = Astro.props;
 ---
 
 <section class="pb-16 pt-10 sm:pb-24 sm:pt-14">
@@ -26,10 +22,6 @@ const { crumbs, tag, title, image, imageAlt = "", call = "Pozovite", mode = "pok
       <p class="tag">{tag}</p>
       <h1 data-reveal class="t-h2 mt-4">{title}</h1>
       <p class="t-intro mt-6 max-w-[560px]"><slot /></p>
-      <div class="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
-        <a href={CONTACT.phoneHref} class="btn btn-primary">{call}</a>
-        <a href="#upit" data-mode={mode} class="link">ili pošaljite upit</a>
-      </div>
     </div>
     {
       image && (
