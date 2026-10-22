@@ -277,6 +277,26 @@
     0 12px 32px -14px rgb(27 33 29 / 0.26);
 }
 
+/* Header folds where it doesn't fit beside the logo (Nav.astro measures): the tagline goes, then the
+   buttons shrink to round icons, "Pišite" first. Their words stay for screen readers. */
+.fold-tagline .nav-tagline {
+  display: none;
+}
+.fold-write .nav-write,
+.fold-call .nav-call {
+  width: 2.5rem;
+  padding: 0;
+}
+.fold-write .nav-write .nav-word,
+.fold-call .nav-call .nav-word {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 /* Moving between pages: the old page dissolves into the new one, so the site feels like one continuous
    place. The header is the same on both sides, so it holds still in the cross-fade without its own
    view-transition-name (which would also cut its glass off from the page behind it). */
