@@ -32,24 +32,25 @@ const afterLoad = () => {
 if (document.readyState === "complete") afterLoad();
 else addEventListener("load", afterLoad, { once: true });
 
-// ── Reveals: [data-reveal] fades up the first time it enters; siblings inside [data-stagger] cascade. ──
+// ── Reveals: only headings and photographs move; body copy, cards and buttons stay still. ──
+// Headings settle in from a few pixels below; photos settle into their frames, as if placed there.
 inView(
   "[data-reveal]",
   (el) => {
-    const group = el.closest("[data-stagger]");
-    const index = group ? [...group.querySelectorAll(":scope > [data-reveal], :scope > * > [data-reveal]")].indexOf(el) : 0;
+    const node = el as HTMLElement;
     if (reduce) {
-      (el as HTMLElement).style.opacity = "1";
+      node.style.opacity = "1";
       return;
     }
-    // Opacity and transform only: both stay on the compositor, so reveals never stutter on phones.
-    animate(el, { opacity: [0, 1], y: [24, 0] }, { duration: 0.9, delay: Math.max(0, index) * 0.06, ease });
+    if (node.dataset.reveal === "photo") {
+      animate(node, { opacity: [0, 1], scale: [0.97, 1], y: [28, 0] }, { duration: 1.4, ease });
+    } else {
+      animate(node, { opacity: [0, 1], y: [14, 0] }, { duration: 1, ease });
+    }
   },
-  { amount: 0.15 },
+  { amount: 0.25 },
 );
 
-// ── Hand-drawn underlines draw themselves once the word is well inside the screen. ──
-inView("[data-scribble]", (el) => el.classList.add("is-drawn"), { amount: 1, margin: "0px 0px -15% 0px" });
 
 if (!reduce) {
   // ── "Pogledajte izbliza": a card opens to full screen, then the camera walks in to the petals. ──
@@ -67,36 +68,51 @@ if (!reduce) {
       [0.82, 0.88, 2, 2],
     ];
 
+    const render = (p: number) => {
+      const vw = innerWidth;
+      const vh = innerHeight;
+      const open = smooth(seg(p, 0.08, 0.4));
+      const cardH = Math.min(vh * 0.6, 620);
+      const cardW = Math.min(vw * 0.84, cardH * (2 / 3));
+      frame.style.width = `${lerp(cardW, vw, open)}px`;
+      frame.style.height = `${lerp(cardH, vh, open)}px`;
+      frame.style.borderRadius = `${lerp(28, 0, open)}px`;
+      frame.style.transform = `translate(-50%, calc(-50% + ${lerp(vh * 0.09, 0, open)}px))`;
+      scrim.style.opacity = String(open);
+
+      const t = seg(p, 0.06, 0.22);
+      title.style.opacity = String(1 - t);
+      title.style.transform = `translateY(${-t * 60}px)`;
+
+      layers[0].style.transform = `scale(${lerp(1, 1.08, seg(p, 0.1, 0.56))})`;
+      layers[1].style.opacity = String(seg(p, 0.46, 0.56));
+      layers[1].style.transform = `scale(${lerp(1.1, 1, seg(p, 0.46, 0.82))})`;
+      layers[2].style.opacity = String(seg(p, 0.72, 0.82));
+      layers[2].style.transform = `scale(${lerp(1.14, 1, seg(p, 0.72, 1))})`;
+
+      caps.forEach((cap, i) => {
+        const [a, b, c, d] = capTimes[i];
+        const inn = seg(p, a, b);
+        const out = seg(p, c, d);
+        cap.style.opacity = String(inn * (1 - out));
+        cap.style.transform = `translateY(${(1 - inn) * 30 - out * 30}px)`;
+      });
+    };
+
+    // The scene trails the scroll position by a few frames, so notched mouse wheels glide instead of jumping.
+    let target = 0;
+    let shown = 0;
+    let frameId = 0;
+    const follow = () => {
+      shown += (target - shown) * 0.14;
+      if (Math.abs(target - shown) < 0.0005) shown = target;
+      render(shown);
+      frameId = shown === target ? 0 : requestAnimationFrame(follow);
+    };
     scroll(
       (p: number) => {
-        const vw = innerWidth;
-        const vh = innerHeight;
-        const open = smooth(seg(p, 0.08, 0.4));
-        const cardH = Math.min(vh * 0.6, 620);
-        const cardW = Math.min(vw * 0.84, cardH * (2 / 3));
-        frame.style.width = `${lerp(cardW, vw, open)}px`;
-        frame.style.height = `${lerp(cardH, vh, open)}px`;
-        frame.style.borderRadius = `${lerp(28, 0, open)}px`;
-        frame.style.transform = `translate(-50%, calc(-50% + ${lerp(vh * 0.09, 0, open)}px))`;
-        scrim.style.opacity = String(open);
-
-        const t = seg(p, 0.06, 0.22);
-        title.style.opacity = String(1 - t);
-        title.style.transform = `translateY(${-t * 60}px)`;
-
-        layers[0].style.transform = `scale(${lerp(1, 1.08, seg(p, 0.1, 0.56))})`;
-        layers[1].style.opacity = String(seg(p, 0.46, 0.56));
-        layers[1].style.transform = `scale(${lerp(1.1, 1, seg(p, 0.46, 0.82))})`;
-        layers[2].style.opacity = String(seg(p, 0.72, 0.82));
-        layers[2].style.transform = `scale(${lerp(1.14, 1, seg(p, 0.72, 1))})`;
-
-        caps.forEach((cap, i) => {
-          const [a, b, c, d] = capTimes[i];
-          const inn = seg(p, a, b);
-          const out = seg(p, c, d);
-          cap.style.opacity = String(inn * (1 - out));
-          cap.style.transform = `translateY(${(1 - inn) * 30 - out * 30}px)`;
-        });
+        target = p;
+        if (!frameId) frameId = requestAnimationFrame(follow);
       },
       { target: scene, offset: ["start start", "end end"] },
     );
@@ -125,12 +141,12 @@ if (!reduce) {
 
   // ── The small gift photo floats a little faster than the big one behind it. ──
   for (const card of document.querySelectorAll<HTMLElement>(".drift-card")) {
-    scroll(animate(card, { y: [70, -50] }, { ease: "linear" }), { target: card.parentElement!, offset: ["start end", "end start"] });
+    scroll(animate(card, { y: [48, -36] }, { ease: "linear" }), { target: card.parentElement!, offset: ["start end", "end start"] });
   }
 
   // ── Parallax: photos marked [data-parallax] glide inside their rounded frames. ──
   for (const img of document.querySelectorAll<HTMLElement>("[data-parallax]")) {
-    scroll(animate(img, { y: ["-6%", "6%"] }, { ease: "linear" }), { target: img.parentElement!, offset: ["start end", "end start"] });
+    scroll(animate(img, { y: ["-4%", "4%"] }, { ease: "linear" }), { target: img.parentElement!, offset: ["start end", "end start"] });
   }
 } else {
   document.querySelectorAll("[data-words] > span, [data-bloom]").forEach((w) => w.classList.add("on", "is-open"));

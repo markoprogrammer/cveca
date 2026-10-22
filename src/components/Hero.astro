@@ -1,6 +1,5 @@
 ---
 import { Image } from "astro:assets";
-import Scribble from "./Scribble.astro";
 import LazyImg from "./LazyImg.astro";
 import { bouquets } from "../data/bouquets";
 
@@ -14,7 +13,7 @@ const archClass =
   <div class="mx-auto max-w-[1000px] px-5 text-center">
     <h1>
       <span class="rise tag" style="--i:0">Unikatni cvetni aranžmani · Žarkovo, Beograd</span>
-      <span class="rise t-hero mt-5 block" style="--i:1">Nema dva <Scribble draw="load"><span class="accent">ista<span class="dot">.</span></span></Scribble></span>
+      <span class="rise t-hero mt-5 block" style="--i:1">Nema dva <span class="accent">ista<span class="dot">.</span></span></span>
     </h1>
     <p class="rise t-intro mx-auto mt-6 max-w-[600px]" style="--i:2">
       Veliki, bogati aranžmani od sezonskog cveća, složeni ručno i po osećaju. <strong>Svakog ponedeljka za vašu firmu</strong>, ili kao poklon koji
@@ -64,14 +63,14 @@ const archClass =
                 }
               </span>
               <span class="mt-4 block px-1 text-[16px] font-semibold tracking-[-0.015em] transition-colors group-hover:text-plum">{b.title}</span>
-              <span class="block px-1 text-[14px] text-ink-3">{b.vessel}</span>
+              <span class="block px-1 text-[15px] text-ink-3">{b.vessel}</span>
             </button>
           </li>
         ))
       }
     </ul>
     <div class="mx-auto mt-6 flex max-w-[1120px] items-center justify-between gap-6 px-5">
-      <p class="text-[14px] text-ink-3">Prevucite da vidite svih {bouquets.length}, dodirnite za više fotografija.</p>
+      <p class="text-[15px] text-ink-3">Prevucite da vidite svih {bouquets.length}, dodirnite za više fotografija.</p>
       <div class="hidden shrink-0 gap-2 sm:flex">
         <button type="button" data-carousel="-1" aria-label="Prethodni aranžmani" class="grid size-11 place-items-center rounded-full text-ink shadow-[inset_0_0_0_1.5px_var(--color-line)] transition hover:shadow-[inset_0_0_0_1.5px_var(--color-ink)] disabled:opacity-30">
           <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18 9 12l6-6" /></svg>

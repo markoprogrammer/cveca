@@ -15,7 +15,7 @@ const steps = [
   <div class="mx-auto grid max-w-[1120px] items-center gap-16 px-5 lg:grid-cols-2 lg:gap-20">
     <!-- Two garden-swing photos: the gift basket in a large arch, a second arrangement drifting over its corner. -->
     <div class="relative mx-auto w-full max-w-[500px] pb-16 pr-10 sm:pr-16 lg:mx-0">
-      <div data-reveal class="arch overflow-hidden">
+      <div data-reveal="photo" class="arch overflow-hidden">
         <Image
           src={basket}
           alt="Poklon aranžman u korpi od jute sa eustomom, karanfilima i proteom, na drvenoj ljuljašci u bašti"
@@ -28,7 +28,7 @@ const steps = [
         />
       </div>
       <div class="drift-card absolute bottom-0 right-0 w-[44%]">
-        <div data-reveal class="arch overflow-hidden shadow-[0_30px_60px_-24px_rgb(29_16_34/0.45)] ring-[6px] ring-white">
+        <div data-reveal="photo" class="arch overflow-hidden shadow-[0_30px_60px_-24px_rgb(29_16_34/0.45)] ring-[6px] ring-white">
           <Image
             src={swing}
             alt="Aranžman sa suncokretom, eustomom i gladiolama na ljuljašci"
@@ -43,25 +43,25 @@ const steps = [
     </div>
 
     <div>
-      <p data-reveal class="tag">Poklon aranžmani po narudžbini</p>
-      <h2 data-reveal class="t-h2 mt-5">Poklon koji se <span class="accent">pamti<span class="dot">.</span></span></h2>
-      <p data-reveal class="t-intro mt-5 max-w-[520px]">
+      <p class="tag">Poklon aranžmani po narudžbini</p>
+      <h2 data-reveal class="t-h2 mt-5">Poklon koji se pamti<span class="dot">.</span></h2>
+      <p class="t-intro mt-5 max-w-[520px]">
         Za ljude koji žele da poklone <strong>nešto zaista jedinstveno</strong>. Recite mi kome je namenjen, a ostalo prepustite meni i sezonskom cveću.
       </p>
-      <ol data-stagger class="mt-10 border-b border-line">
+      <ol class="mt-10 border-b border-line">
         {
           steps.map((s) => (
-            <li data-reveal class="flex gap-5 border-t border-line py-5">
+            <li class="flex gap-5 border-t border-line py-5">
               <span class="w-7 shrink-0 pt-px text-[15px] font-semibold tabular-nums text-plum">0{s.n}</span>
               <div>
-                <p class="text-[18px] font-bold tracking-[-0.02em]">{s.title}</p>
-                <p class="mt-1 text-[16px] text-ink-2">{s.text}</p>
+                <p class="text-[17px] font-bold tracking-[-0.02em]">{s.title}</p>
+                <p class="mt-1 text-[17px] text-ink-2">{s.text}</p>
               </div>
             </li>
           ))
         }
       </ol>
-      <div data-reveal class="mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
+      <div class="mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
         <a href={CONTACT.phoneHref} class="btn btn-primary">Pozovite i naručite</a>
         <a href="#upit" data-mode="poklon" class="link">ili pošaljite upit</a>
       </div>

@@ -9,17 +9,16 @@ import { CONTACT, SIZES, din } from "../data/site";
 <section id="upit" class="py-24 sm:py-36">
   <div class="mx-auto max-w-[1120px] px-5">
     <div class="text-center">
-      <p data-reveal class="tag">Kontakt</p>
-      <h2 data-reveal class="t-h2 mt-5">Javite <span class="accent">mi se<span class="dot">.</span></span></h2>
-      <p data-reveal class="t-intro mx-auto mt-5 max-w-[600px]">
+      <h2 data-reveal class="t-h2">Javite mi se<span class="dot">.</span></h2>
+      <p class="t-intro mx-auto mt-5 max-w-[600px]">
         Popunite kratak upit i <strong>složiću vam poruku sa svim detaljima</strong>. Vi je samo pošaljite, preko aplikacije koju inače koristite.
       </p>
     </div>
 
-    <div id="upit-forma" data-reveal class="mx-auto mt-12 max-w-[820px] scroll-mt-24 rounded-[32px] bg-white p-6 shadow-[inset_0_0_0_1.5px_var(--color-line)] sm:mt-16 sm:p-11">
+    <div id="upit-forma" class="mx-auto mt-12 max-w-[820px] scroll-mt-24 rounded-[32px] bg-white p-6 shadow-[inset_0_0_0_1.5px_var(--color-line)] sm:mt-16 sm:p-11">
       <div class="flex flex-wrap items-center justify-between gap-5">
         <div>
-          <p class="text-[22px] font-bold tracking-[-0.03em]">Složite poruku</p>
+          <p class="text-[21px] font-bold tracking-[-0.03em]">Složite poruku</p>
           <p class="mt-1 text-[15px] text-ink-2">Za Viber, SMS, WhatsApp ili mejl</p>
         </div>
         <div class="flex gap-2" aria-hidden="true">
@@ -34,7 +33,7 @@ import { CONTACT, SIZES, din } from "../data/site";
           }
         </div>
       </div>
-      <ol class="mt-6 grid gap-x-6 gap-y-1 border-y border-line py-4 text-[14px] text-ink-2 sm:grid-cols-3">
+      <ol class="mt-6 grid gap-x-6 gap-y-1 border-y border-line py-4 text-[15px] text-ink-2 sm:grid-cols-3">
         <li><span class="mr-2 font-semibold tabular-nums text-plum">01</span>Popunite upit</li>
         <li><span class="mr-2 font-semibold tabular-nums text-plum">02</span>Složite poruku</li>
         <li><span class="mr-2 font-semibold tabular-nums text-plum">03</span>Pošaljite je kanalom po izboru</li>
@@ -85,7 +84,7 @@ import { CONTACT, SIZES, din } from "../data/site";
               SIZES.map((s) => (
                 <label class="tile-pick p-4 text-center">
                   <input type="radio" name="size" value={s.id} checked={s.popular} data-price={din(s.price)} class="sr-only" />
-                  <span class="block text-[24px] font-extrabold leading-none tracking-[-0.03em]">{s.id}</span>
+                  <span class="block text-[24px] font-bold leading-none tracking-[-0.03em]">{s.id}</span>
                   <span class="mt-2 block text-[13px] tabular-nums text-ink-2">{din(s.price)} din</span>
                 </label>
               ))
@@ -117,7 +116,7 @@ import { CONTACT, SIZES, din } from "../data/site";
             <input id="f-occasion" name="occasion" placeholder=" " class="fl-input" />
             <label for="f-occasion" class="fl-label">Kome je poklon i povodom čega (nije obavezno)</label>
           </div>
-          <p class="text-[14px] text-ink-2 sm:col-span-2">Poklon aranžmane pravim najmanje 48 sati unapred. Preuzimanje je u Žarkovu, {CONTACT.street}.</p>
+          <p class="text-[15px] text-ink-2 sm:col-span-2">Poklon aranžmane pravim najmanje 48 sati unapred. Preuzimanje je u Žarkovu, {CONTACT.street}.</p>
         </fieldset>
 
         <div class="fl mt-3">
@@ -131,9 +130,9 @@ import { CONTACT, SIZES, din } from "../data/site";
         <div data-done hidden class="mt-6 rounded-[24px] bg-lilac p-6 sm:p-7">
           <p class="text-[17px] font-bold">Vaša poruka je spremna.</p>
           <p class="mt-1 text-[15px] text-ink-2">Pošaljite je preko Vibera, SMS-a, WhatsApp-a ili mejlom:</p>
-          <pre data-preview class="mt-4 max-h-64 overflow-auto whitespace-pre-wrap rounded-[16px] bg-white p-4 font-sans text-[14px] leading-relaxed text-ink"></pre>
+          <pre data-preview class="mt-4 max-h-64 overflow-auto whitespace-pre-wrap rounded-[16px] bg-white p-4 font-sans text-[15px] leading-relaxed text-ink"></pre>
           <div class="mt-5"><Channels form /></div>
-          <p class="mt-4 text-[14px] text-ink-2">
+          <p class="mt-4 text-[15px] text-ink-2">
             <button type="button" data-copy class="font-semibold text-plum hover:underline">Kopiraj tekst</button>
             <span data-copy-note class="ml-1"></span>
           </p>
@@ -141,9 +140,9 @@ import { CONTACT, SIZES, din } from "../data/site";
       </form>
     </div>
 
-    <p data-reveal class="mt-14 text-center text-[15px] text-ink-3">Radije direktno?</p>
-    <div data-stagger class="mx-auto mt-5 grid max-w-[820px] gap-4 md:grid-cols-2">
-      <div data-reveal class="flex flex-col rounded-[28px] bg-lilac p-7 sm:p-8">
+    <p class="mt-14 text-center text-[15px] text-ink-3">Radije direktno?</p>
+    <div class="mx-auto mt-5 grid max-w-[820px] gap-4 md:grid-cols-2">
+      <div class="flex flex-col rounded-[28px] bg-lilac p-7 sm:p-8">
         <span class="text-[15px] text-ink-2">Pozovite</span>
         <a href={CONTACT.phoneHref} class="mt-1 w-fit text-[34px] font-bold leading-tight tracking-[-0.035em] tabular-nums transition-colors hover:text-plum">{CONTACT.phone}</a>
         <a href={CONTACT.phoneHref} class="btn btn-ghost mt-6 w-fit bg-white md:mt-auto">
@@ -151,7 +150,7 @@ import { CONTACT, SIZES, din } from "../data/site";
           Pozovite
         </a>
       </div>
-      <div data-reveal class="rounded-[28px] p-7 shadow-[inset_0_0_0_1.5px_var(--color-line)] sm:p-8">
+      <div class="rounded-[28px] p-7 shadow-[inset_0_0_0_1.5px_var(--color-line)] sm:p-8">
         <span class="text-[15px] text-ink-2">Pišite direktno</span>
         <div class="mt-4"><Channels /></div>
         <p class="mt-6 text-[13px] text-ink-2">

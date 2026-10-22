@@ -3,7 +3,6 @@ import { Image } from "astro:assets";
 import hands from "../assets/proces/dsc_7574.jpg";
 import detail from "../assets/proces/dsc_7572.jpg";
 import Bloom from "./Bloom.astro";
-import Scribble from "./Scribble.astro";
 
 // Ceca's own story, lightly shortened. Words turn from grey to ink as the paragraph scrolls through (src/scripts/animations.ts).
 const story =
@@ -12,8 +11,7 @@ const story =
 
 <section id="prica" class="py-24 sm:py-40">
   <div class="mx-auto max-w-[1120px] px-5">
-    <p data-reveal class="tag">O meni</p>
-    <h2 data-reveal class="t-h2 mt-5 max-w-[900px]">Ja sam Ceca. Kad se udružim sa cvećem, postajem <Scribble><span class="accent">Cveca<span class="dot">.</span></span></Scribble></h2>
+    <h2 data-reveal class="t-h2 max-w-[900px]">Ja sam Ceca. Kad se udružim sa cvećem, postajem Cveca<span class="dot">.</span></h2>
 
     <!-- A stem grows beside the story as it is read, and the flower opens on "Ispalo je sjajno." -->
     <div data-story class="relative mt-16 sm:mt-24 lg:pl-20">
@@ -36,7 +34,7 @@ const story =
     </div>
 
     <div class="mt-20 grid gap-5 sm:mt-28 md:grid-cols-2">
-      <div data-reveal class="arch overflow-hidden">
+      <div data-reveal="photo" class="arch overflow-hidden">
         <Image
           src={hands}
           alt="Cecine ruke slažu sedum i eustomu u aranžman"
@@ -48,7 +46,7 @@ const story =
         />
       </div>
       <div class="flex flex-col gap-5">
-        <div data-reveal class="flex flex-1 flex-col justify-between rounded-[32px] bg-lilac p-8 sm:p-10">
+        <div class="flex flex-1 flex-col justify-between rounded-[32px] bg-lilac p-8 sm:p-10">
           <p class="t-intro">
             <strong>Nisam školovani cvećar i ne pratim pravila.</strong> Ne pravim buket po slici i ne kopiram nikoga. Aranžmanu dajem potpunu slobodu,
             zato je svaki unikat i zato ovakve nema u cvećarama.
@@ -57,10 +55,10 @@ const story =
             <blockquote class="text-[clamp(22px,2.4vw,28px)] font-semibold leading-tight tracking-[-0.02em]">
               „Ovo je najlepše cveće koje sam ikada dobila.”
             </blockquote>
-            <figcaption class="mt-3 text-[14px] text-ink-2">Rečenica koju sam čula od više žena koje su dobile moje bukete.</figcaption>
+            <figcaption class="mt-3 text-[15px] text-ink-2">Rečenica koju sam čula od više žena koje su dobile moje bukete.</figcaption>
           </figure>
         </div>
-        <div data-reveal class="hidden overflow-hidden rounded-[28px] md:block">
+        <div data-reveal="photo" class="hidden overflow-hidden rounded-[28px] md:block">
           <Image src={detail} alt="Ruka postavlja sedum među gladiole i eustomu" widths={[530, 1060]} sizes="530px" format="webp" class="block aspect-[16/9] w-full object-cover" />
         </div>
       </div>

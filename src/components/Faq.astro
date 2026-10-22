@@ -4,8 +4,8 @@ import { FAQ } from "../data/site";
 
 <section id="pitanja" class="bg-lilac py-24 sm:py-36">
   <div class="mx-auto max-w-[860px] px-5">
-    <div class="text-center"><p data-reveal class="tag">Pitanja</p><h2 data-reveal class="t-h2 mt-5">Ono što me <span class="accent">najčešće pitate<span class="dot">.</span></span></h2></div>
-    <div data-reveal class="mt-12 divide-y divide-line rounded-[32px] bg-white px-6 shadow-[inset_0_0_0_1.5px_var(--color-line)] sm:mt-16 sm:px-10">
+    <div class="text-center"><h2 data-reveal class="t-h2">Ono što me najčešće pitate<span class="dot">.</span></h2></div>
+    <div class="mt-12 divide-y divide-line rounded-[32px] bg-white px-6 shadow-[inset_0_0_0_1.5px_var(--color-line)] sm:mt-16 sm:px-10">
       {
         FAQ.map((f, i) => (
           <details class="faq group" open={i === 0}>
