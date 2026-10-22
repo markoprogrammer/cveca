@@ -9,6 +9,7 @@
     "preview": "astro build && wrangler dev",
     "deploy": "astro build && wrangler deploy",
     "images": "node scripts/prepare-images.mjs",
+    "zoom": "node scripts/zoom-crops.mjs",
     "check": "astro check"
   },
   "dependencies": {

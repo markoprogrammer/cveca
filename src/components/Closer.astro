@@ -1,14 +1,15 @@
 ---
 import LazyImg from "./LazyImg.astro";
-// Portrait studio shot for the card, then two landscape frames that fill a wide screen without stretching.
-import studio from "../assets/buketi/buket-01/dsc_7448.jpg";
-import closer from "../assets/buketi/buket-01/dsc_7444.jpg";
-import macro from "../assets/buketi/buket-11/dsc_7576.jpg";
+// Unikat Nº 6 on the garden swing: the whole scene as the card, then two high-resolution landscape crops
+// from the camera originals (scripts/zoom-crops.mjs) that stay sharp full screen.
+import studio from "../assets/buketi/buket-06/dsc_7520.jpg";
+import closer from "../assets/zoom/buket-06-ljuljaska.jpg";
+import macro from "../assets/zoom/buket-06-detalj.jpg";
 
 const layers = [
-  { src: studio, alt: "Aranžman sa suncokretom, eustomom i zevalicama u crvenoj saksiji, na drvenom panju" },
-  { src: closer, alt: "Isti aranžman izbliza: suncokret među ljubičastim eustomama, zevalicama i asparagusom" },
-  { src: macro, alt: "Detalj: bela eustoma sa ljubičastim rubom, tigraste alstremerije i ružičasti sedum" },
+  { src: studio, alt: "Buket sa zevalicama, eustomom, hrizantemama i karanfilima na drvenoj ljuljašci u bašti", widths: [640, 1080, 1600, 2200] },
+  { src: closer, alt: "Isti buket izbliza: koralne zevalice, žute i bele hrizanteme, ljubičasta eustoma i roze karanfil", widths: [800, 1280, 1920, 2560, 3000] },
+  { src: macro, alt: "Detalj: bela hrizantema, ljubičasta eustoma, žuta hrizantema i zelena loptica karanfila", widths: [800, 1280, 1920, 2560, 3200] },
 ];
 const captions = [
   { title: "Sezonsko cveće.", text: "Biram ono što je te nedelje najlepše na pijaci." },
@@ -26,7 +27,7 @@ const captions = [
     <div data-closer-frame class="closer-frame absolute left-1/2 top-1/2 h-full w-full overflow-hidden">
       {
         layers.map((l) => (
-          <LazyImg src={l.src} alt={l.alt} widths={[640, 1080, 1600, 2200]} sizes="100vw" quality={72} defer="view" class="closer-layer absolute inset-0 size-full object-cover" />
+          <LazyImg src={l.src} alt={l.alt} widths={l.widths} sizes="100vw" quality={72} defer="view" class="closer-layer absolute inset-0 size-full object-cover" />
         ))
       }
       <div data-closer-scrim class="absolute inset-0 bg-gradient-to-t from-aubergine/85 via-aubergine/10 to-transparent"></div>
