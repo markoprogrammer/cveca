@@ -98,32 +98,32 @@ if (!reduce) {
     const caps = [...scene.querySelectorAll<HTMLElement>("[data-closer-cap]")];
     // [fade in from, fully in, start out, gone]; the last caption stays.
     const capTimes = [
-      [0.3, 0.36, 0.48, 0.54],
-      [0.56, 0.62, 0.74, 0.8],
-      [0.82, 0.88, 2, 2],
+      [0.26, 0.32, 0.44, 0.5],
+      [0.52, 0.58, 0.68, 0.74],
+      [0.78, 0.84, 2, 2],
     ];
 
     const render = (p: number) => {
       const vw = innerWidth;
       const vh = innerHeight;
-      const open = smooth(seg(p, 0.08, 0.4));
+      const open = smooth(seg(p, 0.04, 0.34));
       const cardH = Math.min(vh * 0.6, 620);
       const cardW = Math.min(vw * 0.84, cardH * (2 / 3));
       frame.style.width = `${lerp(cardW, vw, open)}px`;
       frame.style.height = `${lerp(cardH, vh, open)}px`;
       frame.style.borderRadius = `${lerp(28, 0, open)}px`;
-      frame.style.transform = `translate(-50%, calc(-50% + ${lerp(vh * 0.09, 0, open)}px))`;
+      frame.style.transform = `translate(-50%, calc(-50% + ${lerp(vh * 0.09, 0, open)}px)) rotate(${lerp(-2.5, 0, open)}deg)`;
       scrim.style.opacity = String(open);
 
-      const t = seg(p, 0.06, 0.22);
+      const t = seg(p, 0.03, 0.16);
       title.style.opacity = String(1 - t);
       title.style.transform = `translateY(${-t * 60}px)`;
 
-      layers[0].style.transform = `scale(${lerp(1, 1.08, seg(p, 0.1, 0.56))})`;
-      layers[1].style.opacity = String(seg(p, 0.46, 0.56));
-      layers[1].style.transform = `scale(${lerp(1.1, 1, seg(p, 0.46, 0.82))})`;
-      layers[2].style.opacity = String(seg(p, 0.72, 0.82));
-      layers[2].style.transform = `scale(${lerp(1.14, 1, seg(p, 0.72, 1))})`;
+      layers[0].style.transform = `scale(${lerp(1, 1.08, seg(p, 0.06, 0.5))})`;
+      layers[1].style.opacity = String(seg(p, 0.42, 0.52));
+      layers[1].style.transform = `scale(${lerp(1.1, 1, seg(p, 0.42, 0.78))})`;
+      layers[2].style.opacity = String(seg(p, 0.68, 0.78));
+      layers[2].style.transform = `scale(${lerp(1.14, 1, seg(p, 0.68, 1))})`;
 
       caps.forEach((cap, i) => {
         const [a, b, c, d] = capTimes[i];

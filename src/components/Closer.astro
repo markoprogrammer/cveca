@@ -1,13 +1,13 @@
 ---
 import LazyImg from "./LazyImg.astro";
-import studio from "../assets/buketi/buket-11/dsc_7579.jpg";
-import closer from "../assets/buketi/buket-11/dsc_7586.jpg";
-import macro from "../assets/buketi/buket-11/dsc_7576.jpg";
+import studio from "../assets/buketi/buket-07/dsc_7546.jpg";
+import closer from "../assets/buketi/buket-07/dsc_7544.jpg";
+import macro from "../assets/buketi/buket-07/dsc_7549.jpg";
 
 const layers = [
-  { src: studio, alt: "Aranžman u crnoj šolji za kafu, na drvenom panju" },
-  { src: closer, alt: "Isti aranžman izbliza: alstremerije, eustoma i sedum iznad šolje" },
-  { src: macro, alt: "Detalj: bela eustoma sa ljubičastim rubom, narandžaste alstremerije i ružičasti sedum" },
+  { src: studio, alt: "Visok aranžman sa gladiolama, suncokretom i palminim listom u drvenoj posudi" },
+  { src: closer, alt: "Isti aranžman izbliza: suncokret među belo-ljubičastim eustomama i zevalicama" },
+  { src: macro, alt: "Detalj: suncokret, eustoma i ružičasti voštani cvet", position: "object-[45%_72%]" },
 ];
 const captions = [
   { title: "Sezonsko cveće.", text: "Biram ono što je te nedelje najlepše na pijaci." },
@@ -25,7 +25,7 @@ const captions = [
     <div data-closer-frame class="closer-frame absolute left-1/2 top-1/2 h-full w-full overflow-hidden">
       {
         layers.map((l) => (
-          <LazyImg src={l.src} alt={l.alt} widths={[640, 1080, 1600, 2200]} sizes="100vw" quality={72} defer="view" class="closer-layer absolute inset-0 size-full object-cover" />
+          <LazyImg src={l.src} alt={l.alt} widths={[640, 1080, 1600, 2200]} sizes="100vw" quality={72} defer="view" class={`closer-layer absolute inset-0 size-full object-cover ${l.position ?? ""}`} />
         ))
       }
       <div data-closer-scrim class="absolute inset-0 bg-gradient-to-t from-aubergine/85 via-aubergine/10 to-transparent"></div>

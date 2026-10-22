@@ -1,16 +1,26 @@
 ---
-import Bloom from "./Bloom.astro";
-
+// The Cveca wordmark. Its "v" is a sprout, two leaves growing from a gold bud: the flowers that
+// turn "Ceca" into "Cveca". grow: the leaves unfurl on page load (header only).
 interface Props {
   class?: string;
-  /** Bloom open on page load (only the header logo). */
-  bloom?: boolean;
-  petal?: string;
+  tone?: "light" | "dark";
+  grow?: boolean;
 }
-const { class: className = "", bloom = false, petal } = Astro.props;
+const { class: className = "", tone = "light", grow = false } = Astro.props;
+const leaves = tone === "dark" ? ["#d9c2f0", "#b48be0"] : ["var(--color-plum)", "#8b5cd6"];
+const leaf = "M0 0C5-6 5-15 0-23C-5-15-5-6 0 0Z";
 ---
 
-<span class={`inline-flex items-center gap-2 ${className}`}>
-  <Bloom class="logo-bloom size-[22px] transition-transform duration-700 ease-out-expo" open={bloom ? "load" : undefined} petal={petal} />
-  <span class="text-[22px] font-extrabold leading-none tracking-[-0.045em]">cveca</span>
+<span class:list={["wordmark inline-flex items-baseline text-[26px] font-extrabold leading-none tracking-[-0.045em]", className]}>
+  c<span class="sr-only">v</span><svg viewBox="-12 -24 24 24" class:list={["sprout", { "sprout-grow": grow }]} aria-hidden="true">
+    {
+      [-27, 27].map((r, i) => (
+        <g class="leaf" style={`--r:${r}deg;--i:${i}`}>
+          <path fill={leaves[i]} d={leaf} />
+          <path d="M0-3V-19" fill="none" stroke="#fff" stroke-width="0.9" stroke-linecap="round" opacity="0.5" />
+        </g>
+      ))
+    }
+    <circle class="bud" cy="-1.6" r="3.2" fill="#e9c46a" />
+  </svg>eca
 </span>
