@@ -82,6 +82,11 @@ const faq = {
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <script is:inline>
       document.documentElement.classList.add("js");
+      // The logo's opening plays only when someone arrives on the site: not when they come from one of its
+      // own pages (e.g. "O meni" from /unikati/) and not when a link points at a section (#prica, #upit).
+      try {
+        if (location.hash || new URL(document.referrer).origin === location.origin) document.documentElement.classList.add("no-intro");
+      } catch {}
       // A reload starts at the top; links with a #hash and back/forward keep the browser's own scroll restoration.
       if (performance.getEntriesByType("navigation")[0]?.type === "reload" && !location.hash) {
         history.scrollRestoration = "manual";
