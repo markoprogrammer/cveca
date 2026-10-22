@@ -263,6 +263,37 @@
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { scrollbar-width: none; }
 
+/*
+ * Opening sequence (≈2 s, pure CSS so it starts on the first paint):
+ * 1. the bouquet arches appear one after another, enlarged, high up where the headline will be;
+ * 2. the whole row glides down and settles to its real size;
+ * 3. the headline, text and buttons rise in above it as it lands.
+ */
+.intro {
+  --lift: clamp(300px, 50vh, 470px);
+}
+.intro-row {
+  transform-origin: 50% 0;
+  /* Ease-in-out: the row lifts off slowly, glides, and lands softly instead of dropping. */
+  animation: intro-row 1.5s cubic-bezier(0.65, 0, 0.35, 1) 0.75s both;
+}
+@keyframes intro-row {
+  from { transform: translateY(calc(-1 * var(--lift))) scale(1.14); }
+  to { transform: none; }
+}
+.intro-card {
+  transform-origin: 50% 100%;
+  animation: intro-card 0.9s var(--ease-out-expo) both;
+  animation-delay: calc(var(--i, 0) * 75ms + 40ms);
+}
+@keyframes intro-card {
+  from { opacity: 0; transform: scale(0.92); }
+}
+.intro-copy {
+  animation: rise 1s var(--ease-out-expo) both;
+  animation-delay: calc(var(--i, 0) * 90ms + 1.1s);
+}
+
 /* Hero lockup rises in once on load, staggered by --i. */
 .rise {
   animation: rise 1.1s var(--ease-out-expo) both;
@@ -428,7 +459,7 @@ dialog.sheet:not([data-vt])[open] .panel {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .rise { animation: none; }
+  .rise, .intro-row, .intro-card, .intro-copy { animation: none; }
   .js [data-reveal] { opacity: 1; }
   *, *::before, *::after {
     transition-duration: 0.01ms !important;

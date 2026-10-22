@@ -9,27 +9,28 @@ const archClass =
   "arch block aspect-[2/3] h-[clamp(300px,50vh,520px)] w-auto object-cover transition-transform duration-[1200ms] ease-out-expo group-hover:scale-[1.03]";
 ---
 
-<section id="top" class="pb-20 pt-16 sm:pb-28 sm:pt-24">
+<!-- Opening: the bouquets arrive first, large, where the headline will be; then the row glides down to its place as the words appear above it (CSS, see .intro-* in global.css). -->
+<section id="top" class="intro overflow-x-clip pb-20 pt-16 sm:pb-28 sm:pt-24">
   <div class="mx-auto max-w-[1000px] px-5 text-center">
     <h1>
-      <span class="rise tag" style="--i:0">Unikatni cvetni aranžmani · Žarkovo, Beograd</span>
-      <span class="rise t-hero mt-5 block" style="--i:1">Nema dva <span class="accent">ista<span class="dot">.</span></span></span>
+      <span class="intro-copy tag" style="--i:0">Unikatni cvetni aranžmani · Žarkovo, Beograd</span>
+      <span class="intro-copy t-hero mt-5 block" style="--i:1">Nema dva <span class="accent">ista<span class="dot">.</span></span></span>
     </h1>
-    <p class="rise t-intro mx-auto mt-6 max-w-[600px]" style="--i:2">
+    <p class="intro-copy t-intro mx-auto mt-6 max-w-[600px]" style="--i:2">
       Veliki, bogati aranžmani od sezonskog cveća, složeni ručno i po osećaju. <strong>Svakog ponedeljka za vašu firmu</strong>, ili kao poklon koji
       se pamti.
     </p>
-    <div class="rise mt-9 flex flex-wrap items-center justify-center gap-3" style="--i:3">
+    <div class="intro-copy mt-9 flex flex-wrap items-center justify-center gap-3" style="--i:3">
       <a href="#firme" class="btn btn-primary">Cveće za firme</a>
       <a href="#poklon" class="btn btn-ghost">Poklon aranžman</a>
     </div>
   </div>
 
   <div id="unikati" class="mt-16 scroll-mt-24 sm:mt-24">
-    <ul data-track-row class="no-scrollbar snap-row flex gap-4 overflow-x-auto pb-2 sm:gap-6" aria-label="Unikati">
+    <ul data-track-row class="intro-row no-scrollbar snap-row relative z-10 flex gap-4 overflow-x-auto pb-2 sm:gap-6" aria-label="Unikati">
       {
         bouquets.map((b, i) => (
-          <li class="rise shrink-0 snap-start" style={`--i:${3.5 + Math.min(i, 4) * 0.5}`}>
+          <li class="intro-card shrink-0 snap-start" style={`--i:${Math.min(i, 5)}`}>
             <button
               type="button"
               data-open={b.id}
@@ -69,7 +70,7 @@ const archClass =
         ))
       }
     </ul>
-    <div class="mx-auto mt-6 flex max-w-[1120px] items-center justify-between gap-6 px-5">
+    <div class="intro-copy mx-auto mt-6 flex max-w-[1120px] items-center justify-between gap-6 px-5" style="--i:4">
       <p class="text-[15px] text-ink-3">Prevucite da vidite svih {bouquets.length}, dodirnite za više fotografija.</p>
       <div class="hidden shrink-0 gap-2 sm:flex">
         <button type="button" data-carousel="-1" aria-label="Prethodni aranžmani" class="grid size-11 place-items-center rounded-full text-ink shadow-[inset_0_0_0_1.5px_var(--color-line)] transition hover:shadow-[inset_0_0_0_1.5px_var(--color-ink)] disabled:opacity-30">
