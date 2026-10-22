@@ -17,6 +17,8 @@ export const CONTACT = {
   email: "cveca26@gmail.com",
   instagram: "https://www.instagram.com/cveca.rs/",
   instagramHandle: "@cveca.rs",
+  // Opens a direct message to the account in the Instagram app (no way to pre-fill the text).
+  instagramDm: "https://ig.me/m/cveca.rs",
   street: "Kraljevačkih žrtava 3",
   neighborhood: "Žarkovo",
   municipality: "Čukarica",

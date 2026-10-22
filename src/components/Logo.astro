@@ -1,43 +1,54 @@
 ---
-// The Cveca logo: the five-petal flower, then the wordmark whose "v" is a sprout (two leaves from a
-// gold bud), the flowers that turn "Ceca" into "Cveca". grow="load" (header): on page load it reads
-// "ceca", the gap opens and the v grows in it; once the logo has landed in the header, the flower
-// makes room and opens petal by petal. grow="scroll" (inside a sentence): the same sequence, played by
-// the scroll (src/scripts/animations.ts); the logo then takes the size of the text around it and the
-// slot goes after "eca", so a full stop travels with the letters.
-import Bloom from "./Bloom.astro";
+// Ceca's logo: a "C" of lily stems and the script "veca" (src/data/logo.ts, traced from her Instagram logo).
+// draw (header, home page opening): the logo writes itself. A mask of pen strokes uncovers the lines in
+// the order they were drawn, from the big lily down the stem and on through "veca"; the stamens open
+// once the lilies are outlined. The header holds the shapes once (defs); the footer copy reuses them.
+import { LOGO } from "../data/logo";
 
 interface Props {
   class?: string;
   tone?: "light" | "dark";
-  grow?: "load" | "scroll";
+  draw?: boolean;
+  /** Only the first logo on the page (the header) carries the shapes; later ones point to them. */
+  defs?: boolean;
 }
-const { class: className = "", tone = "light", grow } = Astro.props;
-const leaves = tone === "dark" ? ["#d9c2f0", "#b48be0"] : ["var(--color-plum)", "#8b5cd6"];
-const leaf = "M0 0C5-6 5-15 0-23C-5-15-5-6 0 0Z";
+const { class: className = "", tone = "light", draw = false, defs = true } = Astro.props;
+const ink = tone === "dark" ? "#c4d4c1" : "#4d6650";
+const gold = tone === "dark" ? "#e2b552" : "#c99a2e";
+// The pen starts a moment after the first paint and takes this long.
+const start = 0.1;
+const pen = 1;
+const s = (t: number) => `${(start + t * pen).toFixed(3)}s`;
+const [vx, vy, vw, vh] = LOGO.viewBox.split(" ").map(Number);
 ---
 
-<span
-  class:list={["inline-flex items-baseline gap-[0.31em]", grow === "scroll" ? "logo-scroll" : "text-[26px]", className]}
-  data-logo-scroll={grow === "scroll" ? "" : undefined}
+<svg
+  viewBox={LOGO.viewBox}
+  class:list={["logo", draw && "logo-draw", className]}
+  style={draw ? `--pen-end:${s(1)};--gold-at:${s(LOGO.goldAt)}` : undefined}
+  aria-hidden="true"
 >
-  <Bloom
-    class="logo-bloom size-[0.923em] translate-y-[0.144em] self-center"
-    petal={tone === "dark" ? "var(--color-orchid)" : undefined}
-    open={grow === "load" ? "load" : undefined}
-    delay={1000}
-  />
-  <span class="wordmark inline-flex items-baseline font-extrabold leading-none tracking-[-0.045em]">
-    c<span class="sr-only">v</span><svg viewBox="-12 -24 24 24" class:list={["sprout", { "sprout-grow": grow === "load" }]} aria-hidden="true">
-      {
-        [-27, 27].map((r, i) => (
-          <g class="leaf" style={`--r:${r}deg;--i:${i}`}>
-            <path fill={leaves[i]} d={leaf} />
-            <path d="M0-3V-19" fill="none" stroke="#fff" stroke-width="0.9" stroke-linecap="round" opacity="0.5" />
-          </g>
-        ))
-      }
-      <circle class="bud" cy="-1.6" r="3.2" fill="#e9c46a" />
-    </svg><span class="tail">eca<slot /></span>
-  </span>
-</span>
+  {
+    defs && (
+      <defs>
+        <path id="logo-lines" transform={LOGO.lines.transform} d={LOGO.lines.d} vector-effect="non-scaling-stroke" />
+        <path id="logo-gold" transform={LOGO.gold.transform} d={LOGO.gold.d} vector-effect="non-scaling-stroke" />
+      </defs>
+    )
+  }
+  {
+    draw && (
+      <mask id="logo-pen" maskUnits="userSpaceOnUse" x={vx} y={vy} width={vw} height={vh}>
+        <g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round">
+          {LOGO.strokes.map(([d, w, a, b]) => (
+            <path d={d} stroke-width={w + 6} pathLength="1" style={`--a:${s(a)};--b:${Math.max(0.01, (b - a) * pen).toFixed(3)}s`} />
+          ))}
+        </g>
+        <rect class="logo-done" x={vx} y={vy} width={vw} height={vh} fill="#fff" />
+      </mask>
+    )
+  }
+  <!-- A third of a pixel of outline on screen, at any size, so the hairlines hold up in a 56px header. -->
+  <g mask={draw ? "url(#logo-pen)" : undefined} class="logo-ink"><use href="#logo-lines" fill={ink} stroke={ink} stroke-width="0.65" /></g>
+  <use href="#logo-gold" fill={gold} stroke={gold} stroke-width="0.4" class="logo-gold" />
+</svg>

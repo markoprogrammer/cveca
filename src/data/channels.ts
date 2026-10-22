@@ -32,5 +32,6 @@ export const CHANNELS: Channel[] = [
   },
 ];
 
-// Instagram is where new arrangements appear; it is linked, not used to send the composed message.
-export const INSTAGRAM = { href: CONTACT.instagram, label: CONTACT.instagramHandle, color: `#${siInstagram.hex}`, path: siInstagram.path };
+// Instagram direct message, after the four. It cannot take a pre-filled text, so the inquiry script copies
+// the composed message first and the visitor pastes it.
+export const INSTAGRAM = { href: CONTACT.instagramDm, label: CONTACT.instagramHandle, color: `#${siInstagram.hex}`, path: siInstagram.path };

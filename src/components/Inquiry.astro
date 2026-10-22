@@ -21,7 +21,7 @@ import { CONTACT, SIZES, din } from "../data/site";
 
     <div id="upit-forma" class="mx-auto mt-12 max-w-[820px] scroll-mt-24 rounded-[32px] bg-white p-6 shadow-[inset_0_0_0_1.5px_var(--color-line)] sm:mt-16 sm:p-11">
       <p class="text-[21px] font-bold tracking-[-0.03em]">Složite poruku</p>
-      <p class="mt-1 text-[15px] text-ink-2">Popunite upit, a poruku zatim pošaljite Viberom, SMS-om, WhatsApp-om ili mejlom.</p>
+      <p class="mt-1 text-[15px] text-ink-2">Popunite upit, a poruku zatim pošaljite Viberom, SMS-om, WhatsApp-om, mejlom ili na Instagramu.</p>
 
       <form id="upit-form" class="mt-8">
         <fieldset class="seg relative grid grid-cols-2 rounded-full bg-lilac-2 p-1">
@@ -122,7 +122,7 @@ import { CONTACT, SIZES, din } from "../data/site";
 
         <div data-done hidden class="mt-6 rounded-[24px] bg-lilac p-6 sm:p-7">
           <p class="text-[17px] font-bold">Vaša poruka je spremna.</p>
-          <p class="mt-1 text-[15px] text-ink-2">Pošaljite je preko Vibera, SMS-a, WhatsApp-a ili mejlom:</p>
+          <p class="mt-1 text-[15px] text-ink-2">Pošaljite je preko Vibera, SMS-a, WhatsApp-a, mejlom ili na Instagramu:</p>
           <pre data-preview class="mt-4 max-h-64 overflow-auto whitespace-pre-wrap rounded-[16px] bg-white p-4 font-sans text-[15px] leading-relaxed text-ink"></pre>
           <div class="mt-5"><Channels form /></div>
           <p class="mt-4 text-[15px] text-ink-2">
@@ -145,7 +145,7 @@ import { CONTACT, SIZES, din } from "../data/site";
       </div>
       <div class="rounded-[28px] bg-white p-7 shadow-[inset_0_0_0_1.5px_var(--color-line)] sm:p-8">
         <span class="text-[15px] text-ink-2">Pišite direktno</span>
-        <div class="mt-4"><Channels instagram /></div>
+        <div class="mt-4"><Channels /></div>
         <p class="mt-6 text-[13px] text-ink-2">
           {CONTACT.email}<br />
           Preuzimanje: {CONTACT.street}, {CONTACT.neighborhood}.{" "}
@@ -245,5 +245,10 @@ import { CONTACT, SIZES, din } from "../data/site";
   send("viber").addEventListener("click", () => {
     navigator.clipboard.writeText(preview.textContent ?? "").catch(() => {});
     copyNote.textContent = "Tekst je kopiran: ako se ne pojavi u Viberu, samo ga nalepite.";
+  });
+  // Instagram cannot pre-fill a message at all: copy it, then the chat opens and it is one paste away.
+  send("instagram").addEventListener("click", () => {
+    navigator.clipboard.writeText(preview.textContent ?? "").catch(() => {});
+    copyNote.textContent = "Tekst je kopiran: u Instagram poruci ga samo nalepite.";
   });
 </script>

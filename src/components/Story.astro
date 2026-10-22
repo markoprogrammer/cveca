@@ -3,7 +3,7 @@ import { Image } from "astro:assets";
 import hands from "../assets/proces/dsc_7574.jpg";
 import detail from "../assets/proces/dsc_7572.jpg";
 import Bloom from "./Bloom.astro";
-import Logo from "./Logo.astro";
+import Wordmark from "./Wordmark.astro";
 
 // Ceca's own story, lightly shortened. Words turn from grey to ink as the paragraph scrolls through (src/scripts/animations.ts).
 const story =
@@ -13,7 +13,7 @@ const story =
 <section id="prica" class="py-24 sm:py-40">
   <div class="mx-auto max-w-[1120px] px-5">
     <!-- "ceca" turns into the logo as it scrolls up: the letters part, the v sprouts, the flower opens. -->
-    <h2 data-reveal class="t-h2 max-w-[900px]">Ja sam Ceca. Kad se udružim sa cvećem, postajem <Logo grow="scroll"><span class="dot">.</span></Logo></h2>
+    <h2 data-reveal class="t-h2 max-w-[900px]">Ja sam Ceca. Kad se udružim sa cvećem, postajem <Wordmark><span class="dot">.</span></Wordmark></h2>
 
     <!-- A stem grows beside the story as it is read, and the flower opens on "Ispalo je sjajno." -->
     <div data-story class="relative mt-16 sm:mt-24 lg:pl-20">
