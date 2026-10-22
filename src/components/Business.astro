@@ -6,6 +6,9 @@ import sizeL from "../assets/buketi/buket-06/dsc_7528.jpg";
 import sizeXL from "../assets/buketi/buket-07/dsc_7546.jpg";
 import { CONTACT, SIZES, din } from "../data/site";
 
+// On its own page the section should not link to itself.
+const onPage = Astro.url.pathname.startsWith("/cvece-za-firme");
+
 const ritual = [
   { title: "Svakog ponedeljka, nov aranžman", text: "Donosim ga pravo na vašu recepciju, svež i drugačiji nego prošle nedelje." },
   { title: "Stari odnosim, zajedno sa posudom", text: "Vi ne radite ništa. Ni vaze, ni voda, ni uvelo cveće." },
@@ -85,6 +88,7 @@ const shots = { M: { src: sizeM, h: "h-[74%]" }, L: { src: sizeL, h: "h-[87%]" }
     <div class="mt-14 flex flex-col items-center gap-5 text-center">
       <a href={CONTACT.phoneHref} class="btn btn-light">Pozovite za ponudu</a>
       <a href="#upit" data-mode="firma" data-trial class="link">ili zakažite probnu isporuku</a>
+      {!onPage && <a href="/cvece-za-firme/" class="link">Sve o cveću za firme</a>}
       <p class="max-w-[560px] text-[13px] leading-relaxed text-white/45">
         Saradnja je po ugovoru, uz plaćanje preko računa mesec dana unapred. Fotografije su primeri, svaki aranžman je drugačiji.
       </p>

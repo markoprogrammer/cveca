@@ -11,13 +11,25 @@ import { CONTACT, FAQ, SITE, SIZES } from "../data/site";
 interface Props {
   title?: string;
   description?: string;
-  /** Structured data only belongs on the real home page, not on the 404. */
+  /** Florist structured data: on every real page, not on the 404. */
   schema?: boolean;
+  /** FAQPage structured data: only where the full FAQ is shown (home). */
+  faq?: boolean;
+  /** The logo's opening animation: home only. */
+  intro?: boolean;
+  /** Social preview image (path or URL); defaults to /og.jpg. */
+  image?: string;
+  /** Extra structured data for this page (breadcrumbs, services, lists). */
+  jsonLd?: object[];
+  /** Where the header's "Pišite" goes: the page's own contact section, or the home one. */
+  contact?: string;
+  /** Keep this page out of search results (the 404). */
+  noindex?: boolean;
 }
 
-const { title = SITE.title, description = SITE.description, schema = false } = Astro.props;
+const { title = SITE.title, description = SITE.description, schema = false, faq: withFaq = false, intro = false, image, jsonLd = [], contact, noindex = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
-const ogImage = new URL("/og.jpg", Astro.site).href;
+const ogImage = new URL(image ?? "/og.jpg", Astro.site).href;
 
 const florist = {
   "@context": "https://schema.org",
@@ -68,12 +80,20 @@ const faq = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <script is:inline>document.documentElement.classList.add("js");</script>
+    <script is:inline>
+      document.documentElement.classList.add("js");
+      // A reload starts at the top; links with a #hash and back/forward keep the browser's own scroll restoration.
+      if (performance.getEntriesByType("navigation")[0]?.type === "reload" && !location.hash) {
+        history.scrollRestoration = "manual";
+        addEventListener("pagehide", () => (history.scrollRestoration = "auto"));
+      }
+    </script>
     <link rel="preload" href={fontLatin} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={fontLatinExt} as="font" type="font/woff2" crossorigin />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {noindex ? <meta name="robots" content="noindex, follow" /> : <link rel="canonical" href={canonical} />}
+    {!noindex && <meta name="robots" content="index, follow, max-image-preview:large" />}
     <meta name="theme-color" content="#ffffff" />
     <meta name="format-detection" content="telephone=yes" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -92,16 +112,23 @@ const faq = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Aranžman sa suncokretom, eustomom i zevalicama u crvenoj saksiji" />
+    {
+      !image && (
+        <>
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+          <meta property="og:image:alt" content="Aranžman sa suncokretom, eustomom i zevalicama u crvenoj saksiji" />
+        </>
+      )
+    }
     <meta name="twitter:card" content="summary_large_image" />
 
     {schema && <script type="application/ld+json" set:html={JSON.stringify(florist)} />}
-    {schema && <script type="application/ld+json" set:html={JSON.stringify(faq)} />}
+    {withFaq && <script type="application/ld+json" set:html={JSON.stringify(faq)} />}
+    {jsonLd.map((d) => <script type="application/ld+json" set:html={JSON.stringify(d)} />)}
   </head>
   <body class="min-h-dvh">
-    <Nav />
+    <Nav intro={intro} contact={contact} />
     <main>
       <slot />
     </main>

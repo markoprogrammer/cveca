@@ -1,0 +1,72 @@
+---
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import Gift from "../components/Gift.astro";
+import Faq from "../components/Faq.astro";
+import Inquiry from "../components/Inquiry.astro";
+import hero from "../assets/buketi/buket-01/dsc_7448.jpg";
+import { breadcrumbs, giftService } from "../data/seo";
+import { bouquets } from "../data/bouquets";
+import { FAQ } from "../data/site";
+
+const crumbs = [
+  { name: "Početna", path: "/" },
+  { name: "Poklon aranžmani", path: "/poklon-aranzmani/" },
+];
+
+const occasions = ["Rođendan", "Godišnjica", "Hvala", "Dobrodošlica bebi", "Osmi mart", "Bez povoda"];
+// Arrangements that read as gifts: the baskets with handles, the ceramic vase, the sunflower pot.
+const picks = [9, 4, 6, 1].map((n) => bouquets.find((b) => b.n === n)!);
+
+const faq = [
+  ...FAQ.filter((f) => /poklon|slici|nalazite/i.test(f.q)),
+];
+---
+
+<Base
+  schema
+  title="Poklon aranžmani po narudžbini · Žarkovo, Beograd | Cveca"
+  description="Unikatni poklon aranžmani od sezonskog cveća, složeni samo za vas. Narudžba 48 sati unapred, preuzimanje u Žarkovu ili dostava po dogovoru."
+  jsonLd={[breadcrumbs(crumbs), giftService]}
+>
+  <PageHero crumbs={crumbs} tag="Poklon aranžmani · Žarkovo, Beograd" title="Poklon aranžmani po narudžbini" image={hero} imageAlt="Poklon aranžman sa suncokretom, eustomom i zevalicama u crvenoj saksiji" call="Pozovite i naručite" mode="poklon">
+    Za ljude koji žele da poklone nešto zaista jedinstveno. <strong>Svaki aranžman slažem samo za vas</strong>, od sezonskog cveća i po osećaju, i
+    nijedan se ne ponavlja.
+  </PageHero>
+
+  <section class="pb-24 sm:pb-32">
+    <div class="mx-auto max-w-[1120px] px-5">
+      <h2 data-reveal class="t-h2 max-w-[760px]">Za svaki povod, i bez njega<span class="dot">.</span></h2>
+      <ul class="mt-10 flex flex-wrap gap-3">
+        {occasions.map((o) => <li class="rounded-full px-5 py-2.5 text-[17px] shadow-[inset_0_0_0_1.5px_var(--color-line)]">{o}</li>)}
+      </ul>
+      <p class="mt-8 max-w-[640px] text-[17px] text-ink-2">
+        Ne pravim aranžman po slici. Recite mi za koga je, kakav je to čovek i koje boje voli, a ja ću složiti nešto što liči na njega, od cveća koje
+        je te nedelje najlepše.
+      </p>
+
+      <h2 data-reveal class="t-h2 mt-24 sm:mt-32">Neki od poklona koje sam složila<span class="dot">.</span></h2>
+      <ul class="mt-12 grid grid-cols-2 gap-5 md:grid-cols-4">
+        {
+          picks.map((b) => (
+            <li>
+              <a href={`/unikati/${b.slug}/`} class="group block">
+                <span class="arch block overflow-hidden bg-lilac">
+                  <Image src={b.photos[0]} alt={`${b.title}, ${b.vessel.toLowerCase()}`} widths={[260, 390, 520]} sizes="(min-width: 768px) 260px, 45vw" format="webp" class="arch block aspect-[2/3] w-full object-cover transition-transform duration-[1200ms] ease-out-expo group-hover:scale-[1.03]" />
+                </span>
+                <span class="mt-3 block text-[16px] font-semibold transition-colors group-hover:text-plum">{b.title}</span>
+                <span class="block text-[15px] text-ink-3">{b.vessel}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a href="/unikati/" class="link mt-10">Svi unikati</a>
+    </div>
+  </section>
+
+  <Gift />
+  <Faq items={faq} title="Pitanja o poklonima" />
+  <Inquiry mode="poklon" />
+</Base>

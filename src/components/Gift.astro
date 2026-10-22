@@ -4,6 +4,8 @@ import basket from "../assets/buketi/buket-09/dsc_7535.jpg";
 import swing from "../assets/buketi/buket-07/dsc_7536.jpg";
 import { CONTACT } from "../data/site";
 
+const onPage = Astro.url.pathname.startsWith("/poklon-aranzmani");
+
 const steps = [
   { n: "1", title: "Pošaljite upit", text: "Izaberite datum i recite mi kome je poklon i kakav je to čovek." },
   { n: "2", title: "Slažem samo za vas", text: "Od sezonskog cveća, po osećaju. Narudžbine najmanje 48 sati unapred." },
@@ -64,6 +66,7 @@ const steps = [
       <div class="mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
         <a href={CONTACT.phoneHref} class="btn btn-primary">Pozovite i naručite</a>
         <a href="#upit" data-mode="poklon" class="link">ili pošaljite upit</a>
+        {!onPage && <a href="/poklon-aranzmani/" class="link">Više o poklon aranžmanima</a>}
       </div>
     </div>
   </div>

@@ -1,0 +1,58 @@
+---
+import { Image } from "astro:assets";
+import Base from "../../layouts/Base.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Inquiry from "../../components/Inquiry.astro";
+import { bouquets } from "../../data/bouquets";
+import { breadcrumbs, itemList } from "../../data/seo";
+import { photos } from "../../data/site";
+
+const crumbs = [
+  { name: "Početna", path: "/" },
+  { name: "Unikati", path: "/unikati/" },
+];
+---
+
+<Base
+  schema
+  title="Unikati · cvetni aranžmani koji se ne ponavljaju | Cveca, Beograd"
+  description="Galerija Cecinih unikatnih cvetnih aranžmana od sezonskog cveća: suncokreti, eustome, protee, gladiole. Svaki je autorski rad i nijedan se ne ponavlja."
+  jsonLd={[breadcrumbs(crumbs), itemList("Unikati", bouquets.map((b) => ({ name: b.title, path: `/unikati/${b.slug}/` })))]}
+>
+  <section class="pb-24 pt-10 sm:pb-32 sm:pt-14">
+    <div class="mx-auto max-w-[1120px] px-5">
+      <Breadcrumbs items={crumbs} />
+      <p class="tag">Galerija · Žarkovo, Beograd</p>
+      <h1 data-reveal class="t-h2 mt-4 max-w-[820px]">Unikati: aranžmani koji se ne ponavljaju<span class="dot">.</span></h1>
+      <p class="t-intro mt-6 max-w-[600px]">
+        Svaki je složen jednom, od sezonskog cveća i po osećaju. <strong>Vaš će biti drugačiji</strong>, ali evo šta je sve do sada nekoga obradovalo.
+      </p>
+
+      <ul class="mt-14 grid grid-cols-2 gap-x-5 gap-y-12 sm:mt-20 md:grid-cols-3 lg:grid-cols-4">
+        {
+          bouquets.map((b, i) => (
+            <li>
+              <a href={`/unikati/${b.slug}/`} class="group block">
+                <span class="arch block overflow-hidden bg-lilac">
+                  <Image
+                    src={b.photos[0]}
+                    alt={`${b.title}, ${b.vessel.toLowerCase()}: ${b.flowers.toLowerCase()}`}
+                    widths={[260, 390, 520]}
+                    sizes="(min-width: 1024px) 260px, (min-width: 768px) 33vw, 45vw"
+                    format="webp"
+                    loading={i < 4 ? "eager" : "lazy"}
+                    class="arch block aspect-[2/3] w-full object-cover transition-transform duration-[1200ms] ease-out-expo group-hover:scale-[1.03]"
+                  />
+                </span>
+                <span class="mt-4 block text-[17px] font-semibold transition-colors group-hover:text-plum">{b.title}</span>
+                <span class="block text-[15px] text-ink-3">{b.vessel} · {photos(b.photos.length)}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <Inquiry mode="poklon" />
+</Base>

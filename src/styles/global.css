@@ -235,7 +235,8 @@
   }
   .fl-input:focus + .fl-label,
   .fl-input:not(:placeholder-shown) + .fl-label,
-  .fl-input[type="date"] + .fl-label {
+  .fl-input[type="date"] + .fl-label,
+  .fl-input[type="time"] + .fl-label {
     transform: translateY(-10px) scale(0.74);
   }
   .tile-pick {

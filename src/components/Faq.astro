@@ -1,13 +1,19 @@
 ---
 import { FAQ } from "../data/site";
+
+interface Props {
+  items?: { q: string; a: string }[];
+  title?: string;
+}
+const { items = FAQ, title = "Ono što me najčešće pitate" } = Astro.props;
 ---
 
 <section id="pitanja" class="bg-lilac py-24 sm:py-36">
   <div class="mx-auto max-w-[860px] px-5">
-    <div class="text-center"><h2 data-reveal class="t-h2">Ono što me najčešće pitate<span class="dot">.</span></h2></div>
+    <div class="text-center"><h2 data-reveal class="t-h2">{title}<span class="dot">.</span></h2></div>
     <div class="mt-12 divide-y divide-line rounded-[32px] bg-white px-6 shadow-[inset_0_0_0_1.5px_var(--color-line)] sm:mt-16 sm:px-10">
       {
-        FAQ.map((f, i) => (
+        items.map((f, i) => (
           <details class="faq group" open={i === 0}>
             <summary class="flex cursor-pointer items-center justify-between gap-6 py-6 text-[19px] font-semibold tracking-[-0.02em] sm:text-[21px]">
               {f.q}

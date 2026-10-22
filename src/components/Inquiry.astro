@@ -1,6 +1,11 @@
 ---
 import Channels from "./Channels.astro";
 import { CHANNELS } from "../data/channels";
+
+interface Props {
+  mode?: "firma" | "poklon";
+}
+const { mode = "firma" } = Astro.props;
 import { CONTACT, SIZES, din } from "../data/site";
 ---
 
@@ -44,11 +49,11 @@ import { CONTACT, SIZES, din } from "../data/site";
           <legend class="sr-only">Za koga je upit</legend>
           <span class="seg-pill absolute inset-y-1 left-1 w-[calc(50%-4px)] rounded-full bg-white shadow-[0_1px_4px_rgb(29_16_34/0.12)]" aria-hidden="true"></span>
           <label class="relative z-10 cursor-pointer py-2.5 text-center text-[15px] font-semibold text-ink-2 has-[:checked]:text-plum has-[:focus-visible]:underline">
-            <input type="radio" name="mode" value="firma" checked class="sr-only" />
+            <input type="radio" name="mode" value="firma" checked={mode === "firma"} class="sr-only" />
             Za firmu
           </label>
           <label class="relative z-10 cursor-pointer py-2.5 text-center text-[15px] font-semibold text-ink-2 has-[:checked]:text-plum has-[:focus-visible]:underline">
-            <input type="radio" name="mode" value="poklon" class="sr-only" />
+            <input type="radio" name="mode" value="poklon" checked={mode === "poklon"} class="sr-only" />
             Za poklon
           </label>
         </fieldset>
@@ -111,9 +116,15 @@ import { CONTACT, SIZES, din } from "../data/site";
               <span class="text-[13px] leading-snug text-ink-2">Po dogovoru</span>
             </label>
           </div>
-          <div class="fl">
-            <input id="f-date" name="date" type="date" required placeholder=" " class="fl-input" />
-            <label for="f-date" class="fl-label">Datum kada vam treba</label>
+          <div class="grid grid-cols-[1.4fr_1fr] gap-3">
+            <div class="fl">
+              <input id="f-date" name="date" type="date" required placeholder=" " class="fl-input" />
+              <label for="f-date" class="fl-label">Datum</label>
+            </div>
+            <div class="fl">
+              <input id="f-time" name="time" type="time" placeholder=" " class="fl-input" />
+              <label for="f-time" class="fl-label">Vreme (okvirno)</label>
+            </div>
           </div>
           <div class="fl">
             <input id="f-occasion" name="occasion" placeholder=" " class="fl-input" />
@@ -225,7 +236,9 @@ import { CONTACT, SIZES, din } from "../data/site";
       if (data.get("trial")) lines.push("Želim prvo probnu isporuku.");
     } else {
       subject = `Poklon aranžman za ${formatDate(v("date"))}`;
-      lines.push("", "Poklon aranžman", `Datum: ${formatDate(v("date"))}`, `Preuzimanje: ${v("pickup")}`);
+      lines.push("", "Poklon aranžman", `Datum: ${formatDate(v("date"))}`);
+      if (v("time")) lines.push(`Vreme: ${v("time")}`);
+      lines.push(`Preuzimanje: ${v("pickup")}`);
       if (v("occasion")) lines.push(`Kome i povodom čega: ${v("occasion")}`);
     }
     if (v("message")) lines.push("", v("message"));
