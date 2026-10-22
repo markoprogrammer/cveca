@@ -20,7 +20,7 @@ const ritual = [
 const shots = { M: { src: sizeM, h: "h-[74%]" }, L: { src: sizeL, h: "h-[87%]" }, XL: { src: sizeXL, h: "h-full" } } as const;
 ---
 
-<section id="firme" class="relative overflow-hidden bg-lilac py-24 sm:py-40">
+<section id="firme" class="relative overflow-hidden bg-mist py-24 sm:py-40">
   <div class="relative mx-auto max-w-[1120px] px-5">
     <div class="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
       <div>
@@ -33,7 +33,7 @@ const shots = { M: { src: sizeM, h: "h-[74%]" }, L: { src: sizeL, h: "h-[87%]" }
           {
             ritual.map((r, i) => (
               <li class="flex gap-5 bg-white p-6 sm:p-7">
-                <span class="w-7 shrink-0 pt-px text-[15px] font-semibold tabular-nums text-plum">0{i + 1}</span>
+                <span class="w-7 shrink-0 pt-px text-[15px] font-semibold tabular-nums text-sage">0{i + 1}</span>
                 <div>
                   <p class="text-[17px] font-bold tracking-[-0.02em]">{r.title}</p>
                   <p class="mt-1 text-[15px] text-ink-2">{r.text}</p>
@@ -65,10 +65,10 @@ const shots = { M: { src: sizeM, h: "h-[74%]" }, L: { src: sizeL, h: "h-[87%]" }
           <div
             class:list={[
               "relative flex flex-col items-center rounded-[32px] p-7 pt-10 text-center sm:p-9 sm:pt-12",
-              s.popular ? "bg-white shadow-[inset_0_0_0_2px_var(--color-plum)]" : "bg-white",
+              s.popular ? "bg-white shadow-[inset_0_0_0_2px_var(--color-sage)]" : "bg-white",
             ]}
           >
-            {s.popular && <span class="absolute inset-x-0 top-5 text-center text-[13px] font-semibold text-plum">Najtraženiji</span>}
+            {s.popular && <span class="absolute inset-x-0 top-5 text-center text-[13px] font-semibold text-sage">Najtraženiji</span>}
             <div class="flex h-[260px] w-full items-end justify-center sm:h-[320px]">
               <Image src={shots[s.id].src} alt={`Primer aranžmana veličine ${s.id}`} widths={[240, 360, 480]} sizes="240px" format="webp" class={`arch block aspect-[2/3] w-auto object-cover ${shots[s.id].h}`} />
             </div>

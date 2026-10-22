@@ -8,7 +8,7 @@ interface Props {
 const { items = FAQ, title = "Ono što me najčešće pitate" } = Astro.props;
 ---
 
-<section id="pitanja" class="bg-lilac py-24 sm:py-36">
+<section id="pitanja" class="bg-mist py-24 sm:py-36">
   <div class="mx-auto max-w-[860px] px-5">
     <div class="text-center"><h2 data-reveal class="t-h2">{title}<span class="dot">.</span></h2></div>
     <div class="mt-12 divide-y divide-line rounded-[32px] bg-white px-6 shadow-[inset_0_0_0_1.5px_var(--color-line)] sm:mt-16 sm:px-10">
@@ -17,7 +17,7 @@ const { items = FAQ, title = "Ono što me najčešće pitate" } = Astro.props;
           <details class="faq group" open={i === 0}>
             <summary class="flex cursor-pointer items-center justify-between gap-6 py-6 text-[19px] font-semibold tracking-[-0.02em] sm:text-[21px]">
               {f.q}
-              <span class="faq-plus grid size-8 shrink-0 place-items-center rounded-full bg-lilac-2 text-plum" aria-hidden="true">
+              <span class="faq-plus grid size-8 shrink-0 place-items-center rounded-full bg-mist-2 text-sage" aria-hidden="true">
                 <svg viewBox="0 0 24 24" class="size-4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>
               </span>
             </summary>

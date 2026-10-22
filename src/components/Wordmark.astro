@@ -10,7 +10,7 @@ interface Props {
   class?: string;
 }
 const { class: className = "" } = Astro.props;
-const leaves = ["var(--color-plum)", "#8b5cd6"];
+const leaves = ["var(--color-sage)", "var(--color-sage-soft)"];
 const leaf = "M0 0C5-6 5-15 0-23C-5-15-5-6 0 0Z";
 ---
 
@@ -26,7 +26,7 @@ const leaf = "M0 0C5-6 5-15 0-23C-5-15-5-6 0 0Z";
           </g>
         ))
       }
-      <circle class="bud" cy="-1.6" r="3.2" fill="#e9c46a" />
+      <circle class="bud" cy="-1.6" r="3.2" fill="var(--color-gold)" />
     </svg><span class="tail">eca<slot /></span>
   </span>
 </span>

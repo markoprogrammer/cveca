@@ -1,15 +1,16 @@
 ---
-// The Cveca flower: five petals and a soft gold heart.
+// The Cveca flower: five white petals drawn in sage, like the lilies in the logo, around a gold heart.
 // open="load" blooms petal by petal when the page loads; open="view" waits until
 // src/scripts/animations.ts adds .is-open (on view, or at the end of the story).
 interface Props {
   class?: string;
   petal?: string;
+  outline?: string;
   heart?: string;
   open?: "load" | "view";
   delay?: number;
 }
-const { class: className = "", petal = "var(--color-plum)", heart = "#e9c46a", open, delay = 0 } = Astro.props;
+const { class: className = "", petal = "#fff", outline = "var(--color-sage)", heart = "var(--color-gold)", open, delay = 0 } = Astro.props;
 ---
 
 <svg
@@ -19,6 +20,6 @@ const { class: className = "", petal = "var(--color-plum)", heart = "#e9c46a", o
   data-bloom={open === "view" ? "" : undefined}
   aria-hidden="true"
 >
-  {[0, 72, 144, 216, 288].map((r, i) => <ellipse cx="12" cy="6.6" rx="3.7" ry="5.1" fill={petal} style={`--r:${r}deg;--i:${i}`} />)}
+  {[0, 72, 144, 216, 288].map((r, i) => <ellipse cx="12" cy="6.6" rx="3.7" ry="5.1" fill={petal} stroke={outline} stroke-width="0.9" style={`--r:${r}deg;--i:${i}`} />)}
   <circle cx="12" cy="12" r="2.8" fill={heart} />
 </svg>

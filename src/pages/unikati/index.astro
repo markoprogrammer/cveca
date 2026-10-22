@@ -33,7 +33,7 @@ const crumbs = [
           bouquets.map((b, i) => (
             <li>
               <a href={`/unikati/${b.slug}/`} class="group block">
-                <span class="arch block overflow-hidden bg-lilac">
+                <span class="arch block overflow-hidden bg-mist">
                   <Image
                     src={b.photos[0]}
                     alt={`${b.title}, ${b.vessel.toLowerCase()}: ${b.flowers.toLowerCase()}`}
@@ -44,7 +44,7 @@ const crumbs = [
                     class="arch block aspect-[2/3] w-full object-cover transition-transform duration-[1200ms] ease-out-expo group-hover:scale-[1.03]"
                   />
                 </span>
-                <span class="mt-4 block text-[17px] font-semibold transition-colors group-hover:text-plum">{b.title}</span>
+                <span class="mt-4 block text-[17px] font-semibold transition-colors group-hover:text-sage">{b.title}</span>
                 <span class="block text-[15px] text-ink-3">{b.vessel} · {photos(b.photos.length)}</span>
               </a>
             </li>
@@ -53,7 +53,7 @@ const crumbs = [
       </ul>
       <p class="mt-16 text-center text-[17px] text-ink-2 sm:mt-20">
         Novi unikati nastaju svake nedelje. Pratite ih na Instagramu:
-        <a href={CONTACT.instagram} target="_blank" rel="noopener" class="font-semibold text-plum hover:underline">{CONTACT.instagramHandle}</a>
+        <a href={CONTACT.instagram} target="_blank" rel="noopener" class="font-semibold text-sage hover:underline">{CONTACT.instagramHandle}</a>
       </p>
     </div>
   </section>

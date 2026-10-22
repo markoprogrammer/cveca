@@ -10,7 +10,7 @@ const { b } = Astro.props;
 
 <dialog id={b.id} class="sheet" aria-label={b.title}>
   <div class="panel">
-    <div class="relative min-h-0 bg-lilac">
+    <div class="relative min-h-0 bg-mist">
       <div data-track class="no-scrollbar flex h-full snap-x snap-mandatory overflow-x-auto">
         {
           b.photos.map((p, i) => (
@@ -46,7 +46,7 @@ const { b } = Astro.props;
           <p class="text-[13px] font-semibold uppercase tracking-[0.02em] text-ink-3">{b.vessel}</p>
           <h2 class="t-h3 mt-1">{b.title}</h2>
         </div>
-        <button type="button" data-close aria-label="Zatvori" class="hidden size-9 shrink-0 place-items-center rounded-full bg-lilac-2 text-ink transition-colors hover:bg-orchid lg:grid">
+        <button type="button" data-close aria-label="Zatvori" class="hidden size-9 shrink-0 place-items-center rounded-full bg-mist-2 text-ink transition-colors hover:bg-sage-pale lg:grid">
           <svg viewBox="0 0 24 24" class="size-4" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18" /></svg>
         </button>
       </div>
@@ -55,7 +55,7 @@ const { b } = Astro.props;
       <div class="mt-3 hidden grid-cols-5 gap-2 lg:grid">
         {
           b.photos.map((p, i) => (
-            <button type="button" data-thumb={i} aria-label={`Fotografija ${i + 1}`} aria-current={i === 0 ? "true" : "false"} class="aspect-square overflow-hidden rounded-[10px] opacity-50 ring-2 ring-transparent ring-offset-2 transition hover:opacity-100 aria-[current=true]:opacity-100 aria-[current=true]:ring-plum">
+            <button type="button" data-thumb={i} aria-label={`Fotografija ${i + 1}`} aria-current={i === 0 ? "true" : "false"} class="aspect-square overflow-hidden rounded-[10px] opacity-50 ring-2 ring-transparent ring-offset-2 transition hover:opacity-100 aria-[current=true]:opacity-100 aria-[current=true]:ring-sage">
               <Image src={p} alt="" width={160} format="webp" loading="lazy" class="size-full object-cover" />
             </button>
           ))

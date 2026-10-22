@@ -13,8 +13,8 @@ interface Props {
   defs?: boolean;
 }
 const { class: className = "", tone = "light", draw = false, defs = true } = Astro.props;
-const ink = tone === "dark" ? "#c4d4c1" : "#4d6650";
-const gold = tone === "dark" ? "#e2b552" : "#c99a2e";
+const ink = tone === "dark" ? "var(--color-ivory)" : "var(--color-sage)";
+const gold = tone === "dark" ? "#e2b552" : "var(--color-gold)";
 // The pen starts a moment after the first paint and takes this long.
 const start = 0.1;
 const pen = 1;
