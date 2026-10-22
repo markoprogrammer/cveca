@@ -10,6 +10,10 @@ export const CONTACT = {
   phone: "065 533 3885",
   phoneHref: "tel:+381655333885",
   phoneIntl: "+381655333885",
+  // The same number is on Viber and WhatsApp, and takes SMS.
+  viber: "viber://chat?number=%2B381655333885",
+  whatsapp: "https://wa.me/381655333885",
+  sms: "sms:+381655333885",
   email: "cveca26@gmail.com",
   street: "Kraljevačkih žrtava 3",
   neighborhood: "Žarkovo",

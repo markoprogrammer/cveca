@@ -14,14 +14,20 @@ const mailSubject = encodeURIComponent("Upit sa sajta");
     </div>
 
     <div data-stagger class="mt-12 grid gap-4 sm:mt-16 md:grid-cols-5">
-      <a data-reveal href={CONTACT.phoneHref} class="group flex flex-col rounded-[32px] bg-lilac p-8 sm:p-11 md:col-span-3">
+      <div data-reveal class="flex flex-col rounded-[32px] bg-lilac p-8 sm:p-11 md:col-span-3">
         <span class="text-[17px] text-ink-2">Najlakše je telefonom</span>
-        <span class="mt-2 text-[clamp(38px,5.4vw,64px)] font-bold leading-none tracking-[-0.035em] tabular-nums transition-colors group-hover:text-plum">{CONTACT.phone}</span>
-        <span class="btn btn-primary mt-10 w-fit">
-          <svg viewBox="0 0 24 24" class="size-5" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z" /></svg>
-          Pozovite
-        </span>
-      </a>
+        <a href={CONTACT.phoneHref} class="mt-2 w-fit text-[clamp(38px,5.4vw,64px)] font-bold leading-none tracking-[-0.035em] tabular-nums transition-colors hover:text-plum">{CONTACT.phone}</a>
+        <div class="mt-10 flex flex-wrap items-center gap-3">
+          <a href={CONTACT.phoneHref} class="btn btn-primary">
+            <svg viewBox="0 0 24 24" class="size-5" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z" /></svg>
+            Pozovite
+          </a>
+          <span class="mx-1 text-[15px] text-ink-3">ili pišite:</span>
+          <a href={CONTACT.viber} class="btn btn-ghost min-h-0 px-4 py-2.5 text-[15px]">Viber</a>
+          <a href={CONTACT.whatsapp} target="_blank" rel="noopener" class="btn btn-ghost min-h-0 px-4 py-2.5 text-[15px]">WhatsApp</a>
+          <a href={CONTACT.sms} class="btn btn-ghost min-h-0 px-4 py-2.5 text-[15px]">SMS</a>
+        </div>
+      </div>
 
       <div data-reveal class="flex flex-col rounded-[32px] p-8 shadow-[inset_0_0_0_1.5px_var(--color-line)] sm:p-11 md:col-span-2">
         <span class="text-[17px] text-ink-2">Ili pošaljite mejl</span>
@@ -38,7 +44,7 @@ const mailSubject = encodeURIComponent("Upit sa sajta");
       <summary class="flex cursor-pointer items-center justify-between gap-6 p-8 sm:px-11">
         <span>
           <span class="block text-[21px] font-bold tracking-[-0.03em]">Radije pišete? Popunite upit.</span>
-          <span class="mt-1 block text-[15px] text-ink-2">Složiću vam tekst poruke, a vi ga pošaljete mejlom.</span>
+          <span class="mt-1 block text-[15px] text-ink-2">Složiću vam poruku, a vi je pošaljite Viberom, WhatsApp-om, SMS-om ili mejlom.</span>
         </span>
         <span class="faq-plus grid size-10 shrink-0 place-items-center rounded-full bg-lilac-2 text-plum" aria-hidden="true">
           <svg viewBox="0 0 24 24" class="size-4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>
@@ -134,12 +140,18 @@ const mailSubject = encodeURIComponent("Upit sa sajta");
 
         <div data-done hidden class="mt-6 rounded-[24px] bg-lilac p-6 sm:p-7">
           <p class="text-[17px] font-bold">Vaša poruka je spremna.</p>
-          <p class="mt-1 text-[15px] text-ink-2">Pošaljite je na {CONTACT.email}: otvorite je u svom mejlu ili kopirajte tekst.</p>
+          <p class="mt-1 text-[15px] text-ink-2">Pošaljite je kako vam je najlakše:</p>
           <pre data-preview class="mt-4 max-h-64 overflow-auto whitespace-pre-wrap rounded-[16px] bg-white p-4 font-sans text-[14px] leading-relaxed text-ink"></pre>
-          <div class="mt-5 flex flex-wrap gap-3">
-            <a data-mailto href={`mailto:${CONTACT.email}`} class="btn btn-primary">Otvori u mejlu</a>
-            <button type="button" data-copy class="btn btn-ghost">Kopiraj tekst</button>
+          <div class="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <a data-send="viber" href={CONTACT.viber} class="btn btn-ghost bg-white">Viber</a>
+            <a data-send="whatsapp" href={CONTACT.whatsapp} target="_blank" rel="noopener" class="btn btn-ghost bg-white">WhatsApp</a>
+            <a data-send="sms" href={CONTACT.sms} class="btn btn-ghost bg-white">SMS</a>
+            <a data-send="mail" href={`mailto:${CONTACT.email}`} class="btn btn-ghost bg-white">Mejl</a>
           </div>
+          <p class="mt-4 text-[14px] text-ink-2">
+            <button type="button" data-copy class="font-semibold text-plum hover:underline">Kopiraj tekst</button>
+            <span data-copy-note class="ml-1"></span>
+          </p>
         </div>
       </form>
     </details>
@@ -154,8 +166,9 @@ const mailSubject = encodeURIComponent("Upit sa sajta");
   const date = form.querySelector<HTMLInputElement>('input[name="date"]')!;
   const done = form.querySelector<HTMLElement>("[data-done]")!;
   const preview = form.querySelector<HTMLElement>("[data-preview]")!;
-  const mailto = form.querySelector<HTMLAnchorElement>("[data-mailto]")!;
+  const send = (channel: string) => form.querySelector<HTMLAnchorElement>(`[data-send="${channel}"]`)!;
   const copy = form.querySelector<HTMLButtonElement>("[data-copy]")!;
+  const copyNote = form.querySelector<HTMLElement>("[data-copy-note]")!;
 
   // Hidden fieldsets are disabled too, so their required fields don't block the visible ones.
   const mode = () => (new FormData(form).get("mode") === "poklon" ? "poklon" : "firma");
@@ -211,9 +224,16 @@ const mailSubject = encodeURIComponent("Upit sa sajta");
     }
     if (v("message")) lines.push("", v("message"));
     const message = lines.join("\n");
-    preview.textContent = `${subject}\n\n${message}`;
-    mailto.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+    const text = `${subject}\n\n${message}`;
+    preview.textContent = text;
+    send("mail").href = `mailto:${CONTACT.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+    send("whatsapp").href = `${CONTACT.whatsapp}?text=${encodeURIComponent(text)}`;
+    // Viber's draft parameter is honoured by recent apps only; the click handler below also copies the text.
+    send("viber").href = `${CONTACT.viber}&draft=${encodeURIComponent(text)}`;
+    // "?&body=" is the form both iOS and Android accept.
+    send("sms").href = `${CONTACT.sms}?&body=${encodeURIComponent(text)}`;
     copy.textContent = "Kopiraj tekst";
+    copyNote.textContent = "";
     done.hidden = false;
     done.scrollIntoView({ behavior: "smooth", block: "nearest" });
   });
@@ -221,5 +241,11 @@ const mailSubject = encodeURIComponent("Upit sa sajta");
   copy.addEventListener("click", async () => {
     await navigator.clipboard.writeText(preview.textContent ?? "");
     copy.textContent = "Kopirano ✓";
+  });
+
+  // Copy before opening Viber, so the text is one paste away if the app ignores the draft.
+  send("viber").addEventListener("click", () => {
+    navigator.clipboard.writeText(preview.textContent ?? "").catch(() => {});
+    copyNote.textContent = "Tekst je kopiran: ako se ne pojavi u Viberu, samo ga nalepite.";
   });
 </script>
