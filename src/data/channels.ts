@@ -32,6 +32,12 @@ export const CHANNELS: Channel[] = [
   },
 ];
 
-// Instagram direct message, after the four. It cannot take a pre-filled text, so the inquiry script copies
-// the composed message first and the visitor pastes it.
-export const INSTAGRAM = { href: CONTACT.instagramDm, label: CONTACT.instagramHandle, color: `#${siInstagram.hex}`, path: siInstagram.path };
+// Instagram, after the four: the profile when writing directly; from the composed message, a direct message.
+// Instagram cannot take a pre-filled text, so there the visitor copies the message first and pastes it.
+export const INSTAGRAM = {
+  profile: CONTACT.instagram,
+  dm: CONTACT.instagramDm,
+  label: CONTACT.instagramHandle,
+  color: `#${siInstagram.hex}`,
+  path: siInstagram.path,
+};

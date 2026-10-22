@@ -166,6 +166,8 @@ import { CONTACT, SIZES, din } from "../data/site";
   const send = (channel: string) => form.querySelector<HTMLAnchorElement>(`[data-send="${channel}"]`)!;
   const copy = form.querySelector<HTMLButtonElement>("[data-copy]")!;
   const copyNote = form.querySelector<HTMLElement>("[data-copy-note]")!;
+  const igCopy = form.querySelector<HTMLButtonElement>("[data-ig-copy]")!;
+  const igCopyLabel = igCopy.querySelector<HTMLElement>("[data-ig-copy-label]")!;
 
   // Hidden fieldsets are disabled too, so their required fields don't block the visible ones.
   const mode = () => (new FormData(form).get("mode") === "poklon" ? "poklon" : "firma");
@@ -232,6 +234,7 @@ import { CONTACT, SIZES, din } from "../data/site";
     send("sms").href = `${CONTACT.sms}?&body=${encodeURIComponent(text)}`;
     copy.textContent = "Kopiraj tekst";
     copyNote.textContent = "";
+    igCopyLabel.textContent = "Kopirajte poruku";
     done.hidden = false;
     done.scrollIntoView({ behavior: "smooth", block: "nearest" });
   });
@@ -246,9 +249,13 @@ import { CONTACT, SIZES, din } from "../data/site";
     navigator.clipboard.writeText(preview.textContent ?? "").catch(() => {});
     copyNote.textContent = "Tekst je kopiran: ako se ne pojavi u Viberu, samo ga nalepite.";
   });
-  // Instagram cannot pre-fill a message at all: copy it, then the chat opens and it is one paste away.
+  // Instagram cannot pre-fill a message at all: step 1 copies it, step 2 opens the chat to paste it into.
+  // Step 2 copies as well, in case step 1 was skipped.
+  igCopy.addEventListener("click", async () => {
+    await navigator.clipboard.writeText(preview.textContent ?? "");
+    igCopyLabel.textContent = "Poruka je kopirana ✓";
+  });
   send("instagram").addEventListener("click", () => {
     navigator.clipboard.writeText(preview.textContent ?? "").catch(() => {});
-    copyNote.textContent = "Tekst je kopiran: u Instagram poruci ga samo nalepite.";
   });
 </script>
