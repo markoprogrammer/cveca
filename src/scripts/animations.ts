@@ -11,6 +11,27 @@ const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 /** Ease-in-out for scrubbed values, so motion settles instead of stopping dead. */
 const smooth = (t: number) => t * t * (3 - 2 * t);
 
+// ── Deferred images (LazyImg): fetch only when they can no longer slow down the first paint. ──
+function fill(img: HTMLImageElement) {
+  if (!img.dataset.src) return;
+  img.addEventListener("load", () => img.classList.add("is-loaded"), { once: true });
+  img.srcset = img.dataset.srcset ?? "";
+  img.src = img.dataset.src;
+  delete img.dataset.src;
+}
+// Nothing deferred starts before the window load event, so the hero photo and the font get the whole connection.
+const deferred = [...document.querySelectorAll<HTMLImageElement>("img[data-defer]")];
+const afterLoad = () => {
+  deferred.filter((img) => img.dataset.defer === "load").forEach(fill);
+  for (const img of deferred.filter((i) => i.dataset.defer === "view")) {
+    // The pinned scene's layers sit inside a 100vh stage; watch the scene itself so all three arrive together.
+    const watch = img.closest<HTMLElement>("[data-closer]") ?? img;
+    inView(watch, () => fill(img), { margin: "100% 0px 100% 0px" });
+  }
+};
+if (document.readyState === "complete") afterLoad();
+else addEventListener("load", afterLoad, { once: true });
+
 // ── Reveals: [data-reveal] fades up the first time it enters; siblings inside [data-stagger] cascade. ──
 inView(
   "[data-reveal]",

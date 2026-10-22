@@ -128,6 +128,12 @@ const { b } = Astro.props;
       // Warm the matching slide while the pointer is on the card, so the morph lands on a decoded image.
       card.addEventListener("pointerenter", () => (target.loading = "eager"), { once: true });
       card.addEventListener("click", async () => {
+        if (image?.dataset.src) {
+          image.srcset = image.dataset.srcset ?? "";
+          image.src = image.dataset.src;
+          delete image.dataset.src;
+          image.classList.add("is-loaded");
+        }
         origin = image ? { image, index } : null;
         if (!canMorph || !image) {
           dialog.showModal();
