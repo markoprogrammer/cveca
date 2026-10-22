@@ -30,7 +30,7 @@ const archClass =
     <ul data-track-row class="intro-row no-scrollbar snap-row relative z-10 flex gap-4 overflow-x-auto pb-2 sm:gap-6" aria-label="Unikati">
       {
         bouquets.map((b, i) => (
-          <li class="intro-card shrink-0 snap-start" style={`--i:${Math.min(i, 5)}`}>
+          <li class="intro-card shrink-0" style={`--i:${Math.min(i, 5)}`}>
             <button
               type="button"
               data-open={b.id}

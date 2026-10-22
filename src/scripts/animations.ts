@@ -11,6 +11,27 @@ const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 /** Ease-in-out for scrubbed values, so motion settles instead of stopping dead. */
 const smooth = (t: number) => t * t * (3 - 2 * t);
 
+type ScrollOffset = NonNullable<NonNullable<Parameters<typeof scroll>[1]>["offset"]>;
+/** Runs render(p) for a scroll range, trailing the scroll position by a few frames so notched mouse wheels glide instead of jumping. */
+function smoothed(target: Element, offset: ScrollOffset, render: (p: number) => void) {
+  let goal = 0;
+  let shown = 0;
+  let frameId = 0;
+  const step = () => {
+    shown += (goal - shown) * 0.14;
+    if (Math.abs(goal - shown) < 0.0005) shown = goal;
+    render(shown);
+    frameId = shown === goal ? 0 : requestAnimationFrame(step);
+  };
+  scroll(
+    (p: number) => {
+      goal = p;
+      if (!frameId) frameId = requestAnimationFrame(step);
+    },
+    { target, offset },
+  );
+}
+
 // ── Deferred images (LazyImg): fetch only when they can no longer slow down the first paint. ──
 function fill(img: HTMLImageElement) {
   if (!img.dataset.src) return;
@@ -53,6 +74,20 @@ inView(
 
 
 if (!reduce) {
+  // ── Hero row: as the page moves down, the row drifts left by itself and brings the next bouquets in.
+  //    It moves the real scroll position, so it adds up with swiping and the arrow buttons. ──
+  const hero = document.querySelector<HTMLElement>("#top");
+  const heroRow = document.querySelector<HTMLElement>("[data-track-row]");
+  if (hero && heroRow) {
+    let applied = 0;
+    // Full drift is reached when the hero is half scrolled away: roughly one bouquet per two or three wheel notches.
+    smoothed(hero, ["start start", "center start"], (p) => {
+      const drift = p * Math.min(900, heroRow.clientWidth * 0.62 + 120);
+      heroRow.scrollLeft += drift - applied;
+      applied = drift;
+    });
+  }
+
   // ── "Pogledajte izbliza": a card opens to full screen, then the camera walks in to the petals. ──
   const scene = document.querySelector<HTMLElement>("[data-closer]");
   if (scene) {
@@ -99,23 +134,7 @@ if (!reduce) {
       });
     };
 
-    // The scene trails the scroll position by a few frames, so notched mouse wheels glide instead of jumping.
-    let target = 0;
-    let shown = 0;
-    let frameId = 0;
-    const follow = () => {
-      shown += (target - shown) * 0.14;
-      if (Math.abs(target - shown) < 0.0005) shown = target;
-      render(shown);
-      frameId = shown === target ? 0 : requestAnimationFrame(follow);
-    };
-    scroll(
-      (p: number) => {
-        target = p;
-        if (!frameId) frameId = requestAnimationFrame(follow);
-      },
-      { target: scene, offset: ["start start", "end end"] },
-    );
+    smoothed(scene, ["start start", "end end"], render);
   }
 
   // ── Story: words go from grey to ink as they are read, a stem grows beside them,

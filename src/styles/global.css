@@ -344,9 +344,9 @@ img.deferred {
   opacity: 0;
 }
 
-/* Carousel row that starts aligned with the content column and bleeds to the right edge. */
+/* Carousel row that starts aligned with the content column and bleeds to the right edge.
+   No scroll snapping: the row also drifts with the page scroll, and snapping would pull it back. */
 .snap-row {
-  scroll-snap-type: x mandatory;
   padding-inline: max(20px, calc((100vw - 1120px) / 2));
   scroll-padding-inline: max(20px, calc((100vw - 1120px) / 2));
 }
