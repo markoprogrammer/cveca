@@ -1,0 +1,22 @@
+---
+// A hand-drawn underline that grows like a stem and ends in the logo's sprout (two leaves on a gold bud).
+// draw="load" grows after the opening (or at once when the opening is skipped); draw="view" grows when
+// the word scrolls into view (src/scripts/animations.ts adds .is-drawn).
+interface Props {
+  draw?: "load" | "view";
+}
+const { draw = "view" } = Astro.props;
+const leaf = "M0 0C5-6 5-15 0-23C-5-15-5-6 0 0Z";
+---
+
+<span class:list={["scribble", `scribble-${draw}`]} data-scribble={draw === "view" ? "" : undefined}>
+  <slot />
+  <svg class="vine-line" viewBox="0 0 100 16" preserveAspectRatio="none" aria-hidden="true">
+    <path pathLength="1" d="M2 10C18 4 34 14 50 9S82 5 98 7" />
+  </svg>
+  <svg class="vine-sprout" viewBox="-12 -24 24 24" aria-hidden="true">
+    <path class="vine-leaf" style="--r:-30deg;--i:0" fill="var(--color-plum)" d={leaf} />
+    <path class="vine-leaf" style="--r:34deg;--i:1" fill="#8b5cd6" d={leaf} />
+    <circle class="vine-bud" cy="-1.6" r="3.4" fill="#e9c46a" />
+  </svg>
+</span>

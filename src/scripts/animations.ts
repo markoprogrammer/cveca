@@ -53,6 +53,9 @@ const afterLoad = () => {
 if (document.readyState === "complete") afterLoad();
 else addEventListener("load", afterLoad, { once: true });
 
+// ── Signature underlines grow once the word is well inside the screen. ──
+inView("[data-scribble]", (el) => el.classList.add("is-drawn"), { amount: 1, margin: "0px 0px -15% 0px" });
+
 // ── Reveals: only headings and photographs move; body copy, cards and buttons stay still. ──
 // Headings settle in from a few pixels below; photos settle into their frames, as if placed there.
 inView(

@@ -20,7 +20,7 @@ const ritual = [
 const shots = { M: { src: sizeM, h: "h-[74%]" }, L: { src: sizeL, h: "h-[87%]" }, XL: { src: sizeXL, h: "h-full" } } as const;
 ---
 
-<section id="firme" class="dark relative overflow-hidden bg-aubergine py-24 text-white sm:py-40">
+<section id="firme" class="relative overflow-hidden bg-lilac py-24 sm:py-40">
   <div class="relative mx-auto max-w-[1120px] px-5">
     <div class="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
       <div>
@@ -29,14 +29,14 @@ const shots = { M: { src: sizeM, h: "h-[74%]" }, L: { src: sizeL, h: "h-[87%]" }
         <p class="t-intro mt-6 max-w-[520px]">
           Prvi utisak vašeg prostora, <strong>svake nedelje drugačiji</strong>. Za 52 nedelje u godini, 52 različita aranžmana.
         </p>
-        <ol class="mt-12 grid gap-px overflow-hidden rounded-[28px] bg-white/10">
+        <ol class="mt-12 grid gap-px overflow-hidden rounded-[28px] bg-line">
           {
             ritual.map((r, i) => (
-              <li class="flex gap-5 bg-aubergine-2 p-6 sm:p-7">
-                <span class="w-7 shrink-0 pt-px text-[15px] font-semibold tabular-nums text-orchid">0{i + 1}</span>
+              <li class="flex gap-5 bg-white p-6 sm:p-7">
+                <span class="w-7 shrink-0 pt-px text-[15px] font-semibold tabular-nums text-plum">0{i + 1}</span>
                 <div>
                   <p class="text-[17px] font-bold tracking-[-0.02em]">{r.title}</p>
-                  <p class="mt-1 text-[15px] text-white/65">{r.text}</p>
+                  <p class="mt-1 text-[15px] text-ink-2">{r.text}</p>
                 </div>
               </li>
             ))
@@ -65,7 +65,7 @@ const shots = { M: { src: sizeM, h: "h-[74%]" }, L: { src: sizeL, h: "h-[87%]" }
           <div
             class:list={[
               "relative flex flex-col items-center rounded-[32px] p-7 pt-10 text-center sm:p-9 sm:pt-12",
-              s.popular ? "bg-white text-ink" : "bg-aubergine-2",
+              s.popular ? "bg-white shadow-[inset_0_0_0_2px_var(--color-plum)]" : "bg-white",
             ]}
           >
             {s.popular && <span class="absolute inset-x-0 top-5 text-center text-[13px] font-semibold text-plum">Najtraženiji</span>}
@@ -73,18 +73,18 @@ const shots = { M: { src: sizeM, h: "h-[74%]" }, L: { src: sizeL, h: "h-[87%]" }
               <Image src={shots[s.id].src} alt={`Primer aranžmana veličine ${s.id}`} widths={[240, 360, 480]} sizes="240px" format="webp" class={`arch block aspect-[2/3] w-auto object-cover ${shots[s.id].h}`} />
             </div>
             <p class="mt-8 text-[44px] font-bold leading-none tracking-[-0.035em]">{s.id}</p>
-            <p class:list={["mt-3 text-[17px]", s.popular ? "text-ink-2" : "text-white/65"]}>{s.space}</p>
+            <p class:list={["mt-3 text-[17px]", "text-ink-2"]}>{s.space}</p>
             <p class="mt-6 text-[28px] font-bold tabular-nums tracking-[-0.03em]">
-              {din(s.price)} <span class:list={["text-[17px] font-semibold", s.popular ? "text-ink-2" : "text-white/65"]}>din</span>
+              {din(s.price)} <span class:list={["text-[17px] font-semibold", "text-ink-2"]}>din</span>
             </p>
-            <p class:list={["text-[15px]", s.popular ? "text-ink-3" : "text-white/45"]}>po isporuci</p>
+            <p class:list={["text-[15px]", "text-ink-3"]}>po isporuci</p>
           </div>
         ))
       }
     </div>
     <div class="mt-14 flex flex-col items-center gap-5 text-center">
       {!onPage && <a href="/cvece-za-firme/" class="link">Sve o cveću za firme</a>}
-      <p class="max-w-[560px] text-[13px] leading-relaxed text-white/45">
+      <p class="max-w-[560px] text-[13px] leading-relaxed text-ink-3">
         Saradnja je po ugovoru, uz plaćanje preko računa mesec dana unapred. Fotografije su primeri, svaki aranžman je drugačiji.
       </p>
     </div>

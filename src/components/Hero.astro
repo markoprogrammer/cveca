@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import LazyImg from "./LazyImg.astro";
+import Scribble from "./Scribble.astro";
 import { bouquets } from "../data/bouquets";
 
 // Every bouquet as a studio shot in an arch, in one row you can swipe through: the claim
@@ -14,7 +15,7 @@ const archClass =
   <div class="mx-auto max-w-[1000px] px-5 text-center">
     <h1>
       <span class="intro-copy tag" style="--i:0">Unikatni cvetni aranžmani · Žarkovo, Beograd</span>
-      <span class="intro-copy t-hero mt-5 block" style="--i:1">Nema dva <span class="accent">ista<span class="dot">.</span></span></span>
+      <span class="intro-copy t-hero mt-5 block" style="--i:1">Nema dva <Scribble draw="load"><span class="accent">ista<span class="dot">.</span></span></Scribble></span>
     </h1>
     <p class="intro-copy t-intro mx-auto mt-6 max-w-[600px]" style="--i:2">
       Veliki, bogati aranžmani od sezonskog cveća, složeni ručno i po osećaju. <strong>Svakog ponedeljka za vašu firmu</strong>, ili kao poklon koji

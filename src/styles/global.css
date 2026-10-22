@@ -597,6 +597,88 @@ a:hover .sprout .leaf {
   transform: scale(1);
 }
 
+/* Signature underline: a stem drawn under the word, ending in the logo's sprout. */
+.scribble {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+  --sd: 1.55s;
+}
+.no-intro .scribble {
+  --sd: 0.2s;
+}
+.scribble .vine-line {
+  position: absolute;
+  left: -2%;
+  bottom: -0.17em;
+  width: calc(104% + 0.22em);
+  height: 0.3em;
+  overflow: visible;
+  pointer-events: none;
+}
+.scribble .vine-line path {
+  fill: none;
+  stroke: var(--color-orchid);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+}
+.scribble .vine-sprout {
+  position: absolute;
+  left: calc(100% + 0.02em);
+  bottom: -0.04em;
+  width: 0.42em;
+  height: 0.42em;
+  overflow: visible;
+  pointer-events: none;
+}
+.scribble .vine-leaf,
+.scribble .vine-bud {
+  transform-box: view-box;
+  transform-origin: 0 0;
+}
+.scribble .vine-leaf {
+  transform: rotate(var(--r));
+}
+/* On load: the line draws, then the bud and leaves pop out at its end. */
+.scribble-load .vine-line path {
+  animation: draw 0.8s var(--ease-out-expo) var(--sd) both;
+}
+.scribble-load .vine-bud {
+  animation: heart 0.4s var(--ease-out-expo) calc(var(--sd) + 0.5s) both;
+}
+.scribble-load .vine-leaf {
+  animation: leaf-grow 0.6s var(--ease-out-expo) both;
+  animation-delay: calc(var(--sd) + 0.6s + var(--i) * 90ms);
+}
+@keyframes draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+/* On view: same sequence, started by .is-drawn. */
+.js .scribble-view .vine-line path {
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.9s var(--ease-out-expo) 0.15s;
+}
+.js .scribble-view .vine-bud {
+  transform: scale(0);
+  transition: transform 0.4s var(--ease-out-expo) 0.65s;
+}
+.js .scribble-view .vine-leaf {
+  transform: rotate(var(--r)) scale(0);
+  transition: transform 0.6s var(--ease-out-expo);
+  transition-delay: calc(0.75s + var(--i) * 90ms);
+}
+.js .scribble-view.is-drawn .vine-line path {
+  stroke-dashoffset: 0;
+}
+.js .scribble-view.is-drawn .vine-bud {
+  transform: none;
+}
+.js .scribble-view.is-drawn .vine-leaf {
+  transform: rotate(var(--r));
+}
+
 /* The stem that grows beside Ceca's story; its offset follows the same scroll as the words. */
 .stem path {
   fill: none;
@@ -614,7 +696,10 @@ a:hover .sprout .leaf {
   .bloom-load ellipse, .bloom-load circle { animation: none; }
   .js .bloom-view ellipse { transform: rotate(var(--r)); }
   .js .bloom-view circle { transform: none; }
-  .js .stem path { stroke-dashoffset: 0; }
+  .js .stem path, .js .scribble-view .vine-line path { stroke-dashoffset: 0; }
+  .scribble-load .vine-line path, .scribble-load .vine-bud, .scribble-load .vine-leaf { animation: none; }
+  .js .scribble-view .vine-bud { transform: none; }
+  .js .scribble-view .vine-leaf { transform: rotate(var(--r)); }
 }
 
 /* Pull heading full stops in to cancel the font's wide period spacing. */

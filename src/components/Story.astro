@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import hands from "../assets/proces/dsc_7574.jpg";
 import detail from "../assets/proces/dsc_7572.jpg";
 import Bloom from "./Bloom.astro";
+import Scribble from "./Scribble.astro";
 
 // Ceca's own story, lightly shortened. Words turn from grey to ink as the paragraph scrolls through (src/scripts/animations.ts).
 const story =
@@ -11,7 +12,7 @@ const story =
 
 <section id="prica" class="py-24 sm:py-40">
   <div class="mx-auto max-w-[1120px] px-5">
-    <h2 data-reveal class="t-h2 max-w-[900px]">Ja sam Ceca. Kad se udružim sa cvećem, postajem Cveca<span class="dot">.</span></h2>
+    <h2 data-reveal class="t-h2 max-w-[900px]">Ja sam Ceca. Kad se udružim sa cvećem, postajem <Scribble>Cveca<span class="dot">.</span></Scribble></h2>
 
     <!-- A stem grows beside the story as it is read, and the flower opens on "Ispalo je sjajno." -->
     <div data-story class="relative mt-16 sm:mt-24 lg:pl-20">
