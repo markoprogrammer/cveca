@@ -15,6 +15,8 @@ export const CONTACT = {
   whatsapp: "https://wa.me/381655333885",
   sms: "sms:+381655333885",
   email: "cveca26@gmail.com",
+  instagram: "https://www.instagram.com/cveca.rs/",
+  instagramHandle: "@cveca.rs",
   street: "Kraljevačkih žrtava 3",
   neighborhood: "Žarkovo",
   municipality: "Čukarica",

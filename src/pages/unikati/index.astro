@@ -5,7 +5,7 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import Inquiry from "../../components/Inquiry.astro";
 import { bouquets } from "../../data/bouquets";
 import { breadcrumbs, itemList } from "../../data/seo";
-import { photos } from "../../data/site";
+import { CONTACT, photos } from "../../data/site";
 
 const crumbs = [
   { name: "Početna", path: "/" },
@@ -51,6 +51,10 @@ const crumbs = [
           ))
         }
       </ul>
+      <p class="mt-16 text-center text-[17px] text-ink-2 sm:mt-20">
+        Novi unikati nastaju svake nedelje. Pratite ih na Instagramu:
+        <a href={CONTACT.instagram} target="_blank" rel="noopener" class="font-semibold text-plum hover:underline">{CONTACT.instagramHandle}</a>
+      </p>
     </div>
   </section>
 
