@@ -17,6 +17,13 @@ const step =
 
 <div class="grid grid-cols-2 gap-3">
   {
+    form && (
+      <p class="col-span-2 text-[14px] text-ink-2">
+        <strong class="font-semibold text-ink">Jedan klik</strong>: poruka se automatski prenosi.
+      </p>
+    )
+  }
+  {
     CHANNELS.map((c) => (
       <a
         href={c.href}
