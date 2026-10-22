@@ -11,14 +11,21 @@ interface Props {
   grow?: boolean;
 }
 const { class: className = "", tone = "light", grow = false } = Astro.props;
-const leaves = tone === "dark" ? ["#d9c2f0", "#b48be0"] : ["var(--color-plum)", "#8b5cd6"];
+// Each letter takes a colour from the bouquets: eustoma violet, carnation berry, leaf green, sunflower amber;
+// the v is green leaves. Lighter versions of the same colours on dark backgrounds.
+const palette =
+  tone === "dark"
+    ? { letters: ["#cbb1f2", "#f0a3bf", "#b5cf9a", "#f3c96b"], leaves: ["#b5cf9a", "#d3e6bf"] }
+    : { letters: ["#5b2a9e", "#b0416a", "#557a43", "#c58410"], leaves: ["#6b8f4e", "#8fb069"] };
+const [c1, e, c2, a] = palette.letters;
+const leaves = palette.leaves;
 const leaf = "M0 0C5-6 5-15 0-23C-5-15-5-6 0 0Z";
 ---
 
 <span class:list={["inline-flex items-center gap-2", className]}>
   <Bloom class="logo-bloom size-[24px] translate-y-[3.75px]" petal={tone === "dark" ? "var(--color-orchid)" : undefined} open={grow ? "load" : undefined} delay={2000} />
   <span class="wordmark inline-flex items-baseline text-[26px] font-extrabold leading-none tracking-[-0.045em]">
-    c<span class="sr-only">v</span><svg viewBox="-12 -24 24 24" class:list={["sprout", { "sprout-grow": grow }]} aria-hidden="true">
+    <span style={`color:${c1}`}>c</span><span class="sr-only">v</span><svg viewBox="-12 -24 24 24" class:list={["sprout", { "sprout-grow": grow }]} aria-hidden="true">
       {
         [-27, 27].map((r, i) => (
           <g class="leaf" style={`--r:${r}deg;--i:${i}`}>
@@ -28,6 +35,6 @@ const leaf = "M0 0C5-6 5-15 0-23C-5-15-5-6 0 0Z";
         ))
       }
       <circle class="bud" cy="-1.6" r="3.2" fill="#e9c46a" />
-    </svg>eca
+    </svg><span style={`color:${e}`}>e</span><span style={`color:${c2}`}>c</span><span style={`color:${a}`}>a</span>
   </span>
 </span>
