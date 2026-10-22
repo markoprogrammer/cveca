@@ -141,6 +141,11 @@ if (!reduce) {
     );
   }
 
+  // ── The small gift photo floats a little faster than the big one behind it. ──
+  for (const card of document.querySelectorAll<HTMLElement>(".drift-card")) {
+    scroll(animate(card, { y: [70, -50] }, { ease: "linear" }), { target: card.parentElement!, offset: ["start end", "end start"] });
+  }
+
   // ── Parallax: photos marked [data-parallax] glide inside their rounded frames. ──
   for (const img of document.querySelectorAll<HTMLElement>("[data-parallax]")) {
     scroll(animate(img, { y: ["-6%", "6%"] }, { ease: "linear" }), { target: img.parentElement!, offset: ["start end", "end start"] });

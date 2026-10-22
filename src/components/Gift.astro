@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
-import sunflower from "../assets/buketi/buket-01/dsc_7442.jpg";
+import basket from "../assets/buketi/buket-09/dsc_7535.jpg";
+import swing from "../assets/buketi/buket-07/dsc_7536.jpg";
 import Scribble from "./Scribble.astro";
 import { CONTACT } from "../data/site";
 
@@ -11,44 +12,60 @@ const steps = [
 ];
 ---
 
-<section id="poklon" class="py-24 sm:py-40">
-  <div class="mx-auto max-w-[1120px] px-5">
-    <p data-reveal class="tag">Poklon aranžmani po narudžbini</p>
-    <h2 data-reveal class="t-h2 mt-5">Poklon koji se <Scribble><span class="accent">pamti<span class="dot">.</span></span></Scribble></h2>
-    <p data-reveal class="t-intro mt-5 max-w-[680px]">
-      Za ljude koji žele da poklone <strong>nešto zaista jedinstveno</strong>. Recite mi kome je namenjen, a ostalo prepustite meni i sezonskom cveću.
-    </p>
-  </div>
-
-  <div data-reveal class="mx-auto mt-14 max-w-[1280px] px-5 sm:mt-20">
-    <div class="overflow-hidden rounded-[32px] sm:rounded-[48px]">
-      <Image
-        src={sunflower}
-        alt="Poklon aranžman sa suncokretom, eustomom, zevalicama i alstremerijama"
-        widths={[640, 1080, 1600, 2200]}
-        sizes="(min-width: 1280px) 1240px, 100vw"
-        format="webp" quality={72}
-        data-parallax
-        class="block aspect-[4/5] w-full scale-110 object-cover sm:aspect-[16/9]"
-      />
+<section id="poklon" class="overflow-hidden py-24 sm:py-40">
+  <div class="mx-auto grid max-w-[1120px] items-center gap-16 px-5 lg:grid-cols-2 lg:gap-20">
+    <!-- Two garden-swing photos: the gift basket in a large arch, a second arrangement drifting over its corner. -->
+    <div class="relative mx-auto w-full max-w-[500px] pb-16 pr-10 sm:pr-16 lg:mx-0">
+      <div data-reveal class="arch overflow-hidden">
+        <Image
+          src={basket}
+          alt="Poklon aranžman u korpi od jute sa eustomom, karanfilima i proteom, na drvenoj ljuljašci u bašti"
+          widths={[460, 690, 920]}
+          sizes="(min-width: 1024px) 440px, 85vw"
+          format="webp"
+          quality={76}
+          data-parallax
+          class="arch block aspect-[4/5] w-full scale-110 object-cover"
+        />
+      </div>
+      <div class="drift-card absolute bottom-0 right-0 w-[44%]">
+        <div data-reveal class="arch overflow-hidden shadow-[0_30px_60px_-24px_rgb(29_16_34/0.45)] ring-[6px] ring-white">
+          <Image
+            src={swing}
+            alt="Aranžman sa suncokretom, eustomom i gladiolama na ljuljašci"
+            widths={[240, 360, 480]}
+            sizes="220px"
+            format="webp"
+            quality={76}
+            class="arch block aspect-[3/4] w-full object-cover"
+          />
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div class="mx-auto max-w-[1120px] px-5">
-    <ol data-stagger class="mt-14 grid gap-10 sm:mt-20 md:grid-cols-3 md:gap-8">
-      {
-        steps.map((s) => (
-          <li data-reveal class="rounded-[28px] bg-lilac p-7">
-            <span class="grid size-11 place-items-center rounded-full bg-coral text-[17px] font-bold text-white">{s.n}</span>
-            <p class="mt-4 text-[21px] font-semibold tracking-[-0.02em]">{s.title}</p>
-            <p class="mt-2 text-[17px] text-ink-2">{s.text}</p>
-          </li>
-        ))
-      }
-    </ol>
-    <div data-reveal class="mt-14 flex flex-wrap items-center gap-x-7 gap-y-4">
-      <a href={CONTACT.phoneHref} class="btn btn-primary">Pozovite i naručite</a>
-      <a href="#upit" data-mode="poklon" class="link">ili pošaljite upit</a>
+    <div>
+      <p data-reveal class="tag">Poklon aranžmani po narudžbini</p>
+      <h2 data-reveal class="t-h2 mt-5">Poklon koji se <Scribble><span class="accent">pamti<span class="dot">.</span></span></Scribble></h2>
+      <p data-reveal class="t-intro mt-5 max-w-[520px]">
+        Za ljude koji žele da poklone <strong>nešto zaista jedinstveno</strong>. Recite mi kome je namenjen, a ostalo prepustite meni i sezonskom cveću.
+      </p>
+      <ol data-stagger class="mt-10 grid gap-3">
+        {
+          steps.map((s) => (
+            <li data-reveal class="flex gap-5 rounded-[24px] bg-lilac p-5 sm:p-6">
+              <span class="grid size-10 shrink-0 place-items-center rounded-full bg-coral text-[16px] font-bold text-white">{s.n}</span>
+              <div>
+                <p class="text-[18px] font-bold tracking-[-0.02em]">{s.title}</p>
+                <p class="mt-1 text-[16px] text-ink-2">{s.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+      <div data-reveal class="mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
+        <a href={CONTACT.phoneHref} class="btn btn-primary">Pozovite i naručite</a>
+        <a href="#upit" data-mode="poklon" class="link">ili pošaljite upit</a>
+      </div>
     </div>
   </div>
 </section>
