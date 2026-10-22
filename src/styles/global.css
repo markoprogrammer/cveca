@@ -363,7 +363,7 @@ img.deferred {
 
 /* "Pogledajte izbliza": a pinned scene. Without JS it is just one photo with its captions. */
 .js .closer {
-  height: 300vh;
+  height: 200vh;
 }
 .js .closer-stage {
   position: sticky;
