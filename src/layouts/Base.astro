@@ -120,7 +120,11 @@ const faq = {
     {!noindex && <meta name="robots" content="index, follow, max-image-preview:large" />}
     <meta name="theme-color" content="#f5f5ee" />
     <meta name="format-detection" content="telephone=yes" />
+    <!-- Browsers take the SVG; Google Search only shows raster favicons, so the ICO and the 96 px PNG
+         (a multiple of 48) are made from it by scripts/favicons.mjs. Keep these URLs stable. -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-96x96.png" type="image/png" sizes="96x96" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 

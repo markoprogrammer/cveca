@@ -10,6 +10,7 @@
     "deploy": "astro build && wrangler deploy",
     "images": "node scripts/prepare-images.mjs",
     "zoom": "node scripts/zoom-crops.mjs",
+    "favicons": "node scripts/favicons.mjs",
     "check": "astro check"
   },
   "dependencies": {
