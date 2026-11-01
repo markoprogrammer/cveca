@@ -26,7 +26,7 @@ export const businessService = {
   provider,
   areaServed: beograd,
   url: abs("/cvece-za-firme/"),
-  offers: SIZES.map((s) => ({ "@type": "Offer", name: `Veličina ${s.id}`, description: s.space, price: s.price, priceCurrency: "RSD" })),
+  offers: SIZES.map((s) => ({ "@type": "Offer", name: `${s.name}, ${s.kind.toLowerCase()}`, description: s.space, price: s.price, priceCurrency: "RSD" })),
 };
 
 export const giftService = {

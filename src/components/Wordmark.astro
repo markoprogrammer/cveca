@@ -1,7 +1,7 @@
 ---
-// The "Cveca" wordmark for running text: the five-petal flower, then "cveca" whose "v" is a sprout (two leaves
-// from a gold bud), the flowers that turn "Ceca" into "Cveca". Inside a sentence ("…postajem cveca.") it plays
-// as the heading scrolls up (src/scripts/animations.ts): it reads "ceca", the letters part, the v grows in
+// The "Cveca" wordmark for running text: the five-petal flower, then "Cveca" whose "v" is a sprout (two leaves
+// from a gold bud), the flowers that turn "Ceca" into "Cveca". Inside a sentence ("…postajem Cveca.") it plays
+// as the heading scrolls up (src/scripts/animations.ts): it reads "Ceca", the letters part, the v grows in
 // the gap and the flower opens. It takes the size of the text around it; the slot goes after "eca", so a
 // full stop travels with the letters.
 import Bloom from "./Bloom.astro";
@@ -17,7 +17,7 @@ const leaf = "M0 0C5-6 5-15 0-23C-5-15-5-6 0 0Z";
 <span class:list={["logo-scroll inline-flex items-baseline gap-[0.31em]", className]} data-logo-scroll>
   <Bloom class="size-[0.923em] translate-y-[0.144em] self-center" />
   <span class="wordmark inline-flex items-baseline font-extrabold leading-none tracking-[-0.045em]">
-    c<span class="sr-only">v</span><svg viewBox="-12 -24 24 24" class="sprout" aria-hidden="true">
+    C<span class="sr-only">v</span><svg viewBox="-12 -24 24 24" class="sprout" aria-hidden="true">
       {
         [-27, 27].map((r, i) => (
           <g class="leaf" style={`--r:${r}deg;--i:${i}`}>

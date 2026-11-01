@@ -5,9 +5,12 @@ import detail from "../assets/proces/dsc_7572.jpg";
 import Bloom from "./Bloom.astro";
 import Wordmark from "./Wordmark.astro";
 
-// Ceca's own story, lightly shortened. Words turn from grey to ink as the paragraph scrolls through (src/scripts/animations.ts).
-const story =
-  "Sve je počelo jednim poklonom. Drugarica Tanja pravi grnčariju i predložila je da u njenu šolju složim cveće. Nikada to nisam radila. Na pijaci sam bila u strahu, a do auta sam se vraćala sa gomilom cveća u naručju i osećala samo uzbuđenje. Svaki cvetić sam stavila baš tamo gde mi se najviše dopadao. Ispalo je sjajno.";
+// Ceca's own story, word for word as she wrote it. Words turn from grey to ink as the paragraphs scroll
+// through (src/scripts/animations.ts), across both paragraphs.
+const story = [
+  "Nedavno smo se moja prijateljica Tanja i ja spremale za proslavu kod drugarice. Želele smo da joj poklonimo nešto posebno. Tanja se bavi grnčarijom, pa je predložila da ja napravim cvetni aranžman u šolji koju je ona napravila.",
+  "Ja nesigurno odlazim na pijacu, da kupim cveće, jer ne želim da izdam Tanju, ali sam u ozbiljnom strahu kako ću ja to, nikada nisam to radila. Kupujem cveće i u nekom trenutku idem prema autu, sa gomilom cveća u naručju i više ne osećam strah, već uzbuđenje, jedva čekam da stignem kući i bacim se u akciju. Nisam imala pojma kako će ispasti, ali sam svaki cvetić birala i nežno raspoređivala baš tamo gde mi se najviše dopadalo i ispalo je sjajno…",
+];
 ---
 
 <section id="prica" class="py-24 sm:py-40">
@@ -15,7 +18,7 @@ const story =
     <!-- "ceca" turns into the logo as it scrolls up: the letters part, the v sprouts, the flower opens. -->
     <h2 data-reveal class="t-h2 max-w-[900px]">Ja sam Ceca. Kad se udružim sa cvećem, postajem <Wordmark><span class="dot">.</span></Wordmark></h2>
 
-    <!-- A stem grows beside the story as it is read, and the flower opens on "Ispalo je sjajno." -->
+    <!-- A stem grows beside the story as it is read, and the flower opens on "…ispalo je sjajno…" -->
     <div data-story class="relative mt-16 sm:mt-24 lg:pl-20">
       <svg class="stem pointer-events-none absolute -top-4 bottom-0 left-0 hidden w-14 lg:block" viewBox="0 0 56 600" preserveAspectRatio="none" aria-hidden="true">
         <path pathLength="1" d="M28 0C14 70 42 130 28 200S12 330 28 400s16 140 0 200" />
@@ -23,16 +26,18 @@ const story =
         <path pathLength="1" d="M29 300c-10-14-22-18-26-16 3 12 14 20 26 16z" />
         <path pathLength="1" d="M27 460c10-14 22-18 26-16-3 12-14 20-26 16z" />
       </svg>
-      <p data-words class="max-w-[980px] text-[clamp(27px,3.4vw,44px)] font-semibold leading-[1.22] tracking-[-0.028em]">
-        {
-          story.split(" ").map((w) => (
-            <>
-              <span>{w}</span>{" "}
-            </>
-          ))
-        }
-        <Bloom open="view" class="inline-block size-[1.05em] -translate-y-[0.08em] align-middle" />
-      </p>
+      {
+        story.map((paragraph, p) => (
+          <p data-words class:list={["max-w-[980px] text-[clamp(25px,3vw,40px)] font-semibold leading-[1.24] tracking-[-0.028em]", p > 0 && "mt-[0.9em]"]}>
+            {paragraph.split(" ").map((w) => (
+              <>
+                <span>{w}</span>{" "}
+              </>
+            ))}
+            {p === story.length - 1 && <Bloom open="view" class="inline-block size-[1.05em] -translate-y-[0.08em] align-middle" />}
+          </p>
+        ))
+      }
     </div>
 
     <div class="mt-20 grid gap-5 sm:mt-28 md:grid-cols-2">

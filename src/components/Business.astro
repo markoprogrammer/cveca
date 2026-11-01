@@ -10,14 +10,33 @@ import { SIZES, din } from "../data/site";
 const onPage = Astro.url.pathname.startsWith("/cvece-za-firme");
 
 const ritual = [
-  { title: "Svakog ponedeljka, nov aranžman", text: "Donosim ga pravo na vašu recepciju, svež i drugačiji nego prošle nedelje." },
-  { title: "Stari odnosim, zajedno sa posudom", text: "Vi ne radite ništa. Ni vaze, ni voda, ni uvelo cveće." },
+  { title: "Svakog ponedeljka, nov aranžman", text: "Donosim ga pravo na vašu recepciju, svež i drugačiji nego prošle nedelje. Dostava je uključena u cenu." },
+  { title: "Stari odnosim, zajedno sa posudom", text: "Skoro nula posla za vas: zalijte ga svaki dan, da traje duže." },
   { title: "Plaćanje preko računa", text: "Po ugovoru, mesec dana unapred. Jednostavno za knjigovodstvo." },
-  { title: "Prvo probajte", text: "Jedna probna isporuka, pa odlučite da li želite redovnu saradnju." },
+  { title: "Prvo probajte", text: "Proba po povoljnijoj ceni koju zajedno dogovaramo, pa odlučite da li želite redovnu saradnju." },
+];
+
+// Ceca's two reasons, in her words: the people who come in, and the people who work there.
+const audiences = [
+  {
+    tag: "Za one koji dolaze",
+    title: "Klijenti i pacijenti pamte prostor u kome se vodi računa o detaljima.",
+    text: "Sveže cveće na ulazu i pultu ostavlja utisak pre prve reči: ovde je neko mislio na vas. Čekanje postaje prijatnije, prostor topliji, a ljudi imaju razlog da se vrate i da o vama pričaju.",
+  },
+  {
+    tag: "Za one koji rade",
+    title: "Zaposleni svake nedelje dobijaju nešto lepo da gledaju.",
+    text: "Novi aranžman u ponedeljak je mali ritual koji ulepšava radni prostor i poručuje zaposlenima da neko brine o mestu na kome provode najveći deo dana.",
+  },
 ];
 
 // Example photos per size, shown at relative heights so the row reads small → large.
-const shots = { M: { src: sizeM, h: "h-[74%]" }, L: { src: sizeL, h: "h-[87%]" }, XL: { src: sizeXL, h: "h-full" } } as const;
+// Ceca will photograph each size in a real space later; these stand in until then.
+const shots = {
+  ljubicica: { src: sizeM, h: "h-[74%]" },
+  lala: { src: sizeL, h: "h-[87%]" },
+  suncokret: { src: sizeXL, h: "h-full" },
+} as const;
 ---
 
 <section id="firme" class="relative overflow-hidden bg-mist py-24 sm:py-40">
@@ -27,7 +46,7 @@ const shots = { M: { src: sizeM, h: "h-[74%]" }, L: { src: sizeL, h: "h-[87%]" }
         <p class="tag">Cveće za firme u Beogradu</p>
         <h2 data-reveal class="t-h2 mt-5">Svakog ponedeljka, sveže cveće na vašoj recepciji<span class="dot">.</span></h2>
         <p class="t-intro mt-6 max-w-[520px]">
-          Prvi utisak vašeg prostora, <strong>svake nedelje drugačiji</strong>. Za 52 nedelje u godini, 52 različita aranžmana.
+          Prvi utisak vašeg prostora, <strong>svake nedelje drugačiji</strong>.
         </p>
         <ol class="mt-12 grid gap-px overflow-hidden rounded-[28px] bg-line">
           {
@@ -56,6 +75,21 @@ const shots = { M: { src: sizeM, h: "h-[74%]" }, L: { src: sizeL, h: "h-[87%]" }
       </div>
     </div>
 
+    <div class="mt-20 grid gap-5 sm:mt-28 md:grid-cols-2">
+      {
+        audiences.map((a) => (
+          <div class="rounded-[32px] bg-white p-8 sm:p-10">
+            <p class="tag">{a.tag}</p>
+            <h3 class="mt-4 text-[clamp(22px,2.4vw,28px)] font-bold leading-tight tracking-[-0.025em]">{a.title}</h3>
+            <p class="mt-4 text-[17px] text-ink-2">{a.text}</p>
+          </div>
+        ))
+      }
+    </div>
+    <p data-reveal class="t-h2 mx-auto mt-20 max-w-[820px] text-center sm:mt-28">
+      Ovo nije trošak za ukras. <span class="text-sage">Ovo je utisak koji ostaje.</span>
+    </p>
+
     <div class="mt-28 text-center sm:mt-40">
       <h3 data-reveal class="t-h2">Izaberite veličinu za vaš prostor<span class="dot">.</span></h3>
     </div>
@@ -70,14 +104,15 @@ const shots = { M: { src: sizeM, h: "h-[74%]" }, L: { src: sizeL, h: "h-[87%]" }
           >
             {s.popular && <span class="absolute inset-x-0 top-5 text-center text-[13px] font-semibold text-sage">Najtraženiji</span>}
             <div class="flex h-[260px] w-full items-end justify-center sm:h-[320px]">
-              <Image src={shots[s.id].src} alt={`Primer aranžmana veličine ${s.id}`} widths={[240, 360, 480]} sizes="240px" format="webp" class={`arch block aspect-[2/3] w-auto object-cover ${shots[s.id].h}`} />
+              <Image src={shots[s.id].src} alt={`Primer aranžmana ${s.name}, ${s.kind.toLowerCase()}`} widths={[240, 360, 480]} sizes="240px" format="webp" class={`arch block aspect-[2/3] w-auto object-cover ${shots[s.id].h}`} />
             </div>
-            <p class="mt-8 text-[44px] font-bold leading-none tracking-[-0.035em]">{s.id}</p>
+            <p class="mt-8 text-[40px] font-bold leading-none tracking-[-0.035em]">{s.name}</p>
+            <p class="mt-2 text-[15px] font-semibold text-sage">{s.kind}</p>
             <p class:list={["mt-3 text-[17px]", "text-ink-2"]}>{s.space}</p>
             <p class="mt-6 text-[28px] font-bold tabular-nums tracking-[-0.03em]">
               {din(s.price)} <span class:list={["text-[17px] font-semibold", "text-ink-2"]}>din</span>
             </p>
-            <p class:list={["text-[15px]", "text-ink-3"]}>po isporuci</p>
+            <p class:list={["text-[15px]", "text-ink-3"]}>po isporuci, sa dostavom</p>
           </div>
         ))
       }
@@ -85,7 +120,8 @@ const shots = { M: { src: sizeM, h: "h-[74%]" }, L: { src: sizeL, h: "h-[87%]" }
     <div class="mt-14 flex flex-col items-center gap-5 text-center">
       {!onPage && <a href="/cvece-za-firme/" class="link">Sve o cveću za firme</a>}
       <p class="max-w-[560px] text-[13px] leading-relaxed text-ink-3">
-        Saradnja je po ugovoru, uz plaćanje preko računa mesec dana unapred. Fotografije su primeri, svaki aranžman je drugačiji.
+        Saradnja je po ugovoru, uz plaćanje preko računa mesec dana unapred. Za dva ili više aranžmana nedeljno dogovaramo popust.
+        Fotografije su primeri, svaki aranžman je drugačiji.
       </p>
     </div>
   </div>
