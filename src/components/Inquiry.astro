@@ -2,12 +2,19 @@
 import Channels from "./Channels.astro";
 
 interface Props {
-  mode?: "firma" | "poklon";
+  mode?: "firma" | "restoran" | "poklon";
 }
 const { mode = "firma" } = Astro.props;
 import { CONTACT, SIZES, SOONER, din } from "../data/site";
 
-// The same three sizes for both kinds of inquiry, as separate radio groups so each keeps its own choice.
+const modes = [
+  { value: "firma", label: "Firma" },
+  { value: "restoran", label: "Restoran" },
+  { value: "poklon", label: "Poklon" },
+] as const;
+
+// The same three sizes for companies and gifts, as separate radio groups so each keeps its own choice.
+// Restaurants have no sizes: their price depends on the number of tables.
 const sizeGroups = { firma: "size", poklon: "giftSize" } as const;
 ---
 
@@ -27,17 +34,18 @@ const sizeGroups = { firma: "size", poklon: "giftSize" } as const;
       <p class="mt-1 text-[15px] text-ink-2">Popunite upit, a poruku zatim pošaljite Viberom, SMS-om, WhatsApp-om, mejlom ili na Instagramu.</p>
 
       <form id="upit-form" class="mt-8">
-        <fieldset class="seg relative grid min-w-0 grid-cols-2 rounded-full bg-mist-2 p-1">
+        <!-- Three short words so the three tabs fit side by side even on a 320 px phone. -->
+        <fieldset class="seg relative grid min-w-0 grid-cols-3 rounded-full bg-mist-2 p-1">
           <legend class="sr-only">Za koga je upit</legend>
-          <span class="seg-pill absolute inset-y-1 left-1 w-[calc(50%-4px)] rounded-full bg-white shadow-[0_1px_4px_rgb(28_38_32/0.12)]" aria-hidden="true"></span>
-          <label class="relative z-10 cursor-pointer py-2.5 text-center text-[15px] font-semibold text-ink-2 has-[:checked]:text-sage has-[:focus-visible]:underline">
-            <input type="radio" name="mode" value="firma" checked={mode === "firma"} class="sr-only" />
-            Za firmu
-          </label>
-          <label class="relative z-10 cursor-pointer py-2.5 text-center text-[15px] font-semibold text-ink-2 has-[:checked]:text-sage has-[:focus-visible]:underline">
-            <input type="radio" name="mode" value="poklon" checked={mode === "poklon"} class="sr-only" />
-            Za poklon
-          </label>
+          <span class="seg-pill absolute inset-y-1 left-1 w-[calc((100%-8px)/3)] rounded-full bg-white shadow-[0_1px_4px_rgb(28_38_32/0.12)]" aria-hidden="true"></span>
+          {
+            modes.map((m) => (
+              <label class="relative z-10 min-w-0 cursor-pointer px-1 py-2.5 text-center text-[15px] font-semibold text-ink-2 has-[:checked]:text-sage has-[:focus-visible]:underline">
+                <input type="radio" name="mode" value={m.value} checked={mode === m.value} class="sr-only" />
+                {m.label}
+              </label>
+            ))
+          }
         </fieldset>
 
         <div class="mt-6 grid gap-3 sm:grid-cols-2">
@@ -87,6 +95,37 @@ const sizeGroups = { firma: "size", poklon: "giftSize" } as const;
           </label>
         </fieldset>
 
+        <fieldset data-for="restoran" class="mt-3 grid min-w-0 gap-3 sm:grid-cols-2">
+          <legend class="sr-only">Podaci o restoranu ili kafiću</legend>
+          <div class="fl">
+            <input id="f-venue" name="venue" required autocomplete="organization" placeholder=" " class="fl-input" />
+            <label for="f-venue" class="fl-label">Restoran ili kafić</label>
+          </div>
+          <div class="fl">
+            <input id="f-venue-address" name="venueAddress" autocomplete="street-address" placeholder=" " class="fl-input" />
+            <label for="f-venue-address" class="fl-label">Adresa</label>
+          </div>
+          <!-- Side by side where both labels fit, one under the other on narrow phones. -->
+          <div class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,10em),1fr))] gap-3 sm:col-span-2">
+            <div class="fl">
+              <input id="f-tables" name="tables" type="number" inputmode="numeric" min="1" required placeholder=" " class="fl-input" />
+              <label for="f-tables" class="fl-label">Broj stolova</label>
+            </div>
+            <div class="fl">
+              <input id="f-friday" name="friday" type="time" placeholder=" " class="fl-input" />
+              <label for="f-friday" class="fl-label">Vreme petkom (okvirno)</label>
+            </div>
+          </div>
+          <div class="fl sm:col-span-2">
+            <input id="f-colours" name="colours" placeholder=" " class="fl-input" />
+            <label for="f-colours" class="fl-label">Boje i budžet (nije obavezno)</label>
+          </div>
+          <label class="mt-2 flex cursor-pointer items-center gap-3 sm:col-span-2">
+            <input type="checkbox" name="visit" class="size-5 accent-sage" />
+            <span class="text-[16px]">Želim da prvo svratite i vidite prostor</span>
+          </label>
+        </fieldset>
+
         <fieldset data-for="poklon" class="mt-3 grid min-w-0 gap-3">
           <legend class="sr-only">Podaci o poklonu</legend>
           <!-- Pickup first and large: it decides where and how, so it should not be a small afterthought.
@@ -95,7 +134,7 @@ const sizeGroups = { firma: "size", poklon: "giftSize" } as const;
             <label class="tile-pick flex min-h-[84px] flex-col justify-center gap-1 break-words px-4 py-3.5">
               <input type="radio" name="pickup" value="Preuzimam lično" checked class="sr-only" />
               <span class="text-[16px] font-semibold leading-tight">Preuzimam lično</span>
-              <span class="text-[13px] leading-snug text-ink-2">Žarkovo, {CONTACT.street}</span>
+              <span class="text-[13px] leading-snug text-ink-2">U Žarkovu</span>
             </label>
             <label class="tile-pick flex min-h-[84px] flex-col justify-center gap-1 break-words px-4 py-3.5">
               <input type="radio" name="pickup" value="Dostava (po dogovoru)" class="sr-only" />
@@ -176,9 +215,8 @@ const sizeGroups = { firma: "size", poklon: "giftSize" } as const;
         <span class="text-[15px] text-ink-2">Pišite direktno</span>
         <div class="mt-4"><Channels /></div>
         <p class="mt-6 text-[13px] text-ink-2">
-          {CONTACT.email}<br />
-          Preuzimanje: {CONTACT.street}, {CONTACT.neighborhood}.{" "}
-          <a href={CONTACT.maps} target="_blank" rel="noopener" class="font-semibold text-sage hover:underline">Mapa</a>
+          <a href={`mailto:${CONTACT.email}`} class="inline-block py-1 font-semibold text-sage hover:underline">{CONTACT.email}</a><br />
+          Poklone preuzimate lično u Žarkovu ili ih dostavljam, po dogovoru.
         </p>
       </div>
     </div>
@@ -199,8 +237,16 @@ const sizeGroups = { firma: "size", poklon: "giftSize" } as const;
   const igCopyLabel = igCopy.querySelector<HTMLElement>("[data-ig-copy-label]")!;
 
   // Hidden fieldsets are disabled too, so their required fields don't block the visible ones.
-  const mode = () => (new FormData(form).get("mode") === "poklon" ? "poklon" : "firma");
+  const mode = () => String(new FormData(form).get("mode") ?? "firma");
   const sync = () => form.querySelectorAll<HTMLFieldSetElement>("fieldset[data-for]").forEach((f) => (f.disabled = f.dataset.for !== mode()));
+  // The form lives on the home page only. The other pages link here as /?upit=restoran#upit, so it opens on their
+  // kind of inquiry; the parameter is then dropped from the address bar.
+  const asked = new URLSearchParams(location.search).get("upit");
+  if (asked) {
+    const pick = form.querySelector<HTMLInputElement>(`input[name="mode"][value="${CSS.escape(asked)}"]`);
+    if (pick) pick.checked = true;
+    history.replaceState(history.state, "", location.pathname + location.hash);
+  }
   sync();
   form.addEventListener("change", (e) => {
     if ((e.target as HTMLInputElement).name === "mode") sync();
@@ -242,6 +288,14 @@ const sizeGroups = { firma: "size", poklon: "giftSize" } as const;
       if (v("address")) lines.push(`Adresa: ${v("address")}`);
       lines.push(`Veličina: ${size?.value} (${size?.dataset.price} din po isporuci)`);
       if (data.get("trial")) lines.push("Želim prvo probu.");
+    } else if (mode() === "restoran") {
+      subject = `Upit za restoran: ${v("venue")}`;
+      lines.push("", "Cveće petkom za stolove", `Restoran ili kafić: ${v("venue")}`);
+      if (v("venueAddress")) lines.push(`Adresa: ${v("venueAddress")}`);
+      lines.push(`Broj stolova: ${v("tables")}`);
+      if (v("friday")) lines.push(`Petkom u: ${v("friday")}`);
+      if (v("colours")) lines.push(`Boje i budžet: ${v("colours")}`);
+      if (data.get("visit")) lines.push("Želim da prvo svratite i vidite prostor.");
     } else {
       const size = form.querySelector<HTMLInputElement>('input[name="giftSize"]:checked');
       subject = `Poklon aranžman za ${formatDate(v("date"))}`;

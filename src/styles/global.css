@@ -448,11 +448,15 @@ img.deferred {
 .seg-pill {
   transition: translate 0.45s var(--ease-out-expo);
 }
-.seg:has(input[value="poklon"]:checked) .seg-pill {
+.seg:has(input[value="restoran"]:checked) .seg-pill {
   translate: 100% 0;
 }
-#upit-form:has(input[name="mode"][value="firma"]:checked) [data-for="poklon"],
-#upit-form:has(input[name="mode"][value="poklon"]:checked) [data-for="firma"] {
+.seg:has(input[value="poklon"]:checked) .seg-pill {
+  translate: 200% 0;
+}
+#upit-form:has(input[name="mode"][value="firma"]:checked) [data-for]:not([data-for="firma"]),
+#upit-form:has(input[name="mode"][value="restoran"]:checked) [data-for]:not([data-for="restoran"]),
+#upit-form:has(input[name="mode"][value="poklon"]:checked) [data-for]:not([data-for="poklon"]) {
   display: none;
 }
 #upit-form [data-for] {

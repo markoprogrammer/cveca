@@ -1,0 +1,150 @@
+---
+// Restaurants and cafés: a small arrangement on every table, every Friday. The copy is Ceca's own text.
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import Faq from "../components/Faq.astro";
+import hero from "../assets/restorani/suncokret.jpg";
+import pumpkin from "../assets/restorani/bundeva.jpg";
+import chrysanthemum from "../assets/restorani/hrizantema.jpg";
+import alstroemeria from "../assets/restorani/alstromerija.jpg";
+import { breadcrumbs, restaurantService } from "../data/seo";
+
+const crumbs = [
+  { name: "Početna", path: "/" },
+  { name: "Cveće za restorane i kafiće", path: "/cvece-za-restorane/" },
+];
+
+const steps = [
+  { title: "Petkom donosim novo cveće.", text: "U dogovoreno vreme stižem sa novim aranžmanom za svaki sto." },
+  { title: "Stare nosim nazad.", text: "Odnosim prethodne aranžmane sa posudama pa vi ne brinete ni o čemu osim što svakog dana dodate malo vode." },
+  { title: "Plaćanje na račun firme.", text: "Mesečno i unapred. Pošaljem predračun pa uplatite." },
+  { title: "Prvo čujem vas.", text: "Radim sama pa pre početka želim da čujem šta vam treba. Samo tako mogu da obećam da ću sve uraditi kako treba." },
+];
+
+const audiences = [
+  { tag: "Za vaše goste", title: "Cveće na stolu je prvo što gost primeti.", text: "Ne mora ništa da kaže, ali oseti da vam je stalo do detalja." },
+  { tag: "Za vas i vaše osoblje", title: "Svakog petka nešto novo.", text: "Stolovi uvek izgledaju sveže, a vi samo dodajete malo vode svakog dana." },
+];
+
+const faq = [
+  { q: "Kako počinjemo?", a: "Pošaljite mi poruku ili me pozovite. Pitam vas za broj stolova, termin, boje i budžet. Ako treba, svratim da vidim prostor." },
+  { q: "Šta ako se promeni broj stolova?", a: "Javite mi unapred pa menjamo dogovor i cenu." },
+  { q: "Šta ako mi aranžman ne odgovara?", a: "Javite mi istog dana pa nađemo zamenu." },
+  { q: "A mirisi i alergije?", a: "Recite mi unapred. Izabraću cveće slabijeg mirisa da ne smeta jelu ni gostima." },
+  { q: "Koliko restorana primate?", a: "Radim sama pa primam ograničen broj. Tako svaki aranžman dobija pažnju koju zaslužuje." },
+];
+---
+
+<Base
+  schema
+  title="Cveće za restorane i kafiće u Beogradu | Cveca"
+  description="Svakog petka mali divlji aranžman na svakom stolu. Ručno pravljen od sezonskog cveća, ne postoje dva ista."
+  jsonLd={[breadcrumbs(crumbs), restaurantService]}
+  contact="/?upit=restoran#upit"
+>
+  <PageHero
+    crumbs={crumbs}
+    tag="Restorani i kafići · Beograd"
+    title="Cveće za restorane i kafiće u Beogradu"
+    image={hero}
+    imageAlt="Mali aranžman sa suncokretom, eustomom i amarantom u beloj vazi, na žutom stolu u bašti kafića"
+  >
+    <strong>Svakog petka, novo cveće na svakom stolu.</strong> Pravim male aranžmane, ručno i od sezonskog cveća. Divlje i pune života, kao što cveće
+    i treba da izgleda. Svaki sto dobija svoj, a nema kopija. Stižem kad vama odgovara.
+  </PageHero>
+
+  <section class="overflow-hidden bg-mist py-24 sm:py-40">
+    <div class="mx-auto max-w-[1120px] px-5">
+      <div class="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
+        <div>
+          <p class="tag">Svakog petka</p>
+          <h2 data-reveal class="t-h2 mt-5">Kako to izgleda<span class="dot">.</span></h2>
+          <ol class="mt-12 grid gap-px overflow-hidden rounded-[28px] bg-line">
+            {
+              steps.map((s, i) => (
+                <li class="flex gap-5 bg-white p-6 sm:p-7">
+                  <span class="w-7 shrink-0 pt-px text-[15px] font-semibold tabular-nums text-sage">0{i + 1}</span>
+                  <div>
+                    <p class="text-[17px] font-bold tracking-[-0.02em]">{s.title}</p>
+                    <p class="mt-1 text-[15px] text-ink-2">{s.text}</p>
+                  </div>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+        <div data-reveal="photo" class="arch relative mx-auto w-full max-w-[460px] overflow-hidden">
+          <Image
+            src={pumpkin}
+            alt="Jesenji aranžman u bundevi sa hrizantemama, amarantom i bobicama vatrenog trna, na drvenom stolu u restoranu"
+            widths={[460, 690, 920]}
+            sizes="(min-width: 1024px) 460px, 90vw"
+            format="webp"
+            quality={74}
+            data-parallax
+            class="arch block aspect-[3/4] w-full scale-110 object-cover"
+          />
+        </div>
+      </div>
+
+      <div class="mt-20 grid gap-5 sm:mt-28 md:grid-cols-2">
+        {
+          audiences.map((a) => (
+            <div class="rounded-[32px] bg-white p-8 sm:p-10">
+              <p class="tag">{a.tag}</p>
+              <h3 class="mt-4 text-[clamp(22px,2.4vw,28px)] font-bold leading-tight tracking-[-0.025em]">{a.title}</h3>
+              <p class="mt-4 text-[17px] text-ink-2">{a.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="overflow-hidden py-24 sm:py-40">
+    <div class="mx-auto grid max-w-[1120px] items-center gap-16 px-5 lg:grid-cols-2 lg:gap-20">
+      <!-- Two arrangements side by side, the second set lower: no two are the same. -->
+      <div class="mx-auto grid w-full max-w-[500px] grid-cols-2 gap-4 sm:gap-5 lg:mx-0">
+        <div data-reveal="photo" class="arch overflow-hidden">
+          <Image
+            src={chrysanthemum}
+            alt="Aranžman sa narandžastom hrizantemom, ružom, ehinopsom i voštanim cvetom"
+            widths={[240, 360, 480]}
+            sizes="(min-width: 1024px) 240px, 45vw"
+            format="webp"
+            quality={74}
+            class="arch block aspect-[2/3] w-full object-cover"
+          />
+        </div>
+        <div data-reveal="photo" class="arch mt-16 overflow-hidden sm:mt-24">
+          <Image
+            src={alstroemeria}
+            alt="Ružičasti aranžman sa alstromerijama, nerinama i skabiozom"
+            widths={[240, 360, 480]}
+            sizes="(min-width: 1024px) 240px, 45vw"
+            format="webp"
+            quality={74}
+            class="arch block aspect-[2/3] w-full object-cover"
+          />
+        </div>
+      </div>
+
+      <div>
+        <p class="tag">Cene</p>
+        <h2 data-reveal class="t-h2 mt-5">Što više stolova, to je povoljnije<span class="dot">.</span></h2>
+        <p class="t-intro mt-6 max-w-[520px]">
+          Cene dogovaramo u zavisnosti od količine. <strong>U cenu ulazi sve:</strong> biram cveće i posudu, pravim aranžmane, donosim ih i odnosim.
+        </p>
+        <div class="mt-10 border-t border-line pt-8">
+          <p class="text-[19px] font-bold tracking-[-0.02em]">Posebne prilike</p>
+          <p class="mt-2 max-w-[520px] text-[17px] text-ink-2">
+            Proslave, venčanja i praznične večeri dogovaramo posebno. Ne pravim kopije jer ne postoje dva ista.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Faq items={faq} title="Pitanja restorana i kafića" />
+</Base>

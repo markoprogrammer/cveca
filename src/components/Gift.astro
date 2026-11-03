@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import basket from "../assets/buketi/buket-09/dsc_7535.jpg";
 import swing from "../assets/buketi/buket-07/dsc_7536.jpg";
-import { CONTACT, SOONER } from "../data/site";
+import { SOONER } from "../data/site";
 
 const onPage = Astro.url.pathname.startsWith("/poklon-aranzmani");
 
@@ -13,7 +13,7 @@ const steps = [
     text: "Recite mi koju veličinu želite, za koji datum i na koju adresu, boje ili povod, ima li cveća, boja ili mirisa koje baš ne volite.",
   },
   { n: "2", title: "Slažem samo za vas", text: `Od sezonskog cveća, po osećaju. Narudžbine najmanje 48 sati unapred. ${SOONER}` },
-  { n: "3", title: "Preuzimanje ili dostava", text: `Lično u Žarkovu, ${CONTACT.street}, ili dostava po dogovoru.` },
+  { n: "3", title: "Preuzimanje ili dostava", text: "Lično u Žarkovu ili dostava po dogovoru." },
 ];
 ---
 

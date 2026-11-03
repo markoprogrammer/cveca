@@ -6,11 +6,13 @@ interface Props {
   intro?: boolean;
   contact?: string;
 }
-const { intro = false, contact = "#upit" } = Astro.props;
 const here = Astro.url.pathname;
+// "Pišite" goes to the form, which is on the home page only; the inner pages pass /?upit=… to preselect their kind.
+const { intro = false, contact = here === "/" ? "#upit" : "/#upit" } = Astro.props;
 const links = [
   { href: "/unikati/", label: "Unikati" },
   { href: "/cvece-za-firme/", label: "Za firme" },
+  { href: "/cvece-za-restorane/", label: "Za restorane" },
   { href: "/poklon-aranzmani/", label: "Za poklon" },
   { href: "/#prica", label: "O meni" },
 ];

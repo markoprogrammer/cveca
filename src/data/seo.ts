@@ -29,6 +29,18 @@ export const businessService = {
   offers: SIZES.map((s) => ({ "@type": "Offer", name: `${s.name}, ${s.kind.toLowerCase()}`, description: s.space, price: s.price, priceCurrency: "RSD" })),
 };
 
+// No offers with prices: restaurants agree a price by the number of tables.
+export const restaurantService = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Cveće za restorane i kafiće",
+  serviceType: "Cvetni aranžmani za stolove",
+  description: "Svakog petka mali aranžman od sezonskog cveća na svakom stolu; prethodni se odnose zajedno sa posudama. Plaćanje na račun firme, mesečno i unapred.",
+  provider,
+  areaServed: beograd,
+  url: abs("/cvece-za-restorane/"),
+};
+
 export const giftService = {
   "@context": "https://schema.org",
   "@type": "Service",

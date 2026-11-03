@@ -3,7 +3,6 @@ import { Image, getImage } from "astro:assets";
 import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import Lightbox from "../../components/Lightbox.astro";
-import Inquiry from "../../components/Inquiry.astro";
 import { bouquets, neighbours, type Bouquet } from "../../data/bouquets";
 import { breadcrumbs } from "../../data/seo";
 
@@ -29,6 +28,7 @@ const flowers = b.flowers.split(", ");
   description={`${b.title}, ${b.vessel.toLowerCase()}: ${b.flowers.toLowerCase()}. Unikatni cvetni aranžman od sezonskog cveća, Žarkovo, Beograd.`}
   image={og.src}
   jsonLd={[breadcrumbs(crumbs)]}
+  contact="/?upit=poklon#upit"
 >
   <section class="pb-24 pt-10 sm:pb-32 sm:pt-14">
     <div class="mx-auto max-w-[1120px] px-5">
@@ -76,7 +76,7 @@ const flowers = b.flowers.split(", ");
 
           <p class="mt-12 border-t border-line pt-8 text-[17px] text-ink-2">
             Ovaj aranžman više ne postoji i to je njegova lepota. Za novi, samo vaš,
-            <a href="#upit" data-mode="poklon" class="font-semibold text-sage hover:underline">pišite mi</a>.
+            <a href="/?upit=poklon#upit" class="font-semibold text-sage hover:underline">pišite mi</a>.
           </p>
         </div>
       </div>
@@ -89,6 +89,5 @@ const flowers = b.flowers.split(", ");
     </div>
   </section>
 
-  <Inquiry mode="poklon" />
   <Lightbox b={b} />
 </Base>

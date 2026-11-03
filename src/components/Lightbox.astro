@@ -6,6 +6,8 @@ interface Props {
   b: Bouquet;
 }
 const { b } = Astro.props;
+// The form is on the home page: stay on the page there, go to it from a bouquet's own page.
+const form = Astro.url.pathname === "/" ? "#upit" : "/?upit=poklon#upit";
 ---
 
 <dialog id={b.id} class="sheet" aria-label={b.title}>
@@ -63,7 +65,7 @@ const { b } = Astro.props;
       </div>
       <div class="mt-5 lg:mt-auto lg:pt-8">
         <p class="hidden text-[15px] text-ink-2 lg:block">Svaki aranžman pravim samo jednom. Recite mi za koga je, a ja ću složiti novi, samo za vas.</p>
-        <a href="#upit" data-mode="poklon" data-dismiss class="btn btn-primary mt-4 w-full lg:mt-5">Pošaljite upit</a>
+        <a href={form} data-mode="poklon" data-dismiss class="btn btn-primary mt-4 w-full lg:mt-5">Pošaljite upit</a>
       </div>
     </aside>
   </div>

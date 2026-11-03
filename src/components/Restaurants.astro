@@ -1,0 +1,34 @@
+---
+// Home page: a short card that leads to the restaurants and cafés page, between companies and gifts.
+import { Image } from "astro:assets";
+import photo from "../assets/restorani/suncokret.jpg";
+---
+
+<section id="restorani" class="pt-24 sm:pt-40">
+  <div class="mx-auto max-w-[1120px] px-5">
+    <div class="grid items-center gap-10 overflow-hidden rounded-[40px] bg-white p-6 shadow-[inset_0_0_0_1.5px_var(--color-line)] sm:p-12 md:grid-cols-[1fr_0.8fr] md:gap-14 lg:p-16">
+      <div class="md:order-2">
+        <div data-reveal="photo" class="arch mx-auto w-full max-w-[380px] overflow-hidden">
+          <Image
+            src={photo}
+            alt="Mali aranžman sa suncokretom, eustomom i amarantom u beloj vazi, na žutom stolu u bašti kafića"
+            widths={[380, 570, 760]}
+            sizes="(min-width: 768px) 380px, 85vw"
+            format="webp"
+            quality={74}
+            data-parallax
+            class="arch block aspect-[4/5] w-full scale-110 object-cover"
+          />
+        </div>
+      </div>
+      <div>
+        <p class="tag">Restorani i kafići u Beogradu</p>
+        <h2 data-reveal class="t-h2 mt-5">Svakog petka, novo cveće na svakom stolu<span class="dot">.</span></h2>
+        <p class="t-intro mt-6 max-w-[520px]">
+          Pravim male aranžmane, ručno i od sezonskog cveća. <strong>Divlje i pune života</strong>, kao što cveće i treba da izgleda.
+        </p>
+        <a href="/cvece-za-restorane/" class="link mt-8">Cveće za restorane i kafiće</a>
+      </div>
+    </div>
+  </div>
+</section>

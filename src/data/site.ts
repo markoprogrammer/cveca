@@ -19,15 +19,11 @@ export const CONTACT = {
   instagramHandle: "@cveca.rs",
   // Opens a direct message to the account in the Instagram app (no way to pre-fill the text).
   instagramDm: "https://ig.me/m/cveca.rs",
-  street: "Kraljevačkih žrtava 3",
+  // Only the area is public. The exact address (street, map pin) is off the site for now, at Ceca's wish:
+  // pickup is arranged by message.
   neighborhood: "Žarkovo",
   municipality: "Čukarica",
   city: "Beograd",
-  postalCode: "11147",
-  // Kraljevačkih žrtava 3, Bele Vode (OpenStreetMap)
-  lat: 44.7513624,
-  lng: 20.4086178,
-  maps: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("Kraljevačkih žrtava 3, 11147 Beograd")}`,
 };
 
 export interface Size {
@@ -75,7 +71,7 @@ export function photos(n: number) {
 export const FAQ = [
   {
     q: "Gde se nalazite?",
-    a: `U Žarkovu (Bele Vode, opština Čukarica), na adresi ${CONTACT.street}, ${CONTACT.postalCode} Beograd. Poklon aranžman možete preuzeti lično ili ga dostavljam po dogovoru, a firmama je nedeljna dostava uključena u cenu.`,
+    a: "U Žarkovu (Bele Vode, opština Čukarica) u Beogradu. Poklon aranžman možete preuzeti lično ili ga dostavljam po dogovoru, a firmama je nedeljna dostava uključena u cenu.",
   },
   {
     q: "Kako izgleda saradnja sa firmama?",
