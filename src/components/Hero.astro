@@ -4,6 +4,31 @@ import LazyImg from "./LazyImg.astro";
 import Scribble from "./Scribble.astro";
 import { bouquets } from "../data/bouquets";
 
+// The three offers, each a thin line icon in sage with one gold dot, like the bud on the headline's stem.
+const offers = [
+  {
+    href: "#firme",
+    title: "Za firme",
+    text: "Prvi utisak vašeg prostora",
+    lines: "M7 27V6.5A1.5 1.5 0 0 1 8.5 5h9A1.5 1.5 0 0 1 19 6.5V27M19 13h4.5a1.5 1.5 0 0 1 1.5 1.5V27M4 27h24M11 10h4M11 15h4M11 27v-6h4v6",
+    gold: [22, 18.5],
+  },
+  {
+    href: "#restorani",
+    title: "Za restorane",
+    text: "Novo cveće na svakom stolu",
+    lines: "M6 22a10 10 0 0 1 20 0M3.5 22h25M8 26h16",
+    gold: [16, 9.6],
+  },
+  {
+    href: "#poklon",
+    title: "Za poklon",
+    text: "Nešto zaista jedinstveno",
+    lines: "M6.5 12h19a1.5 1.5 0 0 1 1.5 1.5v2a1.5 1.5 0 0 1-1.5 1.5h-19A1.5 1.5 0 0 1 5 15.5v-2A1.5 1.5 0 0 1 6.5 12ZM7 17v9.5A1.5 1.5 0 0 0 8.5 28h15a1.5 1.5 0 0 0 1.5-1.5V17M16 12v16M16 12c-2-4.5-4-7-6.2-7a2.6 2.6 0 0 0-.4 5.2c1.6.5 4 1.1 6.6 1.8ZM16 12c2-4.5 4-7 6.2-7a2.6 2.6 0 0 1 .4 5.2c-1.6.5-4 1.1-6.6 1.8Z",
+    gold: [16, 12],
+  },
+];
+
 // Every bouquet as a studio shot in an arch, in one row you can swipe through: the claim
 // ("nema dva ista") and its proof side by side. Tapping one opens all its photos.
 const archClass =
@@ -17,14 +42,27 @@ const archClass =
       <span class="intro-copy tag" style="--i:0">Unikatni cvetni aranžmani · Žarkovo, Beograd</span>
       <span class="intro-copy t-hero mt-5 block" style="--i:1">Nema dva <Scribble draw="load"><span class="accent">ista<span class="dot">.</span></span></Scribble></span>
     </h1>
-    <p class="intro-copy t-intro mx-auto mt-6 max-w-[600px]" style="--i:2">
-      Veliki, bogati aranžmani od sezonskog cveća, složeni ručno i po osećaju. <strong>Svakog ponedeljka za vašu firmu</strong>, ili kao poklon koji
-      se pamti.
+    <p class="intro-copy t-intro mx-auto mt-6 max-w-[600px] text-balance" style="--i:2">
+      Veliki, bogati aranžmani od sezonskog cveća, složeni ručno i po osećaju.
     </p>
-    <div class="intro-copy mt-9 flex flex-wrap items-center justify-center gap-3" style="--i:3">
-      <a href="#firme" class="btn btn-primary">Cveće za firme</a>
-      <a href="#poklon" class="btn btn-ghost">Poklon aranžman</a>
-    </div>
+    <ul class="intro-copy -mx-2 mt-10 grid grid-cols-3 divide-x divide-line sm:mx-auto sm:max-w-[720px]" style="--i:3">
+      {
+        offers.map((o) => (
+          <li>
+            <a href={o.href} class="group flex h-full flex-col items-center gap-2.5 rounded-2xl px-1 py-1.5 transition-transform duration-200 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage">
+              <svg viewBox="0 0 32 32" class="size-8 text-sage transition-transform duration-500 ease-out-expo group-hover:-translate-y-1 sm:size-9" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d={o.lines} />
+                <circle cx={o.gold[0]} cy={o.gold[1]} r="1.8" fill="var(--color-gold)" stroke="none" />
+              </svg>
+              <span>
+                <span class="block text-[clamp(13px,3.85vw,15px)] font-bold leading-snug tracking-[-0.02em] transition-colors group-hover:text-sage sm:text-[17px]">{o.title}</span>
+                <span class="mt-0.5 block text-balance text-[13px] leading-snug text-ink-3 sm:text-[15px]">{o.text}</span>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 
   <div id="unikati" class="mt-16 scroll-mt-24 sm:mt-24">
